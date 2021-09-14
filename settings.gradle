@@ -1,0 +1,5 @@
+rootProject.name = 'dgdg-backend'
+include 'dgdg-api'
+include 'dgdg-domain'
+include 'dgdg-common'
+
