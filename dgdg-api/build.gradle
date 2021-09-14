@@ -4,7 +4,7 @@ ext {
 
 dependencies {
     implementation project(":dgdg-domain")
-    implementation project(":dgdg-domain")
+    implementation project(":dgdg-common")
 
     // spring web
     implementation 'org.springframework.boot:spring-boot-starter-web'
