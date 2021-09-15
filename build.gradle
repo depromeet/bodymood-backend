@@ -25,6 +25,9 @@ subprojects {
         plugin('kotlin')
         plugin('kotlin-spring')
         plugin('kotlin-jpa')
+        plugin("org.jetbrains.kotlin.plugin.spring")
+        plugin("org.jetbrains.kotlin.jvm")
+        plugin("org.jetbrains.kotlin.kapt")
     }
 
     sourceCompatibility = '11'
@@ -47,8 +50,6 @@ subprojects {
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-validation")
         testImplementation('org.springframework.boot:spring-boot-starter-test')
-        compileOnly("org.projectlombok:lombok")
-        annotationProcessor("org.projectlombok:lombok")
 
         // kotlin
         implementation("org.jetbrains.kotlin:kotlin-stdlib")
