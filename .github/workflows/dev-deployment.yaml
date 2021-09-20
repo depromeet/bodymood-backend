@@ -2,7 +2,7 @@ on:
   push:
     branches: [develop, feature/cicd-setup]
 
-name: Deploy dgdg-backend to Amazon ECS
+name: 개발 dgdg-backend 서버 배포
 
 jobs:
   deploy:
