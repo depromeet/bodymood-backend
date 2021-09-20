@@ -1,12 +1,16 @@
 buildscript {
     ext {
         springBootVersion = '2.5.4'
+        kotlinVersion = '1.5.21'
     }
     repositories {
         mavenCentral()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}")
     }
 }
 
@@ -18,9 +22,26 @@ subprojects {
         plugin('eclipse')
         plugin('org.springframework.boot')
         plugin('io.spring.dependency-management')
+        plugin('kotlin')
+        plugin('kotlin-spring')
+        plugin('kotlin-jpa')
+        plugin("org.jetbrains.kotlin.plugin.spring")
+        plugin("org.jetbrains.kotlin.jvm")
+        plugin("org.jetbrains.kotlin.kapt")
     }
 
     sourceCompatibility = '11'
+
+    compileKotlin {
+        kotlinOptions {
+            jvmTarget = "11"
+        }
+    }
+    compileTestKotlin {
+        kotlinOptions {
+            jvmTarget = "11"
+        }
+    }
 
     repositories {
         mavenCentral()
@@ -29,8 +50,11 @@ subprojects {
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-validation")
         testImplementation('org.springframework.boot:spring-boot-starter-test')
-        compileOnly("org.projectlombok:lombok")
-        annotationProcessor("org.projectlombok:lombok")
+
+        // kotlin
+        implementation("org.jetbrains.kotlin:kotlin-stdlib")
+        implementation("org.jetbrains.kotlin:kotlin-reflect")
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     }
 
     configurations {

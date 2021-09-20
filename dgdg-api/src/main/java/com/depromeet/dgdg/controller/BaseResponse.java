@@ -1,11 +1,5 @@
 package com.depromeet.dgdg.controller;
 
-import lombok.*;
-
-@ToString
-@Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BaseResponse<T> {
 
     public static final BaseResponse<String> OK = success("OK");
@@ -16,8 +10,28 @@ public class BaseResponse<T> {
 
     private T data;
 
+    private BaseResponse() { /* no-ops */}
+
+    private BaseResponse(String code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+
     public static <T> BaseResponse<T> success(T data) {
         return new BaseResponse<>("", "", data);
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public T getData() {
+        return data;
     }
 
 }
