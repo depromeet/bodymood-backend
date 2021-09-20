@@ -40,7 +40,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: task-definition.json
+          task-definition: dgdg-backend-dev-task.json
           container-name: dgdg-backend-container
           image: ${{ steps.build-image.outputs.image }}
 
