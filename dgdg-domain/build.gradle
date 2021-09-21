@@ -1,17 +1,6 @@
 bootJar { enabled = false }
 jar { enabled = true }
 
-noArg {
-    annotation("javax.persistence.Entity")
-    annotation("javax.persistence.MappedSuperclass")
-    annotation("javax.persistence.Embeddable")
-}
-allOpen {
-    annotation("javax.persistence.Entity")
-    annotation("javax.persistence.MappedSuperclass")
-    annotation("javax.persistence.Embeddable")
-}
-
 dependencies {
     implementation project(":dgdg-common")
 
@@ -21,7 +10,10 @@ dependencies {
     // h2
     implementation 'com.h2database:h2'
 
-    // querydsl
-    api("com.querydsl:querydsl-jpa")
-    kapt("com.querydsl:querydsl-apt::jpa")
+    // Querydsl
+    implementation("com.querydsl:querydsl-jpa")
+    implementation("com.querydsl:querydsl-core")
+    annotationProcessor("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa")
+    annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+    annotationProcessor("jakarta.annotation:jakarta.annotation-api")
 }

@@ -24,10 +24,7 @@ subprojects {
         plugin('io.spring.dependency-management')
         plugin('kotlin')
         plugin('kotlin-spring')
-        plugin('kotlin-jpa')
-        plugin("org.jetbrains.kotlin.plugin.spring")
         plugin("org.jetbrains.kotlin.jvm")
-        plugin("org.jetbrains.kotlin.kapt")
     }
 
     sourceCompatibility = '11'
