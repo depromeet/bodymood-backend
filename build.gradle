@@ -1,7 +1,7 @@
 buildscript {
     ext {
         springBootVersion = '2.5.4'
-        kotlinVersion = '1.5.21'
+        kotlinVersion = '1.5.31'
     }
     repositories {
         mavenCentral()
@@ -25,13 +25,7 @@ subprojects {
         plugin('kotlin')
         plugin('kotlin-spring')
         plugin('kotlin-jpa')
-        plugin("org.jetbrains.kotlin.plugin.spring")
-        plugin("org.jetbrains.kotlin.jvm")
-        plugin("org.jetbrains.kotlin.kapt")
-    }
-
-    kapt {
-        keepJavacAnnotationProcessors = true
+        plugin('kotlin-kapt')
     }
 
     sourceCompatibility = '11'
@@ -49,6 +43,10 @@ subprojects {
 
     repositories {
         mavenCentral()
+    }
+
+    kapt {
+        keepJavacAnnotationProcessors = true
     }
 
     dependencies {
