@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [develop]
+    branches: [develop, feature/cicd-setup]
 
 name: 개발 서버 ECS 배포
 
@@ -21,6 +21,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
 
+      - name: Set semantic version
+        id: dev-version
+        run: |
+          echo "::set-output name=dev-version::$(cat VERSION)"
+
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
@@ -30,9 +35,10 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: dev-dgdg-backend
-          IMAGE_TAG: latest
+          IMAGE_TAG: ${{ steps.dev-version.outputs.version }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
