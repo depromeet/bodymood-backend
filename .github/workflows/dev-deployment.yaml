@@ -24,7 +24,7 @@ jobs:
       - name: Set semantic version
         id: dev-version
         run: |
-          echo "::set-output name=dev-version::$(cat VERSION)"
+          echo "::set-output name=version::$(cat VERSION)"
 
       - name: Login to Amazon ECR
         id: login-ecr
