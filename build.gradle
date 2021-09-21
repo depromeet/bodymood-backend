@@ -30,6 +30,10 @@ subprojects {
         plugin("org.jetbrains.kotlin.kapt")
     }
 
+    kapt {
+        keepJavacAnnotationProcessors = true
+    }
+
     sourceCompatibility = '11'
 
     compileKotlin {
