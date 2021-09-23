@@ -59,8 +59,8 @@ subprojects {
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
         //lombok
-        compileOnly'org.projectlombok:lombok:1.18.12'
-        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+        compileOnly'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
     }
 
     configurations {
