@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [develop, feature/cicd-setup]
+    branches: [develop]
 
 name: 개발 서버 ECS 배포
 
@@ -47,10 +47,6 @@ jobs:
         run: |
           aws ecs describe-task-definition --task-definition dgdg-backend-dev-task --query taskDefinition > task-definition.json
           echo "::set-output name=revision::$(cat task-definition.json | jq .revision)"
-
-      #- name: De-register previous revision
-      #  run: |
-      #    aws ecs deregister-task-definition --task-definition dgdg-backend-dev-task:${{ steps.download-task.outputs.revision }}
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
