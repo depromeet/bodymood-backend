@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HealthCheckController {
 
+    @GetMapping("/")
+    public BaseResponse<String> root(){
+        return BaseResponse.HEALTH_CHECK;
+    }
+
     @GetMapping("/ping")
     public BaseResponse<String> ping() {
         return BaseResponse.OK;

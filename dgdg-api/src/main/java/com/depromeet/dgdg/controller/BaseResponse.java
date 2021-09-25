@@ -3,6 +3,7 @@ package com.depromeet.dgdg.controller;
 public class BaseResponse<T> {
 
     public static final BaseResponse<String> OK = success("OK");
+    public static final BaseResponse<String> HEALTH_CHECK = success("득근득근 API 서버");
 
     private String code;
 
@@ -19,7 +20,7 @@ public class BaseResponse<T> {
     }
 
     public static <T> BaseResponse<T> success(T data) {
-        return new BaseResponse<>("", "", data);
+        return new BaseResponse<>("0000", "성공", data);
     }
 
     public String getCode() {
