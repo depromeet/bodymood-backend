@@ -2,7 +2,7 @@ on:
   pull_request:
     branches: [ master, develop ]
   push:
-    branches: [ master, develop ] # 테스트 브랜치
+    branches: [ master, develop ]
 
 name: CI 테스팅 및 테스트 커버리지 측정
 
