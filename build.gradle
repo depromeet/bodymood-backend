@@ -26,6 +26,7 @@ subprojects {
         plugin('kotlin-spring')
         plugin('kotlin-jpa')
         plugin('kotlin-kapt')
+        plugin('jacoco')
     }
 
     sourceCompatibility = '11'
@@ -43,6 +44,10 @@ subprojects {
 
     repositories {
         mavenCentral()
+    }
+
+    jacoco {
+        toolVersion = "0.8.7"
     }
 
     kapt {
@@ -67,5 +72,30 @@ subprojects {
 
     test {
         useJUnitPlatform()
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+            html.enabled true
+        }
+        finalizedBy 'jacocoTestCoverageVerification'
+    }
+
+    jacocoTestCoverageVerification {
+        violationRules {
+            rule {
+                enabled = true
+                element = 'CLASS'
+
+                limit {
+                    counter = 'LINE'
+                    value = 'COVEREDRATIO'
+                    minimum = 0.60
+                }
+                excludes = ["*.Q*"]
+            }
+
+        }
     }
 }
