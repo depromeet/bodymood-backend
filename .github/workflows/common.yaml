@@ -1,0 +1,31 @@
+on:
+  pull_request:
+    branches: [ master, develop ]
+  push:
+    branches: [ master, develop, feature/testing-setup ] # 테스트 브랜치
+
+name: CI 테스팅 및 테스트 커버리지 측정
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Test with Gradle
+        run: ./gradlew build jacocoTestReport
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: dgdg-api/build/reports/jacoco/test/jacocoTestReport.xml
