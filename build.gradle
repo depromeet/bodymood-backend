@@ -26,6 +26,7 @@ subprojects {
         plugin('kotlin-spring')
         plugin('kotlin-jpa')
         plugin('kotlin-kapt')
+        plugin('jacoco')
     }
 
     sourceCompatibility = '11'
@@ -43,6 +44,11 @@ subprojects {
 
     repositories {
         mavenCentral()
+    }
+
+    jacoco {
+        toolVersion = "0.8.7"
+        reportsDir = file("${rootProject.projectDir}/build")
     }
 
     kapt {
@@ -67,5 +73,27 @@ subprojects {
 
     test {
         useJUnitPlatform()
+        finalizedBy jacocoTestReport
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+            html.enabled true
+        }
+
+        // QueryDSL codecov report 대상 제외
+        def Qdomains = []
+        for(qPattern in "**/QA" .. "**/QZ"){
+            Qdomains.add(qPattern+"*")
+        }
+
+        afterEvaluate {
+            classDirectories.setFrom(files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: [] + Qdomains)
+            }))
+        }
+
     }
 }
+
