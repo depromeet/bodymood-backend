@@ -63,6 +63,10 @@ subprojects {
         implementation("org.jetbrains.kotlin:kotlin-stdlib")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+        //lombok
+        compileOnly'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
     }
 
     configurations {
