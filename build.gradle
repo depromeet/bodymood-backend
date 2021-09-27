@@ -67,6 +67,9 @@ subprojects {
         //lombok
         compileOnly'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
+
+        //OAuth2.0
+        implementation ("org.springframework.boot:spring-boot-starter-security")
     }
 
     configurations {
