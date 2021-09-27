@@ -10,9 +10,6 @@ dependencies {
     // h2
     implementation 'com.h2database:h2'
 
-    // postgresql
-    runtimeOnly 'org.postgresql:postgresql:42.2.24'
-
     // querydsl
     api("com.querydsl:querydsl-jpa")
     kapt("com.querydsl:querydsl-apt::jpa")
