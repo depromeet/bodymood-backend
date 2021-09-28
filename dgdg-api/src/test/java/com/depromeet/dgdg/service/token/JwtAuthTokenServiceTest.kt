@@ -1,5 +1,6 @@
 package com.depromeet.dgdg.service.token
 
+import com.depromeet.dgdg.common.exception.UnAuthorizedException
 import com.depromeet.dgdg.service.token.dto.AuthTokenPayload
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -45,7 +46,7 @@ internal class JwtAuthTokenServiceTest(
         val token = "Wrong Token"
 
         // when & then
-        assertThatThrownBy { jwtAuthTokenService.getPayload(token) }.isInstanceOf(IllegalArgumentException::class.java)
+        assertThatThrownBy { jwtAuthTokenService.getPayload(token) }.isInstanceOf(UnAuthorizedException::class.java)
     }
 
 }
