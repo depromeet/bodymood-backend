@@ -23,7 +23,7 @@ class JwtAuthTokenService(
             val now = LocalDateTime.now()
             return JWT.create()
                 .withIssuer(jwtConfig.issuer)
-                .withClaim(MEMBER_ID, payload.memberId)
+                .withClaim(USER_ID, payload.userId)
                 .withIssuedAt(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()))
                 .withExpiresAt(
                     Date.from(
@@ -44,7 +44,7 @@ class JwtAuthTokenService(
             .build()
         try {
             val jwt = verifier.verify(token)
-            return AuthTokenPayload.of(jwt.claims[MEMBER_ID]?.asLong())
+            return AuthTokenPayload.of(jwt.claims[USER_ID]?.asLong())
         } catch (exception: TokenExpiredException) {
             throw TokenExpiredException("액세스 토큰($token)이 만료되었습니다.")
         } catch (exception: JWTVerificationException) {
@@ -54,7 +54,7 @@ class JwtAuthTokenService(
 
     companion object {
         private const val ACCESS_TOKEN_EXPIRES_SECONDS = 60 * 60 * 24L // 1일
-        private const val MEMBER_ID = "member_id"
+        private const val USER_ID = "user_id"
     }
 
 }

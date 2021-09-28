@@ -8,11 +8,11 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.method.support.ModelAndViewContainer
 
 @Component
-class MemberIdArgumentResolver : HandlerMethodArgumentResolver {
+class UserIdArgumentResolver : HandlerMethodArgumentResolver {
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
         return parameter.getMethodAnnotation(RequiredAuth::class.java) != null
-            && parameter.getParameterAnnotation(MemberId::class.java) != null
+            && parameter.getParameterAnnotation(UserId::class.java) != null
             && parameter.parameterType.equals(Long::class.java)
     }
 
@@ -22,7 +22,7 @@ class MemberIdArgumentResolver : HandlerMethodArgumentResolver {
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
     ): Any? {
-        return webRequest.getAttribute(AuthConstants.MEMBER_ID_FIELD, 0)
+        return webRequest.getAttribute(AuthConstants.USER_ID_FIELD, 0)
     }
 
 }

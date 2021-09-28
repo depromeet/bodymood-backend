@@ -17,10 +17,10 @@ internal class JwtAuthTokenServiceTest(
     @Test
     fun 인증_토큰을_생성한다() {
         // given
-        val memberId = 100L
+        val userId = 100L
 
         // when
-        val token = jwtAuthTokenService.createAccessToken(AuthTokenPayload(memberId))
+        val token = jwtAuthTokenService.createAccessToken(AuthTokenPayload(userId))
 
         // then
         assertThat(token).isNotNull
@@ -30,14 +30,14 @@ internal class JwtAuthTokenServiceTest(
     @Test
     fun 토큰으로부터_Payload를_가져온다() {
         // given
-        val memberId = 100L
-        val token = jwtAuthTokenService.createAccessToken(AuthTokenPayload(memberId))
+        val userId = 100L
+        val token = jwtAuthTokenService.createAccessToken(AuthTokenPayload(userId))
 
         // when
         val authToken = jwtAuthTokenService.getPayload(token)
 
         // then
-        assertThat(authToken.memberId).isEqualTo(memberId)
+        assertThat(authToken.userId).isEqualTo(userId)
     }
 
     @Test

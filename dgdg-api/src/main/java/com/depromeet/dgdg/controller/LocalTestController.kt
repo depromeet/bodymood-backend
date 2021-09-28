@@ -1,7 +1,7 @@
 package com.depromeet.dgdg.controller
 
 import com.depromeet.dgdg.config.auth.RequiredAuth
-import com.depromeet.dgdg.config.auth.MemberId
+import com.depromeet.dgdg.config.auth.UserId
 import com.depromeet.dgdg.service.token.AuthTokenService
 import com.depromeet.dgdg.service.token.dto.AuthTokenPayload
 import org.springframework.web.bind.annotation.GetMapping
@@ -21,9 +21,9 @@ class LocalTestController(
     @RequiredAuth
     @GetMapping("/sample-auth")
     fun getTest(
-        @MemberId memberId: Long
+        @UserId userId: Long
     ): BaseResponse<Long> {
-        return BaseResponse.success(memberId)
+        return BaseResponse.success(userId)
     }
 
 }

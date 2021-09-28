@@ -29,7 +29,7 @@ class AuthInterceptor(
         val token = header.split(BEARER_PREFIX)[1]
         val payload = tokenService.getPayload(token)
 
-        request.setAttribute(AuthConstants.MEMBER_ID_FIELD, payload.memberId)
+        request.setAttribute(AuthConstants.USER_ID_FIELD, payload.userId)
         return true
     }
 
