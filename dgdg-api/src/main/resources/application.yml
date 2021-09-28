@@ -9,6 +9,4 @@ spring:
     active: local
     include:
       - db
-jwt:
-  issuer: dgdg
-  secret: local-test-gsfasfgdsdafasdfs-123123
+      - jwt
