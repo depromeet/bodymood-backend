@@ -1,4 +1,4 @@
-package com.depromeet.dgdg.controller;
+package com.depromeet.dgdg.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

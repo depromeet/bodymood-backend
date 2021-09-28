@@ -1,5 +1,6 @@
 package com.depromeet.dgdg.controller
 
+import com.depromeet.dgdg.common.dto.BaseResponse
 import com.depromeet.dgdg.config.auth.RequiredAuth
 import com.depromeet.dgdg.config.auth.UserId
 import com.depromeet.dgdg.service.token.AuthTokenService
