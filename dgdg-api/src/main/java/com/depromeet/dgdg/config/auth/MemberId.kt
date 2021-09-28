@@ -1,4 +1,4 @@
-package com.depromeet.dgdg.config.resolver
+package com.depromeet.dgdg.config.auth
 
 @Target(AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)

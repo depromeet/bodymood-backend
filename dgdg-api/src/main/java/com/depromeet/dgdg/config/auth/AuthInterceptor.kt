@@ -1,7 +1,6 @@
-package com.depromeet.dgdg.config.interceptor
+package com.depromeet.dgdg.config.auth
 
 import com.depromeet.dgdg.common.exception.UnAuthorizedException
-import com.depromeet.dgdg.config.RequiredAuth
 import com.depromeet.dgdg.service.token.AuthTokenService
 import com.depromeet.dgdg.service.token.dto.AuthTokenPayload
 import org.springframework.http.HttpHeaders
@@ -30,7 +29,7 @@ class AuthInterceptor(
         val token = header.split(BEARER_PREFIX)[1]
         val payload = tokenService.getPayload(token)
 
-        request.setAttribute("member_id", payload.memberId)
+        request.setAttribute(AuthConstants.MEMBER_ID_FIELD, payload.memberId)
         return true
     }
 

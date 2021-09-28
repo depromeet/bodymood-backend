@@ -1,6 +1,5 @@
-package com.depromeet.dgdg.config.resolver
+package com.depromeet.dgdg.config.auth
 
-import com.depromeet.dgdg.config.RequiredAuth
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.support.WebDataBinderFactory
@@ -23,7 +22,7 @@ class MemberIdArgumentResolver : HandlerMethodArgumentResolver {
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
     ): Any? {
-        return webRequest.getAttribute("member_id", 0)
+        return webRequest.getAttribute(AuthConstants.MEMBER_ID_FIELD, 0)
     }
 
 }

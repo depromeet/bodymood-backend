@@ -1,7 +1,7 @@
 package com.depromeet.dgdg.config
 
-import com.depromeet.dgdg.config.interceptor.AuthInterceptor
-import com.depromeet.dgdg.config.resolver.MemberIdArgumentResolver
+import com.depromeet.dgdg.config.auth.AuthInterceptor
+import com.depromeet.dgdg.config.auth.MemberIdArgumentResolver
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry

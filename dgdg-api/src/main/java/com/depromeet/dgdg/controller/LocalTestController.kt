@@ -1,7 +1,7 @@
 package com.depromeet.dgdg.controller
 
-import com.depromeet.dgdg.config.RequiredAuth
-import com.depromeet.dgdg.config.resolver.MemberId
+import com.depromeet.dgdg.config.auth.RequiredAuth
+import com.depromeet.dgdg.config.auth.MemberId
 import com.depromeet.dgdg.service.token.AuthTokenService
 import com.depromeet.dgdg.service.token.dto.AuthTokenPayload
 import org.springframework.web.bind.annotation.GetMapping
