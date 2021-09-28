@@ -1,4 +1,4 @@
-package com.depromeet.dgdg.domain.config.auth;
+package com.depromeet.dgdg.config.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

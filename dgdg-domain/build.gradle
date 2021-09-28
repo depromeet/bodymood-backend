@@ -13,4 +13,6 @@ dependencies {
     // querydsl
     api("com.querydsl:querydsl-jpa")
     kapt("com.querydsl:querydsl-apt::jpa")
+
+
 }
