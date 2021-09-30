@@ -2,7 +2,7 @@ package com.depromeet.dgdg.controller.advice
 
 import com.depromeet.dgdg.common.ErrorCode.*
 import com.depromeet.dgdg.common.exception.DgDgBaseException
-import com.depromeet.dgdg.common.dto.BaseResponse
+import com.depromeet.dgdg.controller.dto.response.BaseResponse
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus

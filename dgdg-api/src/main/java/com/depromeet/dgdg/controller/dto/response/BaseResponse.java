@@ -1,10 +1,11 @@
-package com.depromeet.dgdg.common.dto;
+package com.depromeet.dgdg.controller.dto.response;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class BaseResponse<T> {
 
     public static final BaseResponse<String> OK = success("OK");

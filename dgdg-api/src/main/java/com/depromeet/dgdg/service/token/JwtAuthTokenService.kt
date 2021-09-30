@@ -7,7 +7,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException
 import com.auth0.jwt.exceptions.TokenExpiredException
 import com.depromeet.dgdg.common.exception.JwtTokenExpiredException
 import com.depromeet.dgdg.common.exception.UnAuthorizedException
-import com.depromeet.dgdg.config.jwt.JwtConfig
+import com.depromeet.dgdg.service.token.property.JwtProperty
 import com.depromeet.dgdg.service.token.dto.AuthTokenPayload
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -16,14 +16,14 @@ import java.util.*
 
 @Service
 class JwtAuthTokenService(
-    val jwtConfig: JwtConfig
+    val jwtProperty: JwtProperty
 ) : AuthTokenService<AuthTokenPayload> {
 
     override fun createAccessToken(payload: AuthTokenPayload): String {
         try {
             val now = LocalDateTime.now()
             return JWT.create()
-                .withIssuer(jwtConfig.issuer)
+                .withIssuer(jwtProperty.issuer)
                 .withClaim(USER_ID, payload.userId)
                 .withIssuedAt(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()))
                 .withExpiresAt(
@@ -31,7 +31,7 @@ class JwtAuthTokenService(
                         now.plusSeconds(ACCESS_TOKEN_EXPIRES_SECONDS).atZone(ZoneId.systemDefault()).toInstant()
                     )
                 )
-                .sign(Algorithm.HMAC256(jwtConfig.secret))
+                .sign(Algorithm.HMAC256(jwtProperty.secret))
         } catch (exception: JWTCreationException) {
             throw IllegalArgumentException("액세스 토큰을 만드는 중 에러가 발생하였습니다 payload:($payload) message: (${exception.message})")
         } catch (exception: IllegalArgumentException) {
@@ -40,8 +40,8 @@ class JwtAuthTokenService(
     }
 
     override fun getPayload(token: String): AuthTokenPayload {
-        val verifier = JWT.require(Algorithm.HMAC256(jwtConfig.secret))
-            .withIssuer(jwtConfig.issuer)
+        val verifier = JWT.require(Algorithm.HMAC256(jwtProperty.secret))
+            .withIssuer(jwtProperty.issuer)
             .build()
         try {
             val jwt = verifier.verify(token)
