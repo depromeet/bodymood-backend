@@ -1,6 +1,6 @@
 package com.depromeet.dgdg.service.token
 
-interface AuthTokenService<T> {
+interface AuthTokenProvider<T> {
 
     fun createAccessToken(payload: T): String
 

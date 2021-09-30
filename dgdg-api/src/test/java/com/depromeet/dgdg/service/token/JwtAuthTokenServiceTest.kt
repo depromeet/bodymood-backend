@@ -12,7 +12,7 @@ import org.springframework.test.context.TestConstructor
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @SpringBootTest
 internal class JwtAuthTokenServiceTest(
-    private val jwtAuthTokenService: JwtAuthTokenService
+    private val jwtAuthTokenService: JwtAuthTokenProvider
 ) {
 
     @Test

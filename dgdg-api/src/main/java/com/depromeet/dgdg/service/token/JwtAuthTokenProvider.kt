@@ -7,31 +7,26 @@ import com.auth0.jwt.exceptions.JWTVerificationException
 import com.auth0.jwt.exceptions.TokenExpiredException
 import com.depromeet.dgdg.common.exception.JwtTokenExpiredException
 import com.depromeet.dgdg.common.exception.UnAuthorizedException
-import com.depromeet.dgdg.service.token.property.JwtProperty
+import com.depromeet.dgdg.service.token.dto.JwtProperties
 import com.depromeet.dgdg.service.token.dto.AuthTokenPayload
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.util.*
 
 @Service
-class JwtAuthTokenService(
-    val jwtProperty: JwtProperty
-) : AuthTokenService<AuthTokenPayload> {
+class JwtAuthTokenProvider(
+    val jwtProperties: JwtProperties
+) : AuthTokenProvider<AuthTokenPayload> {
 
     override fun createAccessToken(payload: AuthTokenPayload): String {
         try {
-            val now = LocalDateTime.now()
+            val now = Date()
+            val expiresAt = Date(now.time + jwtProperties.expiresTime)
             return JWT.create()
-                .withIssuer(jwtProperty.issuer)
+                .withIssuer(jwtProperties.issuer)
                 .withClaim(USER_ID, payload.userId)
-                .withIssuedAt(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()))
-                .withExpiresAt(
-                    Date.from(
-                        now.plusSeconds(ACCESS_TOKEN_EXPIRES_SECONDS).atZone(ZoneId.systemDefault()).toInstant()
-                    )
-                )
-                .sign(Algorithm.HMAC256(jwtProperty.secret))
+                .withIssuedAt(now)
+                .withExpiresAt(expiresAt)
+                .sign(Algorithm.HMAC256(jwtProperties.secret))
         } catch (exception: JWTCreationException) {
             throw IllegalArgumentException("액세스 토큰을 만드는 중 에러가 발생하였습니다 payload:($payload) message: (${exception.message})")
         } catch (exception: IllegalArgumentException) {
@@ -40,8 +35,8 @@ class JwtAuthTokenService(
     }
 
     override fun getPayload(token: String): AuthTokenPayload {
-        val verifier = JWT.require(Algorithm.HMAC256(jwtProperty.secret))
-            .withIssuer(jwtProperty.issuer)
+        val verifier = JWT.require(Algorithm.HMAC256(jwtProperties.secret))
+            .withIssuer(jwtProperties.issuer)
             .build()
         try {
             val jwt = verifier.verify(token)
@@ -54,7 +49,6 @@ class JwtAuthTokenService(
     }
 
     companion object {
-        private const val ACCESS_TOKEN_EXPIRES_SECONDS = 60 * 60 * 24L // 1일
         private const val USER_ID = "user_id"
     }
 
