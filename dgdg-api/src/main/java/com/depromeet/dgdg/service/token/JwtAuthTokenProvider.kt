@@ -9,10 +9,10 @@ import com.depromeet.dgdg.common.exception.JwtTokenExpiredException
 import com.depromeet.dgdg.common.exception.UnAuthorizedException
 import com.depromeet.dgdg.service.token.dto.JwtProperties
 import com.depromeet.dgdg.service.token.dto.AuthTokenPayload
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 import java.util.*
 
-@Service
+@Component
 class JwtAuthTokenProvider(
     val jwtProperties: JwtProperties
 ) : AuthTokenProvider<AuthTokenPayload> {
