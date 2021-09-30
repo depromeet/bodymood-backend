@@ -5,12 +5,13 @@ import com.depromeet.dgdg.service.token.dto.AuthTokenPayload
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
+import org.junit.jupiter.api.assertAll
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.TestConstructor
 
+@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @SpringBootTest
 internal class JwtAuthTokenServiceTest(
-    @Autowired
     private val jwtAuthTokenService: JwtAuthTokenService
 ) {
 
@@ -23,8 +24,10 @@ internal class JwtAuthTokenServiceTest(
         val token = jwtAuthTokenService.createAccessToken(AuthTokenPayload(userId))
 
         // then
-        assertThat(token).isNotNull
-        assertThat(token.startsWith("ey")).isTrue
+        assertAll({
+            assertThat(token).isNotNull
+            assertThat(token.startsWith("ey")).isTrue
+        })
     }
 
     @Test

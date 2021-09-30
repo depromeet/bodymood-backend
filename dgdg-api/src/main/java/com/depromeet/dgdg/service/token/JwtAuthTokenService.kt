@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.JWTCreationException
 import com.auth0.jwt.exceptions.JWTVerificationException
 import com.auth0.jwt.exceptions.TokenExpiredException
+import com.depromeet.dgdg.common.exception.JwtTokenExpiredException
 import com.depromeet.dgdg.common.exception.UnAuthorizedException
 import com.depromeet.dgdg.config.jwt.JwtConfig
 import com.depromeet.dgdg.service.token.dto.AuthTokenPayload
@@ -46,7 +47,7 @@ class JwtAuthTokenService(
             val jwt = verifier.verify(token)
             return AuthTokenPayload.of(jwt.claims[USER_ID]?.asLong())
         } catch (exception: TokenExpiredException) {
-            throw TokenExpiredException("액세스 토큰($token)이 만료되었습니다.")
+            throw JwtTokenExpiredException("액세스 토큰($token)이 만료되었습니다.")
         } catch (exception: JWTVerificationException) {
             throw UnAuthorizedException("액세스 토큰($token)을 디코드 하는 중 에러가 발생하였습니다. message: ${exception.message}")
         }
