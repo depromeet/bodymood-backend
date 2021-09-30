@@ -1,6 +1,12 @@
 bootJar { enabled = false }
 jar { enabled = true }
 
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
+}
+
 dependencies {
     implementation project(":dgdg-common")
 
