@@ -1,0 +1,8 @@
+jwt:
+  issuer: dgdg-local
+  secret: dgdg-local-test-key
+spring:
+  config:
+    activate:
+      on-profile: local
+---
