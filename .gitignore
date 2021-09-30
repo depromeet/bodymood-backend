@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### client_id ###
+java/com/depromeet/dgdg/config/auth/OAuth2Kakao.java
