@@ -1,7 +1,7 @@
-package com.depromeet.dgdg.service.token
+package com.depromeet.dgdg.provider.token
 
 import com.depromeet.dgdg.common.exception.UnAuthorizedException
-import com.depromeet.dgdg.service.token.dto.AuthTokenPayload
+import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
@@ -11,8 +11,8 @@ import org.springframework.test.context.TestConstructor
 
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @SpringBootTest
-internal class JwtAuthTokenServiceTest(
-    private val jwtAuthTokenService: JwtAuthTokenService
+internal class JwtAuthTokenProviderTest(
+    private val jwtAuthTokenProvider: JwtAuthTokenProvider
 ) {
 
     @Test
@@ -21,7 +21,7 @@ internal class JwtAuthTokenServiceTest(
         val userId = 100L
 
         // when
-        val token = jwtAuthTokenService.createAccessToken(AuthTokenPayload(userId))
+        val token = jwtAuthTokenProvider.createAccessToken(AuthTokenPayload(userId))
 
         // then
         assertAll({
@@ -34,10 +34,10 @@ internal class JwtAuthTokenServiceTest(
     fun 토큰으로부터_Payload를_가져온다() {
         // given
         val userId = 100L
-        val token = jwtAuthTokenService.createAccessToken(AuthTokenPayload(userId))
+        val token = jwtAuthTokenProvider.createAccessToken(AuthTokenPayload(userId))
 
         // when
-        val authToken = jwtAuthTokenService.getPayload(token)
+        val authToken = jwtAuthTokenProvider.getPayload(token)
 
         // then
         assertThat(authToken.userId).isEqualTo(userId)
@@ -49,7 +49,7 @@ internal class JwtAuthTokenServiceTest(
         val token = "Wrong Token"
 
         // when & then
-        assertThatThrownBy { jwtAuthTokenService.getPayload(token) }.isInstanceOf(UnAuthorizedException::class.java)
+        assertThatThrownBy { jwtAuthTokenProvider.getPayload(token) }.isInstanceOf(UnAuthorizedException::class.java)
     }
 
 }

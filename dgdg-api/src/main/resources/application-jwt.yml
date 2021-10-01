@@ -1,6 +1,7 @@
 jwt:
   issuer: dgdg-local
   secret: dgdg-local-test-key
+  expires_time: 86400 # 1일 (60 * 60 * 24)
 spring:
   config:
     activate:

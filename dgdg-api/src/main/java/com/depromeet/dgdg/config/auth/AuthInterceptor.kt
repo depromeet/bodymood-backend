@@ -1,8 +1,8 @@
 package com.depromeet.dgdg.config.auth
 
 import com.depromeet.dgdg.common.exception.UnAuthorizedException
-import com.depromeet.dgdg.service.token.AuthTokenService
-import com.depromeet.dgdg.service.token.dto.AuthTokenPayload
+import com.depromeet.dgdg.provider.token.AuthTokenProvider
+import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import org.springframework.util.StringUtils
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse
 
 @Component
 class AuthInterceptor(
-    private val tokenService: AuthTokenService<AuthTokenPayload>
+    private val tokenProvider: AuthTokenProvider<AuthTokenPayload>
 ) : HandlerInterceptor {
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
@@ -27,7 +27,7 @@ class AuthInterceptor(
             throw UnAuthorizedException("잘못된 토큰입니다. 다시 로그인해주세요. header: ($header)")
         }
         val token = header.split(BEARER_PREFIX)[1]
-        val payload = tokenService.getPayload(token)
+        val payload = tokenProvider.getPayload(token)
 
         request.setAttribute(AuthConstants.USER_ID_FIELD, payload.userId)
         return true
