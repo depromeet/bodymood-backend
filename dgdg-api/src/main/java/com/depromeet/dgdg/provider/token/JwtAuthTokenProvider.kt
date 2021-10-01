@@ -1,4 +1,4 @@
-package com.depromeet.dgdg.service.token
+package com.depromeet.dgdg.provider.token
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
@@ -7,8 +7,8 @@ import com.auth0.jwt.exceptions.JWTVerificationException
 import com.auth0.jwt.exceptions.TokenExpiredException
 import com.depromeet.dgdg.common.exception.JwtTokenExpiredException
 import com.depromeet.dgdg.common.exception.UnAuthorizedException
-import com.depromeet.dgdg.service.token.dto.JwtProperties
-import com.depromeet.dgdg.service.token.dto.AuthTokenPayload
+import com.depromeet.dgdg.provider.token.dto.JwtProperties
+import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload
 import org.springframework.stereotype.Component
 import java.util.*
 

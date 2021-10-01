@@ -1,4 +1,4 @@
-package com.depromeet.dgdg.service.token
+package com.depromeet.dgdg.provider.token
 
 interface AuthTokenProvider<T> {
 

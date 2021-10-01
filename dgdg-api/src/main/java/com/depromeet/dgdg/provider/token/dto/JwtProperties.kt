@@ -1,4 +1,4 @@
-package com.depromeet.dgdg.service.token.dto
+package com.depromeet.dgdg.provider.token.dto
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding

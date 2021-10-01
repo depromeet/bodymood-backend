@@ -1,8 +1,8 @@
 package com.depromeet.dgdg.config.auth
 
 import com.depromeet.dgdg.common.exception.UnAuthorizedException
-import com.depromeet.dgdg.service.token.AuthTokenProvider
-import com.depromeet.dgdg.service.token.dto.AuthTokenPayload
+import com.depromeet.dgdg.provider.token.AuthTokenProvider
+import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import org.springframework.util.StringUtils
