@@ -1,18 +1,39 @@
 package com.depromeet.dgdg.config.auth;
 
+import com.depromeet.dgdg.controller.BaseResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-    private final UserService userService;
+    private final OAuth2Kakao oAuth2Kakao;
 
-    @GetMapping("/oauth2/authorization/kakao")
-    public void oAuth2AuthorizationKakao(@RequestParam("code") String code) throws JsonProcessingException {
-        userService.oAuth2AuthorizationKakao(code);
+
+    @GetMapping("/auth/authorization/kakao")
+    public String oAuth2AuthorizationKakao(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        String code = request.getParameter("code");
+        String error = request.getParameter("error");
+        if (error != null) {
+            if (error.equals("access_denied")) {
+                return "취소";
+            }
+        }
+
+        String accessToken = oAuth2Kakao.getAccessToken(request, code);
+        String userInfo = oAuth2Kakao.getUserInfo(accessToken);
+
+        if (userInfo != null && !userInfo.equals("")) {
+            return "redirect:/";
+        } else {
+            throw new UnsupportedOperationException("카카오톡 정보조회에 실패했습니다.");
+        }
     }
 }

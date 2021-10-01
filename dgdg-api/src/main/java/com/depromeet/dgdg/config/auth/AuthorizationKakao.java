@@ -1,13 +1,16 @@
 package com.depromeet.dgdg.config.auth;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
 
 @Getter
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class AuthorizationKakao {
-    private String access_token;
-    private String token_type;
-    private String refresh_token;
-    private String expires_in;
+    private String accessToken;
+    private String tokenType;
+    private String refreshToken;
+    private String expiresIn;
     private String scope;
-    private String refresh_token_expires_in;
+    private String refreshTokenExpiresIn;
 }

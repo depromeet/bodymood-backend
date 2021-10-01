@@ -68,9 +68,8 @@ subprojects {
         compileOnly'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
 
-
-        //oauth
-        implementation ('org.springframework.boot:spring-boot-starter-oauth2-client')
+        //JSONParser, JSONObject
+        implementation 'org.json:json:20190722'
 
 
     }

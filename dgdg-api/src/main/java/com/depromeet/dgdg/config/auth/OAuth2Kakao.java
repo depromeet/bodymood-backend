@@ -1,77 +1,87 @@
 package com.depromeet.dgdg.config.auth;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
 
 
 @Service
 @RequiredArgsConstructor
 public class OAuth2Kakao {
 
-    private final RestTemplate restTemplate;
-    private final ObjectMapper objectMapper;
+    @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
+    private final String clientId;
 
-    private final String clientId = "bb5871572c05dfc2a864ede8d7c16246";
-    private final String redirectUrl = "http://dgdg-backend-alb-1085144894.ap-northeast-2.elb.amazonaws.com";
+    @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}")
+    private final String redirectUri;
 
-    public AuthorizationKakao getAccessToken(String code) throws JsonProcessingException {
-        String grantType = "authorization_code";
+    @Value("${spring.security.oauth2.client.registration.kakao.authorization-grant-type}")
+    private final String grantType;
+
+    @Value("${spring.security.oauth2.client.provider.kakao.token_uri}")
+    private final String tokenUri;
+
+    @Value("${spring.security.oauth2.client.provider.kakao.user-info-uri}")
+    private final String userInfoUri;
+
+    public String getAccessToken(HttpServletRequest request, String code) throws Exception {
+
+        String accessToken = "";
+
+        RestTemplate restTemplate = new RestTemplate();
+        URI uri = URI.create(tokenUri);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("grant_type", grantType);
+        MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+        params.set("grant_type", grantType);
         params.add("client_id", clientId);
-        params.add("redirect_uri", redirectUrl);
+        params.add("redirect_uri", redirectUri + "/login/oauth_kakao");
         params.add("code", code);
 
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
+        HttpEntity<MultiValueMap<String, Object>> restRequest = new HttpEntity<>(params, headers);
 
-        String url = "https://kauth.kakao.com/oauth/token";
+        ResponseEntity<JSONObject> apiResponse = restTemplate.postForEntity(uri, restRequest, JSONObject.class);
+        JSONObject responseBody = apiResponse.getBody();
 
-        try {
-            ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+        accessToken = (String) responseBody.get("access_token");
 
-            AuthorizationKakao authorization = objectMapper.readValue(response.getBody(), AuthorizationKakao.class);
-            return authorization;
-
-        } catch (RestClientException | JsonMappingException ex) {
-            ex.printStackTrace();
-            throw new UnsupportedOperationException();
-        }
+        return accessToken;
     }
 
 
     public String getUserInfo(String accessToken) {
+
+        String userInfo = "";
+
+        RestTemplate restTemplate = new RestTemplate();
+        URI uri = URI.create(userInfoUri);
+
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer" + accessToken);
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("KakaoAk", clientId);
 
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
+        MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+        params.add("properties_key", "[\"id\"]");
 
-        String url = "https://kapi.kakao.com/v2/user/me";
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(params, headers);
+        ResponseEntity<JSONObject> apiResponse = restTemplate.postForEntity(uri, request, JSONObject.class);
 
-        try {
-            ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+        JSONObject responseBody = apiResponse.getBody();
 
-            return response.getBody();
-        } catch (RestClientException ex) {
-            ex.printStackTrace();
-            throw new UnsupportedOperationException();
+        userInfo = Integer.toString(responseBody.getInt("id"));
 
-        }
+        return userInfo;
+
     }
 }
