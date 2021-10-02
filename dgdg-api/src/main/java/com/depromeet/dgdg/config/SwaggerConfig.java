@@ -1,5 +1,6 @@
 package com.depromeet.dgdg.config;
 
+import com.depromeet.dgdg.config.auth.UserId;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -25,9 +26,11 @@ public class SwaggerConfig {
     public Docket commonApi() {
         return new Docket(DocumentationType.SWAGGER_2)
             .apiInfo(this.apiInfo())
+            .ignoredParameterTypes(UserId.class)
             .select()
             .apis(RequestHandlerSelectors.basePackage("com.depromeet.dgdg"))
             .paths(PathSelectors.ant("/api/**"))
             .build();
     }
+
 }
