@@ -20,21 +20,21 @@ import java.net.URI;
 public class OAuth2Kakao {
 
     @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
-    private final String clientId;
+    private String clientId;
 
     @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}")
-    private final String redirectUri;
+    private String redirectUri;
 
     @Value("${spring.security.oauth2.client.registration.kakao.authorization-grant-type}")
-    private final String grantType;
+    private String grantType;
 
     @Value("${spring.security.oauth2.client.provider.kakao.token_uri}")
-    private final String tokenUri;
+    private String tokenUri;
 
     @Value("${spring.security.oauth2.client.provider.kakao.user-info-uri}")
-    private final String userInfoUri;
+    private String userInfoUri;
 
-    public String getAccessToken(String code) throws Exception {
+    public String getAccessToken(String code) {
 
         String accessToken = "";
 

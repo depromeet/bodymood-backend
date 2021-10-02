@@ -1,14 +1,10 @@
 package com.depromeet.dgdg.config.auth;
 
-import com.depromeet.dgdg.controller.BaseResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 
 @RestController
 @RequiredArgsConstructor
