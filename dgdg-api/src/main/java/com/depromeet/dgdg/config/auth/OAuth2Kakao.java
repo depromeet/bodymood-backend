@@ -34,7 +34,7 @@ public class OAuth2Kakao {
     @Value("${spring.security.oauth2.client.provider.kakao.user-info-uri}")
     private final String userInfoUri;
 
-    public String getAccessToken(HttpServletRequest request, String code) throws Exception {
+    public String getAccessToken(String code) throws Exception {
 
         String accessToken = "";
 

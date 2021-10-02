@@ -27,7 +27,7 @@ public class UserController {
             }
         }
 
-        String accessToken = oAuth2Kakao.getAccessToken(request, code);
+        String accessToken = oAuth2Kakao.getAccessToken(code);
         String userInfo = oAuth2Kakao.getUserInfo(accessToken);
 
         if (userInfo != null && !userInfo.equals("")) {

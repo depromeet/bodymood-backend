@@ -37,6 +37,6 @@ out/
 .vscode/
 
 ### ignore properties file application.yml ###
-application.yml
+application-oauth.yml
 
 
