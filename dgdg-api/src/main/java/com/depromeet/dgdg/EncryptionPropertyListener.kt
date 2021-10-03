@@ -12,7 +12,6 @@ import org.springframework.core.env.PropertiesPropertySource
 import org.springframework.stereotype.Component
 import java.util.*
 
-@Component
 class EncryptionPropertyListener() : ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
     override fun onApplicationEvent(event: ApplicationEnvironmentPreparedEvent) {
