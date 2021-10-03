@@ -68,6 +68,11 @@ subprojects {
         //lombok
         compileOnly'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
+
+        //JSONParser, JSONObject
+        implementation 'org.json:json:20190722'
+
+
     }
 
     configurations {

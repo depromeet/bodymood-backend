@@ -1,0 +1,17 @@
+jwt:
+  issuer: issuer
+  secret: secret
+  expires_time: 86400
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: client-id
+            redirect-uri: redirectUri
+            authorization-grant-type: authorization_code
+        provider:
+          kakao:
+            token_uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me

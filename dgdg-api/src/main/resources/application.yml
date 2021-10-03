@@ -11,3 +11,4 @@ spring:
       - db
       - jwt
       - aws
+      - oauth
