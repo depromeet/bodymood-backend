@@ -10,3 +10,4 @@ spring:
     include:
       - db
       - jwt
+      - aws

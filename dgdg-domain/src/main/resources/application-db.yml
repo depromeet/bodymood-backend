@@ -30,16 +30,34 @@ spring:
 spring:
   config:
     activate:
-      on-profile: local-postgresql
-
+      on-profile: local-pg
+  datasource:
+    hikari:
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: ${aws.secret-manager.url}
+      username: ${aws.secret-manager.username}
+      password: ${aws.secret-manager.password}
+      maximum-pool-size: 10
+      pool-name: local-pg-pool
+  jpa:
+    hibernate:
+      ddl-auto: create
 ---
 spring:
   config:
     activate:
       on-profile: dev
+  datasource:
+    hikari:
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: ${aws.secret-manager.url}
+      username: ${aws.secret-manager.username}
+      password: ${aws.secret-manager.password}
+      maximum-pool-size: 30
+      pool-name: dev-pg-pool
 
 ---
 spring:
   config:
     activate:
-      on-profile: prod
+      on-profile: real
