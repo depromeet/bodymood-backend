@@ -1,26 +1,18 @@
 package com.depromeet.dgdg.domain.domain.User;
 
-
+import com.depromeet.dgdg.domain.domain.BaseTimeEntity;
 import lombok.Getter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.xml.bind.ValidationException;
-import java.time.LocalDateTime;
 
 @Getter
-@MappedSuperclass
+@Setter
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-public class User {
-
-    @CreatedDate
-    private LocalDateTime createdDateTime;
-
-    @LastModifiedDate
-    private LocalDateTime lastModifiedDateTime;
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
