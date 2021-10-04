@@ -1,35 +1,30 @@
 package com.depromeet.dgdg.config.auth;
 
+import com.depromeet.dgdg.common.ErrorCode;
+import com.depromeet.dgdg.common.exception.NotFoundException;
+import com.depromeet.dgdg.domain.domain.User.User;
+import com.depromeet.dgdg.domain.domain.User.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-    private final OAuth2Kakao oAuth2Kakao;
 
+    private UserRepository userRepository;
 
     @GetMapping("/auth/authorization/kakao")
-    public String oAuth2AuthorizationKakao(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        String code = request.getParameter("code");
-        String error = request.getParameter("error");
-        if (error != null) {
-            if (error.equals("access_denied")) {
-                return "취소";
-            }
+    public User findUserById(String socialId) {
+        User user = userRepository.findUserById(socialId);
+        if (user == null) {
+            throw new NotFoundException(String.format("존재하지 않는 아이디입니다."), ErrorCode.NOT_FOUND_EXCEPTION);
         }
-
-        String accessToken = oAuth2Kakao.getAccessToken(code);
-        String userInfo = oAuth2Kakao.getUserInfo(accessToken);
-
-        if (userInfo != null && !userInfo.equals("")) {
-            return "redirect:/";
-        } else {
-            throw new UnsupportedOperationException("카카오톡 정보조회에 실패했습니다.");
-        }
+        return user;
     }
+
 }
