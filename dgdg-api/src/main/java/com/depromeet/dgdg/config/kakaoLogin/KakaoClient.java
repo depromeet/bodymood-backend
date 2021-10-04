@@ -15,7 +15,7 @@ public class KakaoClient {
     private final KakaoProperties kakaoProperties;
 
     public KakaoUserResponse getUserInfo(String accessToken) {
-        return webClient.post()
+        return webClient.get()
             .uri(kakaoProperties.getUserInfoUri())
             .headers(headers -> headers.setBearerAuth(accessToken))
             .retrieve()
