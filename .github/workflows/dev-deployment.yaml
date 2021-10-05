@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ develop, hotfix/build-error]
+    branches: [ develop, hotfix/build-error ]
 
 name: 개발 서버 ECS 배포
 
