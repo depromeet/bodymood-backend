@@ -14,5 +14,8 @@ dependencies {
 
     // jwt
     implementation 'com.auth0:java-jwt:3.18.2'
+
+    // aws
+    implementation 'com.amazonaws:aws-java-sdk-secretsmanager:1.12.79'
 }
 

@@ -10,4 +10,5 @@ spring:
     include:
       - db
       - jwt
+      - aws
       - oauth

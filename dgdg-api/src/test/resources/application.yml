@@ -2,6 +2,10 @@ jwt:
   issuer: issuer
   secret: secret
   expires_time: 86400
+aws:
+  encrypt:
+    region: ap-northeast-2
+    secret-name: dgdg/local/secrets
 spring:
   security:
     oauth2:

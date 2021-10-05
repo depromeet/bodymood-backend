@@ -1,0 +1,18 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ${oauth.kakao.client-id}
+            redirect-uri: "{baseUri}/{action}/oauth2/code/{registrationId}"
+            client-authentication-method: POST
+            authorization-grant-type: authorization_code
+            scope: profile_nickname, profile_image, account_email
+            client-name: Kakao
+        provider:
+          kakao:
+            authorization_uri: https://kauth.kakao.com/oauth/authorize
+            token_uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user_name_attribute: id
