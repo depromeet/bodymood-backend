@@ -23,7 +23,10 @@ class EncryptionPropertyListener() : ApplicationListener<ApplicationEnvironmentP
         val map : HashMap<String, String> = jacksonObjectMapper().readValue(secret)
 
         environment.propertySources.addFirst(
-            PropertiesPropertySource("awsSecretsProps", setDatabaseCredentials(map))
+            PropertiesPropertySource("awsSecretsProps", setDatabaseCredentials(map)),
+        )
+        environment.propertySources.addAfter(
+            "awsSecretsProps", PropertiesPropertySource("oauthSecretsProps", setOauthCredentials(map))
         )
     }
 
@@ -39,11 +42,17 @@ class EncryptionPropertyListener() : ApplicationListener<ApplicationEnvironmentP
         return response.secretString ?: String(Base64.getDecoder().decode(response.secretBinary).array())
     }
 
-    private fun setDatabaseCredentials(map : HashMap<String, String>): Properties {
+    private fun setDatabaseCredentials(map: HashMap<String, String>): Properties {
         val props = Properties()
         props["aws.secret-manager.url"] = map["url"]
         props["aws.secret-manager.username"] = map["username"]
         props["aws.secret-manager.password"] = map["password"]
+        return props
+    }
+
+    private fun setOauthCredentials(map:HashMap<String, String>): Properties {
+        val props = Properties()
+        props["oauth.kakao.client-id"] = map["kakao"]
         return props
     }
 
