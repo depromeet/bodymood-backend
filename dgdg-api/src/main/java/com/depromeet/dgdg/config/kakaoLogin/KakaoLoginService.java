@@ -17,16 +17,14 @@ public class KakaoLoginService {
 
     private final KakaoClient kakaoClient;
     private final UserRepository userRepository;
-    private final JwtAuthTokenProvider jwtAuthTokenProvider;
 
-    public String login(String accessToken) {
-        KakaoUserResponse userInfo = kakaoClient.getUserInfo(accessToken);
-        Optional<User> user = userRepository.findFirstBySocialId(userInfo.getId());
+    public Long login(LoginRequest request) {
+        KakaoUserResponse userInfo = kakaoClient.getUserInfo(request.getToken());
+        Optional<User> user = userRepository.findFirstById(userInfo.getId());
         if (!user.isPresent()) {
             throw new NotFoundException("없는 유저입니다.", ErrorCode.NOT_FOUND_EXCEPTION);
         }
-        return jwtAuthTokenProvider.createAccessToken(AuthTokenPayload.Companion.of(user.get().getId()));
-
+        return user.get().getId();
     }
 
 
