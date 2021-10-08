@@ -19,7 +19,7 @@ public class KakaoLoginService {
     private final UserRepository userRepository;
 
     public Long login(LoginRequest request) {
-        KakaoUserResponse userInfo = kakaoClient.getUserInfo(request.getToken());
+        KakaoUserResponse userInfo = kakaoClient.getUserInfo(request.getAccessToken());
         Optional<User> user = userRepository.findFirstById(userInfo.getId());
         if (!user.isPresent()) {
             throw new NotFoundException("없는 유저입니다.", ErrorCode.NOT_FOUND_EXCEPTION);

@@ -13,6 +13,6 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class LoginRequest {
 
-    private String token;
+    private String accessToken;
 
 }

@@ -18,9 +18,11 @@ public class KakaoLoginController {
 
 
     @PostMapping("/login")
-    public BaseResponse<String> login(@Valid @RequestBody LoginRequest request) {
+    public BaseResponse<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         Long memberId = kakaoLoginService.login(request);
-        return BaseResponse.success(jwtAuthTokenProvider.createAccessToken(AuthTokenPayload.Companion.of(memberId)));
+//       return BaseResponse.success(jwtAuthTokenProvider.createAccessToken(AuthTokenPayload.Companion.of(memberId)));
+        return BaseResponse.success(AuthResponse.of(jwtAuthTokenProvider.createAccessToken(AuthTokenPayload.Companion.of(memberId))));
+
     }
 
 }
