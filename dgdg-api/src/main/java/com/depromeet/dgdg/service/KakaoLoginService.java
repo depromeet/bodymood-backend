@@ -1,7 +1,10 @@
-package com.depromeet.dgdg.config.kakaoLogin;
+package com.depromeet.dgdg.service;
 
 import com.depromeet.dgdg.common.ErrorCode;
 import com.depromeet.dgdg.common.exception.NotFoundException;
+import com.depromeet.dgdg.config.kakaoLogin.KakaoClient;
+import com.depromeet.dgdg.config.kakaoLogin.KakaoUserResponse;
+import com.depromeet.dgdg.config.kakaoLogin.LoginRequest;
 import com.depromeet.dgdg.domain.domain.User.User;
 import com.depromeet.dgdg.domain.domain.User.repository.UserRepository;
 import com.depromeet.dgdg.provider.token.JwtAuthTokenProvider;

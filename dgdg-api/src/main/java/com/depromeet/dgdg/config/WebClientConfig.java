@@ -1,4 +1,4 @@
-package com.depromeet.dgdg.config.kakaoLogin;
+package com.depromeet.dgdg.config;
 
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;

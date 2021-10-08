@@ -1,5 +1,8 @@
-package com.depromeet.dgdg.config.kakaoLogin;
+package com.depromeet.dgdg.controller;
 
+import com.depromeet.dgdg.config.kakaoLogin.AuthResponse;
+import com.depromeet.dgdg.service.KakaoLoginService;
+import com.depromeet.dgdg.config.kakaoLogin.LoginRequest;
 import com.depromeet.dgdg.controller.dto.response.BaseResponse;
 import com.depromeet.dgdg.provider.token.JwtAuthTokenProvider;
 import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload;
