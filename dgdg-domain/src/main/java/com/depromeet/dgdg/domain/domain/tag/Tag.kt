@@ -5,10 +5,16 @@ import javax.persistence.*
 
 @Entity
 class Tag(
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     var type: TagType,
 
-    var name: String
+    @Column(nullable = false)
+    var name: String,
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    var status: TagStatus = TagStatus.ACTIVE
 ) : BaseTimeEntity() {
 
     @Id
