@@ -1,5 +1,6 @@
 package com.depromeet.dgdg.domain.domain.tag
 
+// TODO 기획 정해지면 추가
 enum class TagType(
     val category: TagCategory,
     val description: String

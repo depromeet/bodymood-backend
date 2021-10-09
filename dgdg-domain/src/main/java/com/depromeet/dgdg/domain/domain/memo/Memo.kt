@@ -7,7 +7,13 @@ import javax.persistence.*
 @Entity
 class Memo(
     @Column(nullable = false)
-    val userId: Long
+    val userId: Long,
+
+    @Enumerated(EnumType.STRING)
+    var condition: ConditionType,
+
+    @Enumerated(EnumType.STRING)
+    var intensity: IntensityType
 ) : BaseTimeEntity() {
 
     @Id
