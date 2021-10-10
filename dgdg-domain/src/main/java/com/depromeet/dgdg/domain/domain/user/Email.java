@@ -1,7 +1,8 @@
-package com.depromeet.dgdg.domain.domain.User;
+package com.depromeet.dgdg.domain.domain.user;
 
 
 import com.depromeet.dgdg.common.ErrorCode;
+import com.depromeet.dgdg.common.exception.BadRequestException;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -9,12 +10,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.xml.bind.ValidationException;
 import java.util.regex.Pattern;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class Email {
 
@@ -23,19 +23,20 @@ public class Email {
     @Column(length = 50)
     private String email;
 
-    private Email(String email) throws ValidationException{
+    private Email(String email) {
         validateFormat(email);
         this.email = email;
     }
 
-    private void validateFormat(String email) throws ValidationException {
+    private void validateFormat(String email) {
         if (!EMAIL_REGEX.matcher(email).matches()) {
-            throw new ValidationException(String.format("(%s)은 이메일 포맷에 맞지 않습니다", email), String.valueOf(ErrorCode.FORBIDDEN_EXCEPTION));
+            throw new BadRequestException(String.format("(%s)은 이메일 포맷에 맞지 않습니다", email), ErrorCode.BAD_REQUEST_EXCEPTION);
         }
     }
 
-    public static Email of(String email) throws ValidationException {
+    public static Email of(String email) {
         return new Email(email);
     }
+
 }
 

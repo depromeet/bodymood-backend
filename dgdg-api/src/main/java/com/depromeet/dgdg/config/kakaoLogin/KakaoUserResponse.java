@@ -1,18 +1,16 @@
 package com.depromeet.dgdg.config.kakaoLogin;
 
-
 import lombok.*;
 
-
-@Getter
-@Setter
 @ToString
-@RequiredArgsConstructor
+@Getter
+@NoArgsConstructor
 public class KakaoUserResponse {
 
     private Long id;
-    private Properties properties;
 
+    // TODO fix me
+    private Properties properties;
 
     @ToString
     @Getter
@@ -21,6 +19,6 @@ public class KakaoUserResponse {
         private String profileNickname;
         private String profileImage;
         private String accountEmail;
-
     }
+
 }

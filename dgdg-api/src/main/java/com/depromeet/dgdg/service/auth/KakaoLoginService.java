@@ -1,18 +1,14 @@
-package com.depromeet.dgdg.service;
+package com.depromeet.dgdg.service.auth;
 
 import com.depromeet.dgdg.common.ErrorCode;
 import com.depromeet.dgdg.common.exception.NotFoundException;
 import com.depromeet.dgdg.config.kakaoLogin.KakaoClient;
 import com.depromeet.dgdg.config.kakaoLogin.KakaoUserResponse;
 import com.depromeet.dgdg.config.kakaoLogin.LoginRequest;
-import com.depromeet.dgdg.domain.domain.User.User;
-import com.depromeet.dgdg.domain.domain.User.repository.UserRepository;
-import com.depromeet.dgdg.provider.token.JwtAuthTokenProvider;
-import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload;
+import com.depromeet.dgdg.domain.domain.user.User;
+import com.depromeet.dgdg.domain.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,12 +19,10 @@ public class KakaoLoginService {
 
     public Long login(LoginRequest request) {
         KakaoUserResponse userInfo = kakaoClient.getUserInfo(request.getAccessToken());
-        Optional<User> user = userRepository.findFirstById(userInfo.getId());
-        if (!user.isPresent()) {
-            throw new NotFoundException("없는 유저입니다.", ErrorCode.NOT_FOUND_EXCEPTION);
-        }
-        return user.get().getId();
+        User user = userRepository.findFirstById(userInfo.getId())
+            .orElseThrow(() -> new NotFoundException(String.format("없는 유저 (%s) 입니다.", userInfo.getId()), ErrorCode.NOT_FOUND_EXCEPTION));
+        // TODO 없는 유저면 회원가입 진행 로직 작성하기
+        return user.getId();
     }
-
 
 }

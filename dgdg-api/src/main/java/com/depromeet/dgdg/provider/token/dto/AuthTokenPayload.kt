@@ -7,6 +7,7 @@ data class AuthTokenPayload(
 ) {
 
     companion object {
+        @JvmStatic
         fun of(userId: Long?): AuthTokenPayload {
             return AuthTokenPayload(userId ?: throw UnAuthorizedException("잘못된 토큰입니다. userId: $userId"))
         }

@@ -1,4 +1,4 @@
-package com.depromeet.dgdg.config.kakaoLogin;
+package com.depromeet.dgdg.config.auth;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
