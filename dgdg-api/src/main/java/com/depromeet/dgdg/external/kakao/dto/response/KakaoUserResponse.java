@@ -1,4 +1,4 @@
-package com.depromeet.dgdg.config.kakaoLogin;
+package com.depromeet.dgdg.external.kakao.dto.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public class KakaoUserResponse {
 
-    private Long id;
+    private String id;
 
     private Properties properties;
 
@@ -21,6 +21,14 @@ public class KakaoUserResponse {
         private String nickname;
         private String thumbnailImage;
         private String profileImage;
+    }
+
+    public String getNickName() {
+        return this.properties.getNickname();
+    }
+
+    public String getProfileImage() {
+        return this.properties.getProfileImage();
     }
 
 }

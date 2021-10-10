@@ -1,4 +1,4 @@
-package com.depromeet.dgdg.config.kakaoLogin;
+package com.depromeet.dgdg.service.auth.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,8 +11,9 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
+public class AuthRequest {
 
+    @NotBlank
     private String accessToken;
 
 }

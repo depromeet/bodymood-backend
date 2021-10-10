@@ -1,6 +1,8 @@
 package com.depromeet.dgdg.domain.domain.user;
 
 import com.depromeet.dgdg.domain.domain.BaseTimeEntity;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,35 +18,34 @@ public class User extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-
-    private Email email;
-
-    private String introduction;
-
-    @Column(nullable = false)
     private String socialId;
-
-    private String profileUrl;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private SocialProvider socialProvider;
 
+    @Column(nullable = false)
+    private String name;
+
+    private String profileUrl;
+
     private String refreshToken;
 
-    private User(String name, String email, String introduction, String socialId, String profileUrl, SocialProvider socialProvider, String refreshToken) {
-        this.name = name;
-        this.email = email == null ? null : Email.of(email);
-        this.introduction = introduction;
+    @Builder(access = AccessLevel.PRIVATE)
+    private User(String socialId, SocialProvider socialProvider, String name, String profileUrl) {
         this.socialId = socialId;
-        this.profileUrl = profileUrl;
         this.socialProvider = socialProvider;
-        this.refreshToken = refreshToken;
+        this.name = name;
+        this.profileUrl = profileUrl;
     }
 
-    public static User newInstance(String name, String email, String introduction, String socialId, String profileUrl, SocialProvider socialProvider, String refreshToken) {
-        return new User(name, email, introduction, socialId, profileUrl, socialProvider, refreshToken);
+    public static User newKaKaoInstance(String socialId, String name, String profileUrl) {
+        return User.builder()
+            .socialId(socialId)
+            .socialProvider(SocialProvider.KAKAO)
+            .name(name)
+            .profileUrl(profileUrl)
+            .build();
     }
 
 }
