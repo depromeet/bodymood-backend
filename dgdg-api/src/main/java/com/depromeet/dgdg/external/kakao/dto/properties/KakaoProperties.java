@@ -1,4 +1,4 @@
-package com.depromeet.dgdg.config.kakaoLogin;
+package com.depromeet.dgdg.external.kakao.dto.properties;
 
 import lombok.Getter;
 import lombok.Setter;
