@@ -1,5 +1,7 @@
 package com.depromeet.dgdg.config.kakaoLogin;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 
 @ToString
@@ -9,16 +11,16 @@ public class KakaoUserResponse {
 
     private Long id;
 
-    // TODO fix me
     private Properties properties;
 
     @ToString
     @Getter
     @NoArgsConstructor
+    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
     private static class Properties {
-        private String profileNickname;
+        private String nickname;
+        private String thumbnailImage;
         private String profileImage;
-        private String accountEmail;
     }
 
 }
