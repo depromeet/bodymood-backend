@@ -29,7 +29,7 @@ public class SwaggerConfig {
             .ignoredParameterTypes(UserId.class)
             .select()
             .apis(RequestHandlerSelectors.basePackage("com.depromeet.dgdg"))
-            .paths(PathSelectors.ant("/api/**"))
+            .paths(PathSelectors.ant("/**"))
             .build();
     }
 

@@ -9,10 +9,9 @@ import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEven
 import org.springframework.context.ApplicationListener
 import org.springframework.core.env.ConfigurableEnvironment
 import org.springframework.core.env.PropertiesPropertySource
-import org.springframework.stereotype.Component
 import java.util.*
 
-class EncryptionPropertyListener() : ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+class EncryptionPropertyListener : ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
     override fun onApplicationEvent(event: ApplicationEnvironmentPreparedEvent) {
 
@@ -20,22 +19,19 @@ class EncryptionPropertyListener() : ApplicationListener<ApplicationEnvironmentP
         val client = initClient(environment)
         val secret = getCredential(environment, client)
 
-        val map : HashMap<String, String> = jacksonObjectMapper().readValue(secret)
+        val map: HashMap<String, String> = jacksonObjectMapper().readValue(secret)
 
         environment.propertySources.addFirst(
             PropertiesPropertySource("awsSecretsProps", setDatabaseCredentials(map)),
         )
-        environment.propertySources.addAfter(
-            "awsSecretsProps", PropertiesPropertySource("oauthSecretsProps", setOauthCredentials(map))
-        )
     }
 
-    private fun initClient(environment: ConfigurableEnvironment) : AWSSecretsManager {
+    private fun initClient(environment: ConfigurableEnvironment): AWSSecretsManager {
         val region = environment.getProperty(AWS_REGION)
         return AWSSecretsManagerClientBuilder.standard().withRegion(region).build()
     }
 
-    private fun getCredential(environment: ConfigurableEnvironment, client: AWSSecretsManager) : String{
+    private fun getCredential(environment: ConfigurableEnvironment, client: AWSSecretsManager): String {
         val secretName = environment.getProperty(AWS_SECRET_NAME)
         val request = GetSecretValueRequest().withSecretId(secretName)
         val response = client.getSecretValue(request)
@@ -47,12 +43,6 @@ class EncryptionPropertyListener() : ApplicationListener<ApplicationEnvironmentP
         props["aws.secret-manager.url"] = map["url"]
         props["aws.secret-manager.username"] = map["username"]
         props["aws.secret-manager.password"] = map["password"]
-        return props
-    }
-
-    private fun setOauthCredentials(map:HashMap<String, String>): Properties {
-        val props = Properties()
-        props["oauth.kakao.client-id"] = map["kakao"]
         return props
     }
 
