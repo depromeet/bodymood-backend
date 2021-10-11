@@ -7,3 +7,11 @@ spring:
     activate:
       on-profile: local
 ---
+jwt:
+  issuer: ${jwt-issuer}
+  secret: ${jwt-secret}
+  expires_time: 86400 # 1일 (60 * 60 * 24)
+spring:
+  config:
+    activate:
+      on-profile: dev
