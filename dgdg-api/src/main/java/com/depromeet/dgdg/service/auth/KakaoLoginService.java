@@ -20,7 +20,7 @@ public class KakaoLoginService {
     @Transactional
     public Long handleAuthentication(AuthRequest request) {
         KakaoUserResponse userInfo = kakaoClient.getUserInfo(request.getAccessToken());
-        User user = userRepository.findUserBySocialIdAndSocialProvider(userInfo.getId(), SocialProvider.KAKAO)
+        User user = userRepository.findBySocialIdAndSocialProvider(userInfo.getId(), SocialProvider.KAKAO)
             .orElseGet(() -> signUpUser(userInfo));
         return user.getId();
     }
