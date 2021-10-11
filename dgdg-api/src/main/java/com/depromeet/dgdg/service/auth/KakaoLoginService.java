@@ -1,5 +1,6 @@
 package com.depromeet.dgdg.service.auth;
 
+import com.depromeet.dgdg.domain.domain.user.SocialProvider;
 import com.depromeet.dgdg.external.kakao.KakaoClient;
 import com.depromeet.dgdg.external.kakao.dto.response.KakaoUserResponse;
 import com.depromeet.dgdg.service.auth.dto.request.AuthRequest;
@@ -19,8 +20,10 @@ public class KakaoLoginService {
     @Transactional
     public Long handleAuthentication(AuthRequest request) {
         KakaoUserResponse userInfo = kakaoClient.getUserInfo(request.getAccessToken());
-        User user = userRepository.findBySocialId(userInfo.getId())
-            .orElse(signUpUser(userInfo));
+        User user = userRepository.findUserBySocialIdAndProvider(userInfo.getId(), SocialProvider.KAKAO);
+        if (user == null) {
+            return signUpUser(userInfo).getId();
+        }
         return user.getId();
     }
 

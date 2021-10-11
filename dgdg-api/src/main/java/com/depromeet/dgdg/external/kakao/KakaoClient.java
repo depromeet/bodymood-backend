@@ -1,5 +1,7 @@
 package com.depromeet.dgdg.external.kakao;
 
+import com.depromeet.dgdg.common.ErrorCode;
+import com.depromeet.dgdg.common.exception.BadRequestException;
 import com.depromeet.dgdg.external.kakao.dto.properties.KakaoProperties;
 import com.depromeet.dgdg.external.kakao.dto.response.KakaoUserResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +25,8 @@ public class KakaoClient {
             .uri(kakaoProperties.getUserInfoUri())
             .headers(headers -> headers.setBearerAuth(accessToken))
             .retrieve()
-            .onStatus(HttpStatus::is4xxClientError, clientResponse -> Mono.error(RuntimeException::new))
-            .onStatus(HttpStatus::is5xxServerError, clientResponse -> Mono.error(RuntimeException::new))
+            .onStatus(HttpStatus::is4xxClientError, clientResponse -> Mono.error(new BadRequestException(String.format("잘못된 토큰 (%s) 입니다", accessToken), ErrorCode.BAD_REQUEST_EXCEPTION)))
+            .onStatus(HttpStatus::is5xxServerError, clientResponse -> Mono.error(new IllegalArgumentException(String.format("카카오 외부 API 연동 중 에러가 발생하였습니다 token: (%s)", accessToken))))
             .bodyToMono(KakaoUserResponse.class)
             .block();
     }
