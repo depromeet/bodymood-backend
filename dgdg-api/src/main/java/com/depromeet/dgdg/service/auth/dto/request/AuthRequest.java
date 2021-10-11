@@ -16,4 +16,8 @@ public class AuthRequest {
     @NotBlank
     private String accessToken;
 
+    public static AuthRequest testInstance(String accessToken) {
+        return new AuthRequest(accessToken);
+    }
+
 }
