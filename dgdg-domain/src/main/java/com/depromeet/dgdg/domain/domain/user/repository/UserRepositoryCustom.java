@@ -5,6 +5,4 @@ import com.depromeet.dgdg.domain.domain.user.User;
 
 public interface UserRepositoryCustom {
 
-    User findUserBySocialIdAndProvider(String socialId, SocialProvider provider);
-
 }
