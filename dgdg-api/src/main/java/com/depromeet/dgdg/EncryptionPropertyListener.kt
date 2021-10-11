@@ -21,8 +21,11 @@ class EncryptionPropertyListener : ApplicationListener<ApplicationEnvironmentPre
 
         val map: HashMap<String, String> = jacksonObjectMapper().readValue(secret)
 
+        val props = Properties()
+        map.forEach { (key, value) -> props[key] = value }
+
         environment.propertySources.addFirst(
-            PropertiesPropertySource("awsSecretsProps", setDatabaseCredentials(map)),
+            PropertiesPropertySource("awsSecretsProps", props)
         )
     }
 
@@ -36,14 +39,6 @@ class EncryptionPropertyListener : ApplicationListener<ApplicationEnvironmentPre
         val request = GetSecretValueRequest().withSecretId(secretName)
         val response = client.getSecretValue(request)
         return response.secretString ?: String(Base64.getDecoder().decode(response.secretBinary).array())
-    }
-
-    private fun setDatabaseCredentials(map: HashMap<String, String>): Properties {
-        val props = Properties()
-        props["aws.secret-manager.url"] = map["url"]
-        props["aws.secret-manager.username"] = map["username"]
-        props["aws.secret-manager.password"] = map["password"]
-        return props
     }
 
     companion object {
