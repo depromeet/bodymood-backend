@@ -1,4 +1,4 @@
-package com.depromeet.dgdg.domain
+package com.depromeet.dgdg
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.autoconfigure.SpringBootApplication

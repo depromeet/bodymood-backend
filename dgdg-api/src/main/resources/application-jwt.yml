@@ -11,7 +11,7 @@ spring:
 jwt:
   issuer: ${jwt-issuer}
   secret: ${jwt-secret}
-  expires_time: 86400 # 1일 (60 * 60 * 24)
+  access_token_expires_time: 86400 # 1일 (60 * 60 * 24)
   refresh_token_expires_time: 2592000 # 30일 (60 * 60 & 24 * 30)
 spring:
   config:
