@@ -2,6 +2,7 @@ buildscript {
     ext {
         springBootVersion = '2.5.4'
         kotlinVersion = '1.5.31'
+        kotestVersion = '4.4.3'
     }
     repositories {
         mavenCentral()
@@ -34,11 +35,13 @@ subprojects {
     compileKotlin {
         kotlinOptions {
             jvmTarget = "11"
+            freeCompilerArgs = ["-Xjsr305=strict"]
         }
     }
     compileTestKotlin {
         kotlinOptions {
             jvmTarget = "11"
+            freeCompilerArgs = ["-Xjsr305=strict"]
         }
     }
 
@@ -71,6 +74,10 @@ subprojects {
 
         implementation 'org.springframework.boot:spring-boot-starter-webflux'
         implementation 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
+
+        // kotest
+        testImplementation("io.kotest:kotest-runner-junit5:${kotestVersion}")
+        testImplementation("io.kotest:kotest-extensions-spring:${kotestVersion}")
 
     }
 

@@ -1,8 +1,11 @@
 package com.depromeet.dgdg.service.auth;
 
+import com.depromeet.dgdg.config.auth.AuthResponse;
 import com.depromeet.dgdg.domain.domain.user.SocialProvider;
 import com.depromeet.dgdg.external.kakao.KakaoClient;
 import com.depromeet.dgdg.external.kakao.dto.response.KakaoUserResponse;
+import com.depromeet.dgdg.provider.token.AuthTokenProvider;
+import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload;
 import com.depromeet.dgdg.service.auth.dto.request.AuthRequest;
 import com.depromeet.dgdg.domain.domain.user.User;
 import com.depromeet.dgdg.domain.domain.user.repository.UserRepository;
@@ -16,13 +19,17 @@ public class KakaoLoginService {
 
     private final KakaoClient kakaoClient;
     private final UserRepository userRepository;
+    private final AuthTokenProvider<AuthTokenPayload> jwtAuthTokenProvider;
 
     @Transactional
-    public Long handleAuthentication(AuthRequest request) {
+    public AuthResponse handleAuthentication(AuthRequest request) {
         KakaoUserResponse userInfo = kakaoClient.getUserInfo(request.getAccessToken());
         User user = userRepository.findBySocialIdAndSocialProvider(userInfo.getId(), SocialProvider.KAKAO)
             .orElseGet(() -> signUpUser(userInfo));
-        return user.getId();
+        String accessToken = jwtAuthTokenProvider.createAccessToken(AuthTokenPayload.of(user.getId()));
+        String refreshToken = jwtAuthTokenProvider.createRefreshToken();
+        user.updateRefreshToken(refreshToken);
+        return AuthResponse.of(accessToken, refreshToken);
     }
 
     private User signUpUser(KakaoUserResponse userInfo) {

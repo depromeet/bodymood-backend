@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 
@@ -33,7 +34,7 @@ public class User extends BaseTimeEntity {
     private String refreshToken;
 
     @Builder(access = AccessLevel.PRIVATE)
-    private User(String socialId, SocialProvider socialProvider, String name, String profileUrl) {
+    User(String socialId, SocialProvider socialProvider, String name, String profileUrl) {
         this.socialId = socialId;
         this.socialProvider = socialProvider;
         this.name = name;
@@ -47,6 +48,19 @@ public class User extends BaseTimeEntity {
             .name(name)
             .profileUrl(profileUrl)
             .build();
+    }
+
+    public void updateInfo(@NotNull String name, String profileUrl) {
+        this.name = name;
+        this.profileUrl = profileUrl;
+    }
+
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public void removeRefreshToken() {
+        this.refreshToken = null;
     }
 
 }
