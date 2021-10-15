@@ -52,4 +52,16 @@ internal class JwtAuthTokenProviderTest(
         assertThatThrownBy { jwtAuthTokenProvider.getPayload(token) }.isInstanceOf(UnAuthorizedException::class.java)
     }
 
+    @Test
+    fun payload가_없는_RefreshToken을_생성한다() {
+        // when
+        val refreshToken = jwtAuthTokenProvider.createRefreshToken()
+
+        // then
+        assertAll({
+            assertThat(refreshToken).isNotNull
+            assertThat(refreshToken.startsWith("ey")).isTrue
+        })
+    }
+
 }

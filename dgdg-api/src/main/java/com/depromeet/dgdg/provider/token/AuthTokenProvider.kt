@@ -6,4 +6,6 @@ interface AuthTokenProvider<T> {
 
     fun getPayload(token: String): T
 
+    fun createRefreshToken(): String
+
 }

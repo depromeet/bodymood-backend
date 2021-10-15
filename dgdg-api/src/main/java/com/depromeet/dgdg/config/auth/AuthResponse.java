@@ -8,9 +8,12 @@ import lombok.ToString;
 @Getter
 @RequiredArgsConstructor
 public class AuthResponse {
-    private final String socialId;
 
-    public static AuthResponse of(String socialId) {
-        return new AuthResponse(socialId);
+    private final String accessToken;
+    private final String refreshToken;
+
+    public static AuthResponse of(String accessToken, String refreshToken) {
+        return new AuthResponse(accessToken, refreshToken);
     }
+
 }

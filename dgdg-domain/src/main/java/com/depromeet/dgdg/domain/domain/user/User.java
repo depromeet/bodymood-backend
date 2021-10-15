@@ -55,4 +55,12 @@ public class User extends BaseTimeEntity {
         this.profileUrl = profileUrl;
     }
 
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public void removeRefreshToken() {
+        this.refreshToken = null;
+    }
+
 }

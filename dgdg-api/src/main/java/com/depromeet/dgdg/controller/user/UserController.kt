@@ -6,6 +6,7 @@ import com.depromeet.dgdg.controller.dto.response.BaseResponse
 import com.depromeet.dgdg.service.user.UserService
 import com.depromeet.dgdg.service.user.dto.request.UserRequest
 import com.depromeet.dgdg.service.user.dto.response.UserInfoResponse
+import io.swagger.annotations.ApiOperation
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -16,6 +17,7 @@ class UserController(
     private val userService: UserService
 ) {
 
+    @ApiOperation("유저의 회원 정보를 조회하는 API")
     @RequiredAuth
     @GetMapping("/api/v1/user/me")
     fun getMyUserInfo(
@@ -24,6 +26,7 @@ class UserController(
         return BaseResponse.success(userService.getUserInfo(userId))
     }
 
+    @ApiOperation("유저의 회원 정보를 수정하는 API")
     @RequiredAuth
     @PutMapping("/api/v1/user/me")
     fun updateMyUserInfo(

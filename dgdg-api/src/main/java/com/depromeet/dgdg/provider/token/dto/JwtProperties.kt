@@ -8,5 +8,6 @@ import org.springframework.boot.context.properties.ConstructorBinding
 data class JwtProperties(
     val issuer: String,
     val secret: String,
-    val expiresTime: Long
+    val accessTokenExpiresTime: Long,
+    val refreshTokenExpiresTime: Long
 )
