@@ -3,6 +3,8 @@ ext {
 }
 
 dependencies {
+
+    implementation 'junit:junit:4.13.1'
     implementation project(":dgdg-domain")
     implementation project(":dgdg-common")
 
