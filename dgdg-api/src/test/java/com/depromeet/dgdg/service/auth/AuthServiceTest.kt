@@ -5,6 +5,8 @@ import com.depromeet.dgdg.common.exception.UnAuthorizedException
 import com.depromeet.dgdg.domain.domain.user.SocialProvider
 import com.depromeet.dgdg.domain.domain.user.UserCreator
 import com.depromeet.dgdg.domain.domain.user.repository.UserRepository
+import com.depromeet.dgdg.provider.token.AuthTokenProvider
+import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload
 import com.depromeet.dgdg.service.auth.dto.request.RefreshTokenRequest
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldHaveSize
@@ -16,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 internal class AuthServiceTest(
+    private val authTokenProvider: AuthTokenProvider<AuthTokenPayload>,
     private val authService: AuthService,
     private val userRepository: UserRepository
 ) : FunSpec({
@@ -55,7 +58,7 @@ internal class AuthServiceTest(
     context("액세스 토큰 재발급") {
         test("RefreshToken을 가지고 있는 사용자를 찾아서 액세스 토큰을 재발급한다") {
             // given
-            val refreshToken = "refresh-token"
+            val refreshToken = authTokenProvider.createRefreshToken()
             user.updateRefreshToken(refreshToken)
             userRepository.save(user)
 

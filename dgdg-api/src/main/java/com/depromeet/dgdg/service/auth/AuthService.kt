@@ -23,6 +23,7 @@ class AuthService(
 
     @Transactional(readOnly = true)
     fun refreshAccessToken(request: RefreshTokenRequest): String {
+        authTokenProvider.validateRefreshToken(request.refreshToken)
         val user = userRepository.findByRefreshToken(request.refreshToken)
             ?: throw UnAuthorizedException("유효하지 않은 Refresh token (${request.refreshToken}) 입니다")
         return authTokenProvider.createAccessToken(AuthTokenPayload.of(user.id))

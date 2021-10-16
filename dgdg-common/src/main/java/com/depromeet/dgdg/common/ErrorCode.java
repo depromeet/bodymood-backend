@@ -21,8 +21,14 @@ public enum ErrorCode {
     // NotFound
     NOT_FOUND_EXCEPTION(404, "N001", "존재하지 않습니다"),
 
+    // Method Not Allowed
+    METHOD_NOT_ALLOWED_EXCEPTION(405, "M001", "Method Not allowed"),
+
     // Conflict
     CONFLICT_EXCEPTION(409, "C001", "이미 존재합니다"),
+
+    // Unsupported Media Type
+    UNSUPPORTED_MEDIA_TYPE(415, "T001", "Unsupported Media Type"),
 
     // Internal Server
     INTERNAL_SERVER_EXCEPTION(500, "I001", "서버 내부에서 에러가 발생하였습니다"),

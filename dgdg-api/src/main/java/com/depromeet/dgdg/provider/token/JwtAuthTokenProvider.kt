@@ -34,17 +34,17 @@ class JwtAuthTokenProvider(
         }
     }
 
-    override fun getPayload(token: String): AuthTokenPayload {
+    override fun getPayload(accessToken: String): AuthTokenPayload {
         val verifier = JWT.require(Algorithm.HMAC256(jwtProperties.secret))
             .withIssuer(jwtProperties.issuer)
             .build()
         try {
-            val jwt = verifier.verify(token)
+            val jwt = verifier.verify(accessToken)
             return AuthTokenPayload.of(jwt.claims[USER_ID]?.asLong())
         } catch (exception: TokenExpiredException) {
-            throw JwtTokenExpiredException("Access token($token)이 만료되었습니다.")
+            throw JwtTokenExpiredException("Access token($accessToken)이 만료되었습니다.")
         } catch (exception: JWTVerificationException) {
-            throw UnAuthorizedException("Access token($token)을 디코드 하는 중 에러가 발생하였습니다. message: ${exception.message}")
+            throw UnAuthorizedException("Access token($accessToken)을 디코드 하는 중 에러가 발생하였습니다. message: ${exception.message}")
         }
     }
 
@@ -61,6 +61,19 @@ class JwtAuthTokenProvider(
             throw IllegalArgumentException("Refresh token을 만드는 중 에러가 발생하였습니다. message: (${exception.message})")
         } catch (exception: IllegalArgumentException) {
             throw IllegalArgumentException("Refresh token을 만드는 중 에러가 발생하였습니다. message: (${exception.message})")
+        }
+    }
+
+    override fun validateRefreshToken(refreshToken: String) {
+        val verifier = JWT.require(Algorithm.HMAC256(jwtProperties.secret))
+            .withIssuer(jwtProperties.issuer)
+            .build()
+        try {
+            verifier.verify(refreshToken)
+        } catch (exception: TokenExpiredException) {
+            throw UnAuthorizedException("token($refreshToken)이 만료되었습니다.")
+        } catch (exception: JWTVerificationException) {
+            throw UnAuthorizedException("token($refreshToken)을 디코드 하는 중 에러가 발생하였습니다. message: ${exception.message}")
         }
     }
 
