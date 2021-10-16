@@ -7,6 +7,7 @@ import lombok.*;
 @ToString
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class KakaoUserResponse {
 
     private String id;
@@ -16,10 +17,10 @@ public class KakaoUserResponse {
     @ToString
     @Getter
     @NoArgsConstructor
+    @AllArgsConstructor
     @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-    private static class Properties {
+    public static class Properties {
         private String nickname;
-        private String thumbnailImage;
         private String profileImage;
     }
 

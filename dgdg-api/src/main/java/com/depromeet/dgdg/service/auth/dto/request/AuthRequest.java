@@ -16,4 +16,8 @@ public class AuthRequest {
     @NotBlank(message = "accessToken을 입력해주세요.")
     private String accessToken;
 
+    public static AuthRequest testInstance(String accessToken) {
+        return new AuthRequest(accessToken);
+    }
+
 }
