@@ -4,8 +4,10 @@ interface AuthTokenProvider<T> {
 
     fun createAccessToken(payload: T): String
 
-    fun getPayload(token: String): T
+    fun getPayload(accessToken: String): T
 
     fun createRefreshToken(): String
+
+    fun validateRefreshToken(refreshToken: String)
 
 }
