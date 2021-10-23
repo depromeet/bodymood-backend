@@ -1,27 +1,25 @@
 package com.depromeet.dgdg.domain.domain.poster
 
 enum class Emotion(
-    val title: String,
-    val description: String,
-    val backgroundColor: String
+    val description: String
 ) {
 
-    FURIOUS("Furious", "화난", "#ffffff"),
-    JITTERY("Jittery", "초조", "#ffffff"),
-    CHEERFUL("Cheerful", "쾌활", "#ffffff"),
-    PROUD("Proud", "뿌듯", "#ffffff"),
-    ANXIOUS("Anxious", "불안", "#ffffff"),
-    IRRITATED("Irritated", "짜증", "#ffffff"),
-    JOYFUL("Joyful", "기쁜", "#ffffff"),
-    THRILIED("Thrilied", "짜릿", "#ffffff"),
-    SAD("Sad", "슬플", "#ffffff"),
-    BORED("Bored", "지루", "#ffffff"),
-    CALM("Calm", "평온", "#ffffff"),
-    FULFILLED("Fulfilled", "충만", "#ffffff"),
-    DEPRESSED("Depressed", "우울", "#ffffff"),
-    FATIGUED("Fatigued", "지친", "#ffffff"),
-    SLEEPY("Sleepy", "나른", "#ffffff"),
-    COMFORTABLE("Comfortable", "편안", "#ffffff"),
+    FURIOUS("화난"),
+    JITTERY("초조"),
+    CHEERFUL("쾌활"),
+    PROUD("뿌듯"),
+    ANXIOUS("불안"),
+    IRRITATED("짜증"),
+    JOYFUL("기쁜"),
+    THRILIED("짜릿"),
+    SAD("슬플"),
+    BORED("지루"),
+    CALM("평온"),
+    FULFILLED("충만"),
+    DEPRESSED("우울"),
+    FATIGUED("지친"),
+    SLEEPY("나른"),
+    COMFORTABLE("편안"),
     ;
 
 }

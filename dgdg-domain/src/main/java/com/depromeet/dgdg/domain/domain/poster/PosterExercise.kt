@@ -1,6 +1,7 @@
 package com.depromeet.dgdg.domain.domain.poster
 
 import com.depromeet.dgdg.domain.domain.BaseTimeEntity
+import com.depromeet.dgdg.domain.domain.exercise.Exercise
 import javax.persistence.*
 
 @Entity
@@ -8,9 +9,10 @@ class PosterExercise(
     @Column(nullable = false)
     val posterId: Long,
 
-    @Column(nullable = false)
-    val exerciseId: Long
-): BaseTimeEntity() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "exercise_id", nullable = false)
+    val exercise: Exercise
+) : BaseTimeEntity() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
