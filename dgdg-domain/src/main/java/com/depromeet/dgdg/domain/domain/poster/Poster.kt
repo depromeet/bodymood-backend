@@ -27,7 +27,4 @@ class Poster(
     @Embedded
     val uuid: Uuid = Uuid.newInstance()
 
-    @OneToMany(mappedBy = "poster", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val exercises: MutableList<PosterExercise> = mutableListOf()
-
 }
