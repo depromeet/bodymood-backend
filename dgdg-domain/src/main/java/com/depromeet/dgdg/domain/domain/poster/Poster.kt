@@ -7,7 +7,16 @@ import javax.persistence.*
 @Entity
 class Poster(
     @Column(nullable = false)
-    val userId: Long
+    val userId: Long,
+
+    @Column(nullable = false)
+    val originImageUrl: String,
+
+    @Column(nullable = false)
+    val editedImageUrl: String,
+
+    @Enumerated(EnumType.STRING)
+    val emotion: Emotion
 ) : BaseTimeEntity() {
 
     @Id
@@ -17,5 +26,8 @@ class Poster(
     @Column(nullable = false)
     @Embedded
     val uuid: Uuid = Uuid.newInstance()
+
+    @OneToMany(mappedBy = "poster", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val exercises: MutableList<PosterExercise> = mutableListOf()
 
 }
