@@ -3,6 +3,7 @@ package com.depromeet.dgdg.controller.auth;
 import com.depromeet.dgdg.config.auth.AuthResponse;
 import com.depromeet.dgdg.service.auth.KakaoLoginService;
 import com.depromeet.dgdg.controller.dto.response.BaseResponse;
+import com.depromeet.dgdg.service.auth.dto.request.AuthRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

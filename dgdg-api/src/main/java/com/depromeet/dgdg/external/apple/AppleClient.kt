@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.GetMapping
 interface AppleClient {
 
     @GetMapping("/keys")
-    fun getAppleAuthPublicKey(): ApplePublicKeyResponse?
+    fun getAppleAuthPublicKey(): ApplePublicKeyResponse
 }

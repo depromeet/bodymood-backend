@@ -1,16 +1,16 @@
 package com.depromeet.dgdg.external.apple.dto.response
 
+import com.depromeet.dgdg.service.auth.dto.request.AppleAuthHeader
 
 data class ApplePublicKeyResponse(
     val keys : List<ApplePublicKey>
-){
-//    fun getMatchedPublicKey(header: String) : ApplePublicKey {
-//        keys.filter {
-//            key -> key.
-//        }
-//    }
+) {
+    fun getMatchedPublicKey(header: AppleAuthHeader): ApplePublicKey {
+        return keys.first { key ->
+            (key.kid == header.kid && key.alg == header.alg)
+        }
+    }
 }
-
 
 data class ApplePublicKey(
     val kty: String,

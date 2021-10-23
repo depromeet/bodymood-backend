@@ -1,5 +1,7 @@
 package com.depromeet.dgdg.controller.auth
 
+import com.depromeet.dgdg.config.auth.AuthResponse
+import com.depromeet.dgdg.controller.dto.response.BaseResponse
 import com.depromeet.dgdg.service.auth.AppleLoginService
 import com.depromeet.dgdg.service.auth.dto.request.AuthRequest
 import org.springframework.web.bind.annotation.PostMapping
@@ -14,10 +16,8 @@ class AppleLoginController(
 ) {
 
     @PostMapping("/api/v1/auth/apple")
-    fun appleAuth(@RequestBody request: @Valid AuthRequest): String {
-        val memberId: Long = appleLoginService.handleAuthentication(request)
-//        val token: String = jwtAuthTokenProvider.createAccessToken(of(memberId))
-        return "hello!"
+    fun appleAuth(@RequestBody request: @Valid AuthRequest): BaseResponse<AuthResponse> {
+        return BaseResponse.success(appleLoginService.handleAuthentication(request))
     }
 }
 

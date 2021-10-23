@@ -3,6 +3,9 @@ jwt:
   secret: dgdg-local-test-key
   access_token_expires_time: 86400 # 1일 (60 * 60 * 24)
   refresh_token_expires_time: 2592000 # 30일 (60 * 60 & 24 * 30)
+apple:
+  issuer: ${apple-issuer}
+  client-id: ${apple-client-id}
 spring:
   config:
     activate:
