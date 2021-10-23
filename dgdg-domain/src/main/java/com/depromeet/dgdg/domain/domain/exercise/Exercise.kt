@@ -9,7 +9,10 @@ class Exercise(
     val category: ExerciseCategory,
 
     @Column(nullable = false)
-    val type: String
+    val title: String,
+
+    @Column(nullable = false)
+    val description: String,
 ) : BaseTimeEntity() {
 
     @Id
