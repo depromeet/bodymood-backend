@@ -1,21 +1,19 @@
-package com.depromeet.dgdg.domain.domain.poster
+package com.depromeet.dgdg.domain.domain.exercise
 
 import com.depromeet.dgdg.domain.domain.BaseTimeEntity
-import com.depromeet.dgdg.domain.domain.common.Uuid
 import javax.persistence.*
 
 @Entity
-class Poster(
+class Exercise(
+    @Enumerated(EnumType.STRING)
+    val category: ExerciseCategory,
+
     @Column(nullable = false)
-    val userId: Long
+    val type: String
 ) : BaseTimeEntity() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
-
-    @Column(nullable = false)
-    @Embedded
-    val uuid: Uuid = Uuid.newInstance()
 
 }
