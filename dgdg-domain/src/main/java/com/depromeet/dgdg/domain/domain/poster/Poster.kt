@@ -1,7 +1,6 @@
 package com.depromeet.dgdg.domain.domain.poster
 
 import com.depromeet.dgdg.domain.domain.BaseTimeEntity
-import com.depromeet.dgdg.domain.domain.common.Uuid
 import javax.persistence.*
 
 @Entity
@@ -10,10 +9,10 @@ class Poster(
     val userId: Long,
 
     @Column(nullable = false)
-    val originImageUrl: String,
+    val imageUrl: String,
 
     @Column(nullable = false)
-    val editedImageUrl: String,
+    val originImageUrl: String,
 
     @Enumerated(EnumType.STRING)
     val emotion: Emotion
@@ -22,9 +21,5 @@ class Poster(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
-
-    @Column(nullable = false)
-    @Embedded
-    val uuid: Uuid = Uuid.newInstance()
 
 }
