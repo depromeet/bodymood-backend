@@ -10,9 +10,8 @@ class EmotionController {
 
     @GetMapping("/api/v1/emotions")
     fun getEmotions(): List<EmotionResponse> {
-        return Emotion.values().asSequence()
+        return Emotion.values()
             .map { EmotionResponse.of(it) }
-            .toList()
     }
 
 }
