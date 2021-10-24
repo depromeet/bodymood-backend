@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import javax.validation.Valid
 
 @RestController
 class UserController(
@@ -31,7 +32,7 @@ class UserController(
     @RequiredAuth
     @PutMapping("/api/v1/user/me")
     fun updateMyUserInfo(
-        @RequestBody request: UserRequest,
+        @Valid @RequestBody request: UserRequest,
         @UserId userId: Long
     ): BaseResponse<UserInfoResponse> {
         return BaseResponse.success(userService.updateUserInfo(request, userId))
