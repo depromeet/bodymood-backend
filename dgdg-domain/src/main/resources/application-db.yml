@@ -6,6 +6,7 @@ spring:
         format_sql: true
         use_sql_comments: true
         dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        default_batch_fetch_size: 1000
     open-in-view: false
 ---
 spring:

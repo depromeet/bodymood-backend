@@ -9,7 +9,7 @@ apple:
 spring:
   config:
     activate:
-      on-profile: local
+      on-profile: local,local-pg
 ---
 jwt:
   issuer: ${jwt-issuer}
