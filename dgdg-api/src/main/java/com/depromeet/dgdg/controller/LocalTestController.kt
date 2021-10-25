@@ -5,6 +5,7 @@ import com.depromeet.dgdg.domain.domain.user.User
 import com.depromeet.dgdg.domain.domain.user.repository.UserRepository
 import com.depromeet.dgdg.provider.token.AuthTokenProvider
 import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload
+import io.swagger.v3.oas.annotations.Operation
 import org.springframework.context.annotation.Profile
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
@@ -16,6 +17,7 @@ class LocalTestController(
     private val tokenProvider: AuthTokenProvider<AuthTokenPayload>
 ) {
 
+    @Operation(summary = "[로컬 및 개발용] 테스트용 토큰을 발급 받는 API")
     @GetMapping("/test-token")
     fun getTestToken(): BaseResponse<String> {
         val user = userRepository.findBySocialIdAndSocialProvider(user.socialId, user.socialProvider)
