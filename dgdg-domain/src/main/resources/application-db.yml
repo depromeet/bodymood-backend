@@ -42,7 +42,7 @@ spring:
       pool-name: local-pg-pool
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 ---
 spring:
   config:

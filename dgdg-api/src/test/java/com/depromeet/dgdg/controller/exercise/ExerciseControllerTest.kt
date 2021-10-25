@@ -21,7 +21,7 @@ class ExerciseControllerTest(
         exerciseCategoryRepository.deleteAll()
     }
 
-    context("GET /api/v1/exercises") {
+    context("GET /api/v1/exercises/categories") {
         test("루트 카테고리부터 계층적으로 조회한다") {
             // given
             val exerciseCategory1 = ExerciseCategory.newRootCategory("1단계-1", "어깨")
@@ -34,7 +34,7 @@ class ExerciseControllerTest(
             exerciseCategoryRepository.saveAll(listOf(exerciseCategory1, exerciseCategory2))
 
             // when & then
-            mockMvc.get("/api/v1/exercises")
+            mockMvc.get("/api/v1/exercises/categories")
                 .andDo { print() }
                 .andExpect { status { isOk() } }
                 .andExpect {
@@ -48,6 +48,8 @@ class ExerciseControllerTest(
                     jsonPath("$.data[0].children[1].name") { value("2단계-2") }
                     jsonPath("$.data[0].children[1].depth") { value(2) }
 
+                    jsonPath("$.data[1].name") { value("1단계-2") }
+                    jsonPath("$.data[1].depth") { value(1) }
                     jsonPath("$.data[1].children") { hasSize<ExerciseCategoryResponse>(1) }
                     jsonPath("$.data[1].children[0].name") { value("2단계-3") }
                     jsonPath("$.data[1].children[0].depth") { value(2) }
