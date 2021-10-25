@@ -1,5 +1,6 @@
 package com.depromeet.dgdg.domain.domain.user;
 
+import com.depromeet.dgdg.common.RandomGenerator;
 import com.depromeet.dgdg.domain.domain.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -47,6 +48,14 @@ public class User extends BaseTimeEntity {
             .socialProvider(SocialProvider.KAKAO)
             .name(name)
             .profileUrl(profileUrl)
+            .build();
+    }
+
+    public static User newAppleInstance(String socialId) {
+        return User.builder()
+            .socialId(socialId)
+            .socialProvider(SocialProvider.APPLE)
+            .name(RandomGenerator.getDefaultName())
             .build();
     }
 

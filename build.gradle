@@ -3,15 +3,24 @@ buildscript {
         springBootVersion = '2.5.4'
         kotlinVersion = '1.5.31'
         kotestVersion = '4.4.3'
+        springCloudVersion = '2020.0.4'
+        kotlinLombokVersion = '1.6.0-RC'
+        lombokPluginVersion = '6.2.0'
     }
     repositories {
-        mavenCentral()
+//        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-lombok:${kotlinLombokVersion}")
+        classpath("io.freefair.gradle:lombok-plugin:${lombokPluginVersion}")
     }
 }
 
@@ -28,6 +37,8 @@ subprojects {
         plugin('kotlin-jpa')
         plugin('kotlin-kapt')
         plugin('jacoco')
+        plugin('org.jetbrains.kotlin.plugin.lombok')
+        plugin('io.freefair.lombok')
     }
 
     sourceCompatibility = '11'
@@ -75,10 +86,8 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-webflux'
         implementation 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
 
-        // kotest
         testImplementation("io.kotest:kotest-runner-junit5:${kotestVersion}")
         testImplementation("io.kotest:kotest-extensions-spring:${kotestVersion}")
-
     }
 
     configurations {
@@ -90,6 +99,13 @@ subprojects {
     test {
         useJUnitPlatform()
         finalizedBy jacocoTestReport
+    }
+
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
     }
 
     jacocoTestReport {
