@@ -16,9 +16,9 @@ internal class EmotionControllerTest(
     private val mockMvc: MockMvc
 ) : FunSpec({
 
-    context("GET /api/v1/emotions") {
+    context("GET /api/v1/emotions/categories") {
         test("감정 카테고리를 조회한다") {
-            mockMvc.get("/api/v1/emotions")
+            mockMvc.get("/api/v1/emotions/categories")
                 .andDo { print() }
                 .andExpect { status { isOk() } }
                 .andExpect { jsonPath("$.data") { hasSize<EmotionResponse>(Emotion.values().size) } }
