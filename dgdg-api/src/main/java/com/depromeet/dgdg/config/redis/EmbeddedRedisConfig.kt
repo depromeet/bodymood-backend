@@ -1,12 +1,10 @@
 package com.depromeet.dgdg.config.redis
 
 import com.depromeet.dgdg.common.utils.ProcessUtils.findAvailableRandomPort
-import com.depromeet.dgdg.common.utils.ProcessUtils.isRunningPort
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
 import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
@@ -28,20 +26,23 @@ class EmbeddedRedisConfig(
 
     @PostConstruct
     fun redisServer() {
-        port = if (isRunningPort(property.port)) findAvailableRandomPort() else property.port
+        port = findAvailableRandomPort()
         redisServer = RedisServer(port)
-        redisServer.start()
-        logger.info("임베디드 레디스 서버가 기동되었습니다. port: {}", port)
+        redisServer.run {
+            this.start()
+            logger.info("임베디드 레디스 서버가 기동되었습니다. port: $port")
+        }
     }
 
     @PreDestroy
     fun stopRedis() {
-        redisServer.stop()
-        logger.info("임베디드 레디스 서버가 종료됩니다")
+        redisServer.run {
+            this.stop()
+            logger.info("임베디드 레디스 서버가 종료됩니다. port: $port")
+        }
     }
 
     @Bean
-    @Primary
     fun embeddedRedisConnectionFactory(): RedisConnectionFactory {
         return LettuceConnectionFactory(property.host, port)
     }

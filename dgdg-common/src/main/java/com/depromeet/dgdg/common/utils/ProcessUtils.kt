@@ -9,18 +9,14 @@ object ProcessUtils {
 
     private val OS = System.getProperty("os.name").lowercase(Locale.getDefault())
 
-    fun isRunningPort(port: Int): Boolean {
-        return isRunning(executeGrepProcessCommand(port))
-    }
-
     fun findAvailableRandomPort(): Int {
-        for (port in 10000..65535) {
+        for (port in 10000..30000) {
             val process = executeGrepProcessCommand(port)
             if (!isRunning(process)) {
                 return port
             }
         }
-        throw IllegalArgumentException("사용가능한 포트를 찾을 수 없습니다. (10000 ~ 65535)")
+        throw IllegalArgumentException("사용가능한 랜덤 포트를 찾을 수 없습니다. (10000 ~ 30000)")
     }
 
     private fun executeGrepProcessCommand(port: Int): Process {

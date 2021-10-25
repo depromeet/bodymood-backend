@@ -19,12 +19,6 @@ class ExerciseCategory(
     depth: Int = 1
 ) : BaseTimeEntity() {
 
-    init {
-        if (MIN_DEPTH > depth || depth > MAX_DEPTH) {
-            throw ForbiddenException("depth (${depth})는 (${MIN_DEPTH} ~ ${MAX_DEPTH}) 사이에서만 허용됩니다")
-        }
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
@@ -34,6 +28,12 @@ class ExerciseCategory(
 
     @OneToMany(mappedBy = "parentCategory", cascade = [CascadeType.ALL], orphanRemoval = true)
     val childrenCategories: MutableList<ExerciseCategory> = mutableListOf()
+
+    init {
+        if (MIN_DEPTH > depth || depth > MAX_DEPTH) {
+            throw ForbiddenException("depth (${depth})는 (${MIN_DEPTH} ~ ${MAX_DEPTH}) 사이에서만 허용됩니다")
+        }
+    }
 
     fun addChildCategory(name: String, description: String) {
         this.childrenCategories.add(ExerciseCategory(this, name, description, this.depth + 1))
