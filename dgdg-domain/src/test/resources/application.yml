@@ -6,3 +6,6 @@ spring:
         format_sql: true
         use_sql_comments: true
         dialect: org.hibernate.dialect.PostgreSQL10Dialect
+  config:
+    activate:
+      on-profile: local

@@ -11,11 +11,7 @@ class ExerciseRepositoryCustomImpl(
 
     override fun findRootCategories(): List<ExerciseCategory> {
         return queryFactory.selectFrom(exerciseCategory).distinct()
-            .innerJoin(
-                exerciseCategory.childrenCategories,
-                QExerciseCategory("parentCategory")
-            )
-            .fetchJoin()
+            .innerJoin(exerciseCategory.childrenCategories, QExerciseCategory("parentCategory")).fetchJoin()
             .where(
                 exerciseCategory.parentCategory.isNull
             )

@@ -27,11 +27,11 @@ class ExerciseRepositoryTest(
             categories shouldHaveSize 1
             categories[0].name shouldBe "Shoulder"
             categories[0].description shouldBe "어깨"
-            categories[0].depth shouldBe 0
+            categories[0].depth shouldBe 1
 
             categories[0].childrenCategories shouldHaveSize 1
             categories[0].childrenCategories[0].name shouldBe "Back fly"
-            categories[0].childrenCategories[0].depth shouldBe 1
+            categories[0].childrenCategories[0].depth shouldBe 2
         }
     }
 
