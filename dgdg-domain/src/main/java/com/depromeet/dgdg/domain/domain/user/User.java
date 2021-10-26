@@ -2,6 +2,7 @@ package com.depromeet.dgdg.domain.domain.user;
 
 import com.depromeet.dgdg.common.RandomGenerator;
 import com.depromeet.dgdg.domain.domain.BaseTimeEntity;
+import com.depromeet.dgdg.domain.domain.poster.Poster;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,6 +10,8 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -33,6 +36,9 @@ public class User extends BaseTimeEntity {
     private String profileUrl;
 
     private String refreshToken;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Poster> posters = new ArrayList<>();
 
     @Builder(access = AccessLevel.PRIVATE)
     User(String socialId, SocialProvider socialProvider, String name, String profileUrl) {

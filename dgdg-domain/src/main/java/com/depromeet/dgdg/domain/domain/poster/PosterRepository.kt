@@ -1,9 +1,6 @@
 package com.depromeet.dgdg.domain.domain.poster
 
+import com.depromeet.dgdg.domain.domain.poster.repository.PosterRepositoryCustom
 import org.springframework.data.jpa.repository.JpaRepository
-import java.util.*
 
-interface PosterRepository : JpaRepository<Poster, Long> {
-    fun findPosterByIdAndUserId(userId: Long, id: Long): Optional<Poster>
-    fun findPostersByUserId(userId: Long): Optional<List<Poster>>
-}
+interface PosterRepository : JpaRepository<Poster, Long>, PosterRepositoryCustom

@@ -6,7 +6,7 @@ server:
       force: true
 spring:
   profiles:
-    active: local
+    active: local,local-pg
     include:
       - db
       - jwt
