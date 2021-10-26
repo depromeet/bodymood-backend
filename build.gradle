@@ -3,6 +3,9 @@ buildscript {
         springBootVersion = '2.5.4'
         kotlinVersion = '1.5.31'
         kotestVersion = '4.4.3'
+
+        projectreactorVersion = '1.0.1.RELEASE'
+
         springCloudVersion = '2020.0.4'
         kotlinLombokVersion = '1.6.0-RC'
         lombokPluginVersion = '6.2.0'
@@ -85,7 +88,7 @@ subprojects {
         annotationProcessor 'org.projectlombok:lombok'
 
         implementation 'org.springframework.boot:spring-boot-starter-webflux'
-        implementation 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
+        implementation ("org.projectreactor:reactor-spring:${projectreactorVersion}")
 
         // Redis
         implementation("org.springframework.boot:spring-boot-starter-data-redis")

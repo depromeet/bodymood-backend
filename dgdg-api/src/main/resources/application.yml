@@ -12,4 +12,6 @@ spring:
       - jwt
       - aws
       - oauth
+      - s3
       - cache
+
