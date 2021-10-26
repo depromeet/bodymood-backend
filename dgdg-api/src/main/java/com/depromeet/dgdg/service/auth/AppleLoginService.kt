@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.depromeet.dgdg.config.auth.AuthResponse
+import com.depromeet.dgdg.service.auth.dto.response.AuthResponse
 import com.depromeet.dgdg.domain.domain.user.SocialProvider
 import com.depromeet.dgdg.domain.domain.user.User
 import com.depromeet.dgdg.domain.domain.user.repository.UserRepository

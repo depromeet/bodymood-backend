@@ -1,6 +1,6 @@
 package com.depromeet.dgdg.service.auth;
 
-import com.depromeet.dgdg.config.auth.AuthResponse;
+import com.depromeet.dgdg.service.auth.dto.response.AuthResponse;
 import com.depromeet.dgdg.domain.domain.user.SocialProvider;
 import com.depromeet.dgdg.external.kakao.KakaoClient;
 import com.depromeet.dgdg.external.kakao.dto.response.KakaoUserResponse;

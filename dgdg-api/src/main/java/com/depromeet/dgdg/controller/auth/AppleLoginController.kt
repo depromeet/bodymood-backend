@@ -1,6 +1,6 @@
 package com.depromeet.dgdg.controller.auth
 
-import com.depromeet.dgdg.config.auth.AuthResponse
+import com.depromeet.dgdg.service.auth.dto.response.AuthResponse
 import com.depromeet.dgdg.controller.dto.response.BaseResponse
 import com.depromeet.dgdg.service.auth.AppleLoginService
 import com.depromeet.dgdg.service.auth.dto.request.AuthRequest
