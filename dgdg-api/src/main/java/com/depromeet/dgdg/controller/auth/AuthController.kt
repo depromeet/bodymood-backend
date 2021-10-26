@@ -5,7 +5,7 @@ import com.depromeet.dgdg.config.auth.UserId
 import com.depromeet.dgdg.controller.dto.response.BaseResponse
 import com.depromeet.dgdg.service.auth.AuthService
 import com.depromeet.dgdg.service.auth.dto.request.RefreshTokenRequest
-import com.depromeet.dgdg.service.auth.dto.response.RefreshTokenResponse
+import com.depromeet.dgdg.service.auth.dto.response.AuthResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.web.bind.annotation.PostMapping
@@ -32,9 +32,9 @@ class AuthController(
     @PostMapping("/api/v1/refresh/token")
     fun refreshAccessToken(
         @Valid @RequestBody request: RefreshTokenRequest
-    ): BaseResponse<RefreshTokenResponse> {
+    ): BaseResponse<AuthResponse> {
         val accessToken = authService.refreshAccessToken(request)
-        return BaseResponse.success(RefreshTokenResponse(accessToken))
+        return BaseResponse.success(AuthResponse(accessToken, request.refreshToken))
     }
 
 }

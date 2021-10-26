@@ -1,4 +1,4 @@
-package com.depromeet.dgdg.config.auth;
+package com.depromeet.dgdg.service.auth.dto.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
