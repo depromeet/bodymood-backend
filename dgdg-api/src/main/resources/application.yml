@@ -13,3 +13,5 @@ spring:
       - aws
       - oauth
       - s3
+      - cache
+

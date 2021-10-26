@@ -14,6 +14,9 @@ dependencies {
     // spring web
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    // spring cloud
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
     //swagger
     implementation ("org.springdoc:springdoc-openapi-ui:${springdocVersion}")
 
@@ -21,10 +24,13 @@ dependencies {
     implementation ("com.auth0:java-jwt:${jwtVersionVersion}")
 
     // aws
+
     implementation ("com.amazonaws:aws-java-sdk-secretsmanager:${amazonawsVersion}")
 
     //s3
     implementation ("org.springframework.cloud:spring-cloud-starter-aws:${s3Version}")
+
+    implementation 'com.amazonaws:aws-java-sdk-secretsmanager:1.12.79'
 
 }
 

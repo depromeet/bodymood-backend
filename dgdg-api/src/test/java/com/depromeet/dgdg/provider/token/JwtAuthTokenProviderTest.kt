@@ -2,66 +2,63 @@ package com.depromeet.dgdg.provider.token
 
 import com.depromeet.dgdg.common.exception.UnAuthorizedException
 import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload
-import org.assertj.core.api.Assertions.assertThat
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
+import io.kotest.matchers.string.shouldStartWith
 import org.assertj.core.api.Assertions.assertThatThrownBy
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.TestConstructor
 
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @SpringBootTest
 internal class JwtAuthTokenProviderTest(
     private val authTokenProvider: AuthTokenProvider<AuthTokenPayload>
-) {
+) : FunSpec({
 
-    @Test
-    fun 인증_토큰을_생성한다() {
-        // given
-        val userId = 100L
+    context("인증 토큰 생성") {
+        test("인증 토큰을 생성하면 JWT 토큰이 생성된다") {
+            // given
+            val userId = 100L
 
-        // when
-        val token = authTokenProvider.createAccessToken(AuthTokenPayload(userId))
+            // when
+            val token = authTokenProvider.createAccessToken(AuthTokenPayload(userId))
 
-        // then
-        assertAll({
-            assertThat(token).isNotNull
-            assertThat(token.startsWith("ey")).isTrue
-        })
+            // then
+            token shouldNotBe null
+            token shouldStartWith "ey"
+        }
     }
 
-    @Test
-    fun 토큰으로부터_Payload를_가져온다() {
-        // given
-        val userId = 100L
-        val token = authTokenProvider.createAccessToken(AuthTokenPayload(userId))
+    context("인증 토큰 디코드") {
+        test("인증 토큰으로부터 userId가 포함된 Payload를 가져온다") {
+            // given
+            val userId = 100L
+            val token = authTokenProvider.createAccessToken(AuthTokenPayload(userId))
 
-        // when
-        val authToken = authTokenProvider.getPayload(token)
+            // when
+            val authToken = authTokenProvider.getPayload(token)
 
-        // then
-        assertThat(authToken.userId).isEqualTo(userId)
+            // then
+            authToken.userId shouldBe userId
+        }
+
+        test("잘못된 인증 토큰인 경우 UnAuthorized 에러가 발생한다") {
+            // given
+            val token = "Wrong Token"
+
+            // when & then
+            assertThatThrownBy { authTokenProvider.getPayload(token) }.isInstanceOf(UnAuthorizedException::class.java)
+        }
     }
 
-    @Test
-    fun 잘못된_액세스토큰인경우_에러가_발생한다() {
-        // given
-        val token = "Wrong Token"
+    context("RefreshToken 생성") {
+        test("페이로드가 없는 RefreshToken을 생성한다") {
+            // when
+            val refreshToken = authTokenProvider.createRefreshToken()
 
-        // when & then
-        assertThatThrownBy { authTokenProvider.getPayload(token) }.isInstanceOf(UnAuthorizedException::class.java)
+            // then
+            refreshToken shouldNotBe null
+            refreshToken shouldStartWith "ey"
+        }
     }
 
-    @Test
-    fun payload가_없는_RefreshToken을_생성한다() {
-        // when
-        val refreshToken = authTokenProvider.createRefreshToken()
-
-        // then
-        assertAll({
-            assertThat(refreshToken).isNotNull
-            assertThat(refreshToken.startsWith("ey")).isTrue
-        })
-    }
-
-}
+})
