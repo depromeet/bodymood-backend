@@ -1,4 +1,9 @@
 ext {
+    springdocVersion = '1.5.11'
+    jwtVersionVersion = '3.18.2'
+    amazonawsVersion = '1.12.79'
+    s3Version = '2.2.6.RELEASE'
+
 
 }
 
@@ -10,16 +15,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     //swagger
-    implementation 'org.springdoc:springdoc-openapi-ui:1.5.11'
+    implementation ("org.springdoc:springdoc-openapi-ui:${springdocVersion}")
 
     // jwt
-    implementation 'com.auth0:java-jwt:3.18.2'
+    implementation ("com.auth0:java-jwt:${jwtVersionVersion}")
 
     // aws
-    implementation 'com.amazonaws:aws-java-sdk-secretsmanager:1.12.79'
+    implementation ("com.amazonaws:aws-java-sdk-secretsmanager:${amazonawsVersion}")
 
     //s3
-    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    implementation ("org.springframework.cloud:spring-cloud-starter-aws:${s3Version}")
 
 }
 

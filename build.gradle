@@ -3,6 +3,8 @@ buildscript {
         springBootVersion = '2.5.4'
         kotlinVersion = '1.5.31'
         kotestVersion = '4.4.3'
+        projectreactorVersion = '1.0.1.RELEASE'
+
     }
     repositories {
         mavenCentral()
@@ -73,7 +75,7 @@ subprojects {
         annotationProcessor 'org.projectlombok:lombok'
 
         implementation 'org.springframework.boot:spring-boot-starter-webflux'
-        implementation 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
+        implementation ("org.projectreactor:reactor-spring:${projectreactorVersion}")
 
         // kotest
         testImplementation("io.kotest:kotest-runner-junit5:${kotestVersion}")
