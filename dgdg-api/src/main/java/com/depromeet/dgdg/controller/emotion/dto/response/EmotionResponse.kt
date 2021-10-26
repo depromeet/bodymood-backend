@@ -4,8 +4,8 @@ import com.depromeet.dgdg.domain.domain.poster.Emotion
 
 data class EmotionResponse(
     val type: Emotion,
-    val title: String,
-    val description: String,
+    val englishTitle: String,
+    val koreanTitle: String,
     val startColor: String,
     val endColor: String,
     val fontColor: String
@@ -15,8 +15,8 @@ data class EmotionResponse(
         fun of(emotion: Emotion): EmotionResponse {
             return EmotionResponse(
                 emotion,
-                emotion.title,
-                emotion.description,
+                emotion.englishTitle,
+                emotion.koreanTitle,
                 emotion.startColor,
                 emotion.endColor,
                 emotion.fontColor.fontColor

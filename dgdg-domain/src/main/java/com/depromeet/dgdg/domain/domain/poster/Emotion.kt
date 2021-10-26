@@ -4,8 +4,8 @@ import com.depromeet.dgdg.domain.domain.poster.Emotion.FontColor.BLACK
 import com.depromeet.dgdg.domain.domain.poster.Emotion.FontColor.WHITE
 
 enum class Emotion(
-    val title: String,
-    val description: String,
+    val englishTitle: String,
+    val koreanTitle: String,
     val startColor: String,
     val endColor: String,
     val fontColor: FontColor
