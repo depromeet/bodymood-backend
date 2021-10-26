@@ -6,12 +6,19 @@ data class EmotionResponse(
     val title: String,
     val description: String,
     val startColor: String,
-    val endColor: String
+    val endColor: String,
+    val fontColor: String
 ) {
 
     companion object {
         fun of(emotion: Emotion): EmotionResponse {
-            return EmotionResponse(emotion.title, emotion.description, emotion.startColor, emotion.endColor)
+            return EmotionResponse(
+                emotion.title,
+                emotion.description,
+                emotion.startColor,
+                emotion.endColor,
+                emotion.fontColor.fontColor
+            )
         }
     }
 
