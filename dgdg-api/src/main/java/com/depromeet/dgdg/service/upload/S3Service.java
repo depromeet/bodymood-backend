@@ -27,15 +27,6 @@ public class S3Service {
 
     private S3Properties s3Properties;
 
-    @PostConstruct
-    public void setS3Client() {
-        AWSCredentials credentials = new BasicAWSCredentials(s3Properties.getAccessKey(), s3Properties.getSecretKey());
-
-        amazonS3 = AmazonS3ClientBuilder.standard()
-            .withCredentials(new AWSStaticCredentialsProvider(credentials))
-            .withRegion(s3Properties.getRegion())
-            .build();
-    }
 
     public String upload(MultipartFile file) throws IOException {
         String fileName = file.getOriginalFilename();
