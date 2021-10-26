@@ -3,6 +3,7 @@ package com.depromeet.dgdg.domain.domain.poster
 import com.depromeet.dgdg.domain.domain.BaseTimeEntity
 import javax.persistence.*
 
+// TODO : 감정 및 운동 카테고리 추가
 @Entity
 class Poster(
     @Column(nullable = false)
