@@ -11,10 +11,10 @@ class ExerciseCategory(
     val parentCategory: ExerciseCategory?,
 
     @Column(nullable = false)
-    var name: String,
+    var englishName: String,
 
     @Column(nullable = false)
-    var description: String,
+    var koreanName: String,
 
     depth: Int = 1
 ) : BaseTimeEntity() {
@@ -35,16 +35,16 @@ class ExerciseCategory(
         }
     }
 
-    fun addChildCategory(name: String, description: String) {
-        this.childrenCategories.add(ExerciseCategory(this, name, description, this.depth + 1))
+    fun addChildCategory(englishName: String, koreanName: String) {
+        this.childrenCategories.add(ExerciseCategory(this, englishName, koreanName, this.depth + 1))
     }
 
     companion object {
         private const val MIN_DEPTH = 1
         private const val MAX_DEPTH = 2
 
-        fun newRootCategory(name: String, description: String): ExerciseCategory {
-            return ExerciseCategory(null, name, description, 1)
+        fun newRootCategory(englishName: String, koreanName: String): ExerciseCategory {
+            return ExerciseCategory(null, englishName, koreanName, 1)
         }
     }
 
