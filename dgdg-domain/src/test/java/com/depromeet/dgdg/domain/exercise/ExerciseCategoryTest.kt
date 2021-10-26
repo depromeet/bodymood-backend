@@ -24,16 +24,16 @@ internal class ExerciseCategoryTest : FunSpec({
 
         test("최상위 카테고리를 생성하면 depth가 1이고 parentCategory가 null인 카테고리가 생성된다") {
             // given
-            val name = "이름"
-            val description = "설명"
+            val englishName = "Shoulder"
+            val koreanName = "어깨 운동"
 
             // when
-            val rootCategory = ExerciseCategory.newRootCategory(name, description)
+            val rootCategory = ExerciseCategory.newRootCategory(englishName, koreanName)
 
             // then
             rootCategory.parentCategory shouldBe null
-            rootCategory.name shouldBe name
-            rootCategory.description shouldBe description
+            rootCategory.englishName shouldBe englishName
+            rootCategory.koreanName shouldBe koreanName
             rootCategory.depth shouldBe 1
         }
     }
@@ -48,7 +48,7 @@ internal class ExerciseCategoryTest : FunSpec({
 
             // then
             rootCategory.childrenCategories shouldHaveSize 1
-            rootCategory.childrenCategories[0].name shouldBe "2뎁스"
+            rootCategory.childrenCategories[0].englishName shouldBe "2뎁스"
             rootCategory.childrenCategories[0].depth shouldBe 2
         }
 
