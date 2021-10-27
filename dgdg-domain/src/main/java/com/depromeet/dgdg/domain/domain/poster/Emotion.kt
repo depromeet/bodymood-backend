@@ -12,9 +12,9 @@ enum class Emotion(
 ) {
 
     FURIOUS("Furious", "화난", "#6C0000", "#110202", WHITE),
-    JITTERY("Jittery", "초조", "#AA2900", "#AA2900", WHITE),
+    JITTERY("Jittery", "초조", "#AA2900", "#221E47", WHITE),
     CHEERFUL("Cheerful", "쾌활", "#FFE500", "#FFF970", BLACK),
-    PROUD("Proud", "뿌듯", "#FFE092", "#FFE092", BLACK),
+    PROUD("Proud", "뿌듯", "#FFE092", "#FF837B", BLACK),
     ANXIOUS("Anxious", "불안", "#082630", "#51094A", WHITE),
     IRRITATED("Irritated", "짜증", "#AE1111", "#AA4700", WHITE),
     JOYFUL("Joyful", "기쁜", "#FFF615", "#FF7A00", BLACK),
