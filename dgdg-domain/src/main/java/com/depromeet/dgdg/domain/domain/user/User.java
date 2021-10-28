@@ -78,4 +78,8 @@ public class User extends BaseTimeEntity {
         this.refreshToken = null;
     }
 
+    public void updatePosters(Poster poster){
+        this.posters.add(poster);
+        poster.setUser(this);
+    }
 }

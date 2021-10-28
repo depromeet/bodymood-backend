@@ -19,4 +19,11 @@ class PosterExerciseCategory(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
+
+    companion object{
+        @JvmStatic
+        fun of(poster:Poster, exerciseCategory: ExerciseCategory): PosterExerciseCategory{
+            return PosterExerciseCategory(poster, exerciseCategory)
+        }
+    }
 }

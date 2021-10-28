@@ -4,12 +4,11 @@ import com.depromeet.dgdg.domain.domain.BaseTimeEntity
 import com.depromeet.dgdg.domain.domain.user.User
 import javax.persistence.*
 
-// TODO : 감정 및 운동 카테고리 추가
 @Entity
 class Poster(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    val user: User?,
+    var user: User,
 
     @Column(nullable = false)
     val imageUrl: String,
@@ -25,4 +24,14 @@ class Poster(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
 
+    companion object{
+        fun of(user: User, imageUrl: String, originImageUrl: String, emotion: String) : Poster {
+            return Poster(
+                user,
+                imageUrl,
+                originImageUrl,
+                Emotion.valueOf(emotion)
+            )
+        }
+    }
 }
