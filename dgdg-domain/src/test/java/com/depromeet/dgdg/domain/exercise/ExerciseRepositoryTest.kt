@@ -12,6 +12,10 @@ class ExerciseRepositoryTest(
     private val exerciseCategoryRepository: ExerciseCategoryRepository
 ) : FunSpec({
 
+    afterEach {
+        exerciseCategoryRepository.deleteAll()
+    }
+
     context("findRootCategories") {
         test("저장된 루트 카테고리를 모두 조회한다") {
             // given
