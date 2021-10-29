@@ -5,6 +5,5 @@ spring:
         show_sql: true
         format_sql: true
         use_sql_comments: true
-        dialect: org.hibernate.dialect.PostgreSQL10Dialect
   profiles:
     active: local
