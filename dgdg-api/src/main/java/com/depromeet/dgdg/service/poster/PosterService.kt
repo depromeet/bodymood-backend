@@ -31,9 +31,6 @@ class PosterService (
     @Transactional(readOnly = true)
     fun getPosterPhotos(userId: Long, page: Pageable): List<PosterPhotoResponse> {
         val posters: List<Poster> = posterRepository.findPosters(userId, page)
-        if(posters.isEmpty())
-            throw NotFoundException("${userId}에 해당하는 포스터가 존재하지 않습니다")
-
         return posters.map { PosterPhotoResponse.of(it) }
     }
 

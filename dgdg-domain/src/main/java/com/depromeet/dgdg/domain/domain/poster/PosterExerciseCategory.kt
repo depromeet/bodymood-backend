@@ -6,11 +6,11 @@ import javax.persistence.*
 
 @Entity
 class PosterExerciseCategory(
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "poster_id")
     val poster: Poster,
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "exercise_category_id")
     val exerciseCategory: ExerciseCategory
 
