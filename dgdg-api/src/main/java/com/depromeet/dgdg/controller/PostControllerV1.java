@@ -5,13 +5,9 @@ import com.depromeet.dgdg.config.auth.UserId;
 import com.depromeet.dgdg.controller.dto.response.BaseResponse;
 import com.depromeet.dgdg.controller.poster.dto.PosterDetail;
 import com.depromeet.dgdg.controller.poster.dto.PosterRequest;
-import com.depromeet.dgdg.controller.poster.dto.PosterResponse;
-import com.depromeet.dgdg.domain.domain.poster.Poster;
 import com.depromeet.dgdg.service.PostService;
 import com.depromeet.dgdg.service.upload.S3Service;
-import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;

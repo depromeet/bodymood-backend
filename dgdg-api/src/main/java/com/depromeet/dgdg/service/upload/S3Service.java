@@ -1,6 +1,5 @@
 package com.depromeet.dgdg.service.upload;
 
-import com.amazonaws.Response;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 import com.amazonaws.util.IOUtils;

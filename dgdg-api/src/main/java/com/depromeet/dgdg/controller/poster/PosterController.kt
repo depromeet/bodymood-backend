@@ -45,7 +45,7 @@ class PosterController(
     fun makePoster(
         @UserId userId: Long,
         @ModelAttribute request: PosterRequest
-    ): BaseResponse<PosterResponse>{
+    ): BaseResponse<PosterResponse> {
         // S3 이미지 저장
         val posterUrl = s3Service.upload(request.posterImage)
         val originUrl = s3Service.upload(request.originImage)
