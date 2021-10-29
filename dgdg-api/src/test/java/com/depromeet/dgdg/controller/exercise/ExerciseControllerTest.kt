@@ -17,7 +17,7 @@ class ExerciseControllerTest(
     private val exerciseCategoryRepository: ExerciseCategoryRepository
 ) : FunSpec({
 
-    afterEach {
+    afterTest {
         exerciseCategoryRepository.deleteAll()
     }
 

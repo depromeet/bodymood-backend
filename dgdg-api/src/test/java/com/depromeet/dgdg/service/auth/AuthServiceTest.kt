@@ -20,11 +20,11 @@ import org.springframework.boot.test.context.SpringBootTest
 internal class AuthServiceTest(
     private val authTokenProvider: AuthTokenProvider<AuthTokenPayload>,
     private val authService: AuthService,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ) : FunSpec({
 
-    afterEach {
-        userRepository.deleteAll()
+    afterTest {
+        userRepository.deleteAllInBatch()
     }
 
     val user = UserCreator.create(

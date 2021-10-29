@@ -17,7 +17,7 @@ internal class UserServiceTest(
     private val userRepository: UserRepository
 ) : FunSpec({
 
-    afterEach {
+    afterTest {
         userRepository.deleteAll()
     }
 
