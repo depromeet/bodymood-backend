@@ -1,7 +1,6 @@
 package com.depromeet.dgdg.service.user
 
 import com.depromeet.dgdg.common.exception.NotFoundException
-import com.depromeet.dgdg.domain.domain.poster.repository.PosterExerciseCategoryRepository
 import com.depromeet.dgdg.domain.domain.user.SocialProvider
 import com.depromeet.dgdg.domain.domain.user.UserCreator
 import com.depromeet.dgdg.domain.domain.user.repository.UserRepository
@@ -16,12 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest
 internal class UserServiceTest(
     private val userService: UserService,
     private val userRepository: UserRepository,
-//    private val posterExerciseCategoryRepository: PosterExerciseCategoryRepository
 ) : FunSpec({
 
     afterEach {
         userRepository.deleteAll()
-//        posterExerciseCategoryRepository.deleteAll()
     }
 
     val user = UserCreator.create(
