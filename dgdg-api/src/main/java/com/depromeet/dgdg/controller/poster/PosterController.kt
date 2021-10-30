@@ -57,4 +57,30 @@ class PosterController(
 
         return BaseResponse.success(poster)
     }
+
+    @Operation(summary = "포스터 수정")
+    @RequiredAuth
+    @PutMapping("/api/v1/posters/{posterId}")
+    fun modifyPoster(
+        @UserId userId: Long,
+        @ModelAttribute newRequest: PosterRequest,
+        @PathVariable posterId: Long
+    ): BaseResponse<PosterResponse> {
+        val newPosterUrl = s3Service.upload(newRequest.posterImage)
+        val originUrl = s3Service.upload(newRequest.originImage)
+
+        val detail = PosterDetail.of(newRequest.emotion, newRequest.categories)
+
+        return BaseResponse.success(posterService.modifyPoster(userId, posterId, newPosterUrl, originUrl, detail)
+        )
+
+    }
+
+    @Operation(summary = "포스터 삭제")
+    @RequiredAuth
+    @DeleteMapping("/api/v1/posters/{posterId}")
+    fun deletePoster(@PathVariable posterId: Long, @UserId userId: Long): BaseResponse<Unit>? {
+        return BaseResponse.success(posterService.deletePoster(userId, posterId))
+    }
 }
+

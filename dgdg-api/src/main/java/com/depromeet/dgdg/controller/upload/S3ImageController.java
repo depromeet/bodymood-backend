@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 @AllArgsConstructor
 public class S3ImageController {
@@ -15,8 +17,7 @@ public class S3ImageController {
     private final S3Service s3Service;
 
     @PostMapping("/api/v1/upload/images")
-    public BaseResponse<String> upload(@RequestPart(value = "images") MultipartFile images) {
+    public BaseResponse<String> upload(@RequestPart(value = "images") MultipartFile images) throws IOException {
         return BaseResponse.success(s3Service.upload(images));
     }
-
 }
