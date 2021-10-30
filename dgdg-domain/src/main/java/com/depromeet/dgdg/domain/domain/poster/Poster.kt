@@ -40,7 +40,7 @@ class Poster(
         }
     }
 
-    fun updatePoster(@NotNull newImageUrl: String) {
+    fun updatePoster(newImageUrl: String) {
         imageUrl = newImageUrl
     }
 }
