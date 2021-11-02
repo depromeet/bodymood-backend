@@ -2,9 +2,8 @@ package com.depromeet.dgdg.controller.advice
 
 import com.depromeet.dgdg.common.ErrorCode.*
 import com.depromeet.dgdg.common.exception.DgDgBaseException
+import com.depromeet.dgdg.common.utils.logger
 import com.depromeet.dgdg.controller.dto.response.BaseResponse
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.BindException
@@ -16,9 +15,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
 class ControllerExceptionAdvice {
-
-    private val log: Logger
-        get() = LoggerFactory.getLogger(ControllerExceptionAdvice::class.java)
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException::class)
@@ -56,6 +52,10 @@ class ControllerExceptionAdvice {
         log.error(exception.message, exception)
         return ResponseEntity.internalServerError()
             .body(BaseResponse.error(INTERNAL_SERVER_EXCEPTION.code, INTERNAL_SERVER_EXCEPTION.message))
+    }
+
+    companion object {
+        private val log = logger()
     }
 
 }

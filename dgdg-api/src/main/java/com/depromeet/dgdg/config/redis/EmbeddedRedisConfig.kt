@@ -1,8 +1,7 @@
 package com.depromeet.dgdg.config.redis
 
 import com.depromeet.dgdg.common.utils.ProcessUtils.findAvailableRandomPort
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import com.depromeet.dgdg.common.utils.logger
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
@@ -18,9 +17,6 @@ class EmbeddedRedisConfig(
     private val property: RedisProperty,
 ) {
 
-    private val logger: Logger
-        get() = LoggerFactory.getLogger(EmbeddedRedisConfig::class.java)
-
     private lateinit var redisServer: RedisServer
     private var port: Int = 0
 
@@ -30,7 +26,7 @@ class EmbeddedRedisConfig(
         redisServer = RedisServer(port)
         redisServer.run {
             this.start()
-            logger.info("임베디드 레디스 서버가 기동되었습니다. port: $port")
+            log.info("임베디드 레디스 서버가 기동되었습니다. port: $port")
         }
     }
 
@@ -38,13 +34,17 @@ class EmbeddedRedisConfig(
     fun stopRedis() {
         redisServer.run {
             this.stop()
-            logger.info("임베디드 레디스 서버가 종료됩니다. port: $port")
+            log.info("임베디드 레디스 서버가 종료됩니다. port: $port")
         }
     }
 
     @Bean
     fun embeddedRedisConnectionFactory(): RedisConnectionFactory {
         return LettuceConnectionFactory(property.host, port)
+    }
+
+    companion object {
+        private val log = logger()
     }
 
 }
