@@ -4,7 +4,7 @@ import com.depromeet.dgdg.common.exception.NotFoundException
 import com.depromeet.dgdg.domain.domain.user.SocialProvider
 import com.depromeet.dgdg.domain.domain.user.UserCreator
 import com.depromeet.dgdg.domain.domain.user.repository.UserRepository
-import com.depromeet.dgdg.service.user.dto.request.UserRequest
+import com.depromeet.dgdg.service.user.dto.request.UpdateUserInfoRequest
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -33,7 +33,7 @@ internal class UserServiceTest(
             // given
             userRepository.save(user)
 
-            val request = UserRequest("will", "https://will.profile.com")
+            val request = UpdateUserInfoRequest("will", "https://will.profile.com")
 
             // when
             userService.updateUserInfo(request, user.id)
@@ -41,16 +41,18 @@ internal class UserServiceTest(
             // then
             val users = userRepository.findAll()
             users shouldHaveSize 1
-            users[0].name shouldBe request.name
-            users[0].profileUrl shouldBe request.profileUrl
-            users[0].socialId shouldBe user.socialId
-            users[0].socialProvider shouldBe user.socialProvider
+            users[0].also {
+                it.name shouldBe request.name
+                it.profileUrl shouldBe request.profileUrl
+                it.socialId shouldBe user.socialId
+                it.socialProvider shouldBe user.socialProvider
+            }
         }
 
         test("존재하지 않는 유저인 경우 NotFound 에러 발생") {
             // given
             val userId = 999L
-            val request = UserRequest("will", "https://will.profile.com")
+            val request = UpdateUserInfoRequest("will", "https://will.profile.com")
 
             // when & then
             assertThatThrownBy {

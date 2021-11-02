@@ -44,8 +44,7 @@ class AppleLoginService(
 
     private fun signUpAppleUser(appleId: String): User {
         val newUser = User.newAppleInstance(appleId)
-        return userRepository.save(newUser)?:
-            throw IllegalArgumentException("APPLE 을 통한 신규 회원 가입에 실패했습니다")
+        return userRepository.save(newUser)
     }
 }
 

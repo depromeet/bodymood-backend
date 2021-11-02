@@ -23,8 +23,10 @@ internal class JwtAuthTokenProviderTest(
             val token = authTokenProvider.createAccessToken(AuthTokenPayload(userId))
 
             // then
-            token shouldNotBe null
-            token shouldStartWith "ey"
+            with(token) {
+                this shouldNotBe null
+                this shouldStartWith "ey"
+            }
         }
     }
 
@@ -56,8 +58,10 @@ internal class JwtAuthTokenProviderTest(
             val refreshToken = authTokenProvider.createRefreshToken()
 
             // then
-            refreshToken shouldNotBe null
-            refreshToken shouldStartWith "ey"
+            with(refreshToken) {
+                this shouldNotBe null
+                this shouldStartWith "ey"
+            }
         }
     }
 

@@ -46,7 +46,9 @@ internal class AuthServiceTest(
             // then
             val users = userRepository.findAll()
             users shouldHaveSize 1
-            users[0].refreshToken shouldBe null
+            users[0].also {
+                it.refreshToken shouldBe null
+            }
         }
 
         test("해당하는 유저가 존재하지 않는 경우 404 에러가 발생한다") {
@@ -66,8 +68,10 @@ internal class AuthServiceTest(
             val accessToken = authService.refreshAccessToken(RefreshTokenRequest(refreshToken))
 
             // then
-            accessToken shouldNotBe null
-            accessToken shouldStartWith "ey"
+            accessToken.also {
+                it shouldNotBe null
+                it shouldStartWith "ey"
+            }
         }
 
         test("유효하지 않은 RefreshToken인 경우 401 에러가 발생한다") {

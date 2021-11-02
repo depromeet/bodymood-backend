@@ -8,7 +8,7 @@ import io.kotest.matchers.shouldBe
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class ExerciseRepositoryTest(
+internal class ExerciseRepositoryTest(
     private val exerciseCategoryRepository: ExerciseCategoryRepository
 ) : FunSpec({
 
@@ -29,13 +29,15 @@ class ExerciseRepositoryTest(
 
             // then
             categories shouldHaveSize 1
-            categories[0].englishName shouldBe "Shoulder"
-            categories[0].koreanName shouldBe "어깨"
-            categories[0].depth shouldBe 1
+            categories[0].also {
+                it.englishName shouldBe "Shoulder"
+                it.koreanName shouldBe "어깨"
+                it.depth shouldBe 1
 
-            categories[0].childrenCategories shouldHaveSize 1
-            categories[0].childrenCategories[0].englishName shouldBe "Back fly"
-            categories[0].childrenCategories[0].depth shouldBe 2
+                it.childrenCategories shouldHaveSize 1
+                it.childrenCategories[0].englishName shouldBe "Back fly"
+                it.childrenCategories[0].depth shouldBe 2
+            }
         }
     }
 

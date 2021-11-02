@@ -31,25 +31,34 @@ internal class ExerciseCategoryTest : FunSpec({
             val rootCategory = ExerciseCategory.newRootCategory(englishName, koreanName)
 
             // then
-            rootCategory.parentCategory shouldBe null
-            rootCategory.englishName shouldBe englishName
-            rootCategory.koreanName shouldBe koreanName
-            rootCategory.depth shouldBe 1
+            rootCategory.also {
+                it.parentCategory shouldBe null
+                it.englishName shouldBe englishName
+                it.koreanName shouldBe koreanName
+                it.depth shouldBe 1
+            }
         }
     }
 
     context("하위 카테고리를 추가한다") {
         test("하위 카테고리를 추가하면 depth가 1더 큰 카테고리가 생성된다") {
             // given
+            val englishName = "2depth"
+            val koreanName = "2뎁스"
+
             val rootCategory = ExerciseCategory.newRootCategory("1depth", "1depth")
 
             // when
-            rootCategory.addChildCategory("2뎁스", "2depth")
+            rootCategory.addChildCategory(englishName, koreanName)
 
             // then
             rootCategory.childrenCategories shouldHaveSize 1
-            rootCategory.childrenCategories[0].englishName shouldBe "2뎁스"
-            rootCategory.childrenCategories[0].depth shouldBe 2
+            rootCategory.childrenCategories[0].also {
+                it.parentCategory shouldBe rootCategory
+                it.englishName shouldBe englishName
+                it.koreanName shouldBe koreanName
+                it.depth shouldBe 2
+            }
         }
 
         test("최대 뎁스인 2를 넘어서 카테고리를 추가 할 수 없다 throws ForbiddenException") {
