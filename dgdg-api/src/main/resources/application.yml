@@ -6,7 +6,7 @@ server:
       force: true
 spring:
   profiles:
-    active: local,local-pg
+    active: local
     include:
       - db
       - jwt
@@ -14,4 +14,3 @@ spring:
       - oauth
       - s3
       - cache
-
