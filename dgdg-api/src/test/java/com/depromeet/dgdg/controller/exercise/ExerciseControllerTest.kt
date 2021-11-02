@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.get
 
 @AutoConfigureMockMvc
 @SpringBootTest
-class ExerciseControllerTest(
+internal class ExerciseControllerTest(
     private val mockMvc: MockMvc,
     private val exerciseCategoryRepository: ExerciseCategoryRepository
 ) : FunSpec({

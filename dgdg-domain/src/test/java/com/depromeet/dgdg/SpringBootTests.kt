@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication
-class SpringBootTests {
+internal class SpringBootTests {
 
     @Test
     fun contextsLoad() {
