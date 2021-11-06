@@ -71,7 +71,7 @@ class JwtAuthTokenProvider(
         try {
             verifier.verify(refreshToken)
         } catch (exception: TokenExpiredException) {
-            throw UnAuthorizedException("token($refreshToken)이 만료되었습니다.")
+            throw JwtTokenExpiredException("token($refreshToken)이 만료되었습니다.")
         } catch (exception: JWTVerificationException) {
             throw UnAuthorizedException("token($refreshToken)을 디코드 하는 중 에러가 발생하였습니다. message: ${exception.message}")
         }
