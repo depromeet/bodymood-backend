@@ -77,6 +77,18 @@ class JwtAuthTokenProvider(
         }
     }
 
+    override fun isValidRefreshToken(refreshToken: String): Boolean {
+        val verifier = JWT.require(Algorithm.HMAC256(jwtProperties.secret))
+            .withIssuer(jwtProperties.issuer)
+            .build()
+        return try {
+            verifier.verify(refreshToken)
+            true
+        } catch (exception: Exception) {
+            false
+        }
+    }
+
     companion object {
         private const val USER_ID = "user_id"
     }

@@ -10,4 +10,6 @@ interface AuthTokenProvider<T> {
 
     fun validateRefreshToken(refreshToken: String)
 
+    fun isValidRefreshToken(refreshToken: String): Boolean
+
 }
