@@ -4,14 +4,19 @@ import com.depromeet.dgdg.common.ErrorCode.*
 import com.depromeet.dgdg.common.exception.DgDgBaseException
 import com.depromeet.dgdg.common.utils.logger
 import com.depromeet.dgdg.controller.dto.response.BaseResponse
+import com.fasterxml.jackson.databind.exc.InvalidFormatException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.validation.BindException
 import org.springframework.web.HttpMediaTypeException
 import org.springframework.web.HttpRequestMethodNotSupportedException
+import org.springframework.web.bind.MissingRequestValueException
+import org.springframework.web.bind.ServletRequestBindingException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
+
 
 @RestControllerAdvice
 class ControllerExceptionAdvice {
@@ -23,18 +28,26 @@ class ControllerExceptionAdvice {
         return BaseResponse.error(BAD_REQUEST_EXCEPTION.code, e.bindingResult.fieldError?.defaultMessage)
     }
 
-    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(
-        HttpRequestMethodNotSupportedException::class
+        HttpMessageNotReadableException::class,
+        InvalidFormatException::class,
+        MissingRequestValueException::class,
+        ServletRequestBindingException::class
     )
+    protected fun handleInvalidFormatException(e: Exception): BaseResponse<Nothing> {
+        log.error(e.message)
+        return BaseResponse.error(BAD_REQUEST_EXCEPTION.code, BAD_REQUEST_EXCEPTION.message)
+    }
+
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
     protected fun handleHttpRequestMethodNotSupportedException(e: HttpRequestMethodNotSupportedException): BaseResponse<Nothing> {
         return BaseResponse.error(METHOD_NOT_ALLOWED_EXCEPTION.code, METHOD_NOT_ALLOWED_EXCEPTION.message)
     }
 
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
-    @ExceptionHandler(
-        HttpMediaTypeException::class
-    )
+    @ExceptionHandler(HttpMediaTypeException::class)
     protected fun handleHttpMediaTypeException(e: HttpMediaTypeException): BaseResponse<Nothing> {
         return BaseResponse.error(UNSUPPORTED_MEDIA_TYPE.code, UNSUPPORTED_MEDIA_TYPE.message)
     }
