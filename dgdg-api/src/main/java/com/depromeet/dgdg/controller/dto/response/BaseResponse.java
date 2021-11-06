@@ -1,5 +1,6 @@
 package com.depromeet.dgdg.controller.dto.response;
 
+import com.depromeet.dgdg.common.ErrorCode;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +22,12 @@ public class BaseResponse<T> {
         return new BaseResponse<>("0000", "성공", data);
     }
 
-    public static <T> BaseResponse<T> error(String code, String message) {
-        return new BaseResponse<>(code, message, null);
+    public static <T> BaseResponse<T> error(ErrorCode errorCode) {
+        return new BaseResponse<>(errorCode.getCode(), errorCode.getMessage(), null);
     }
+
+    public static <T> BaseResponse<T> error(ErrorCode errorCode, String message) {
+        return new BaseResponse<>(errorCode.getCode(), message, null);
+    }
+
 }

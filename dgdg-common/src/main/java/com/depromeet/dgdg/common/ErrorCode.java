@@ -10,6 +10,7 @@ public enum ErrorCode {
 
     // Bad Request
     BAD_REQUEST_EXCEPTION(400, "B001", "잘못된 요청입니다"),
+    BAD_REQUEST_MISSING_REQUIRED_VALUE_EXCEPTION(400, "B002", "필수 값을 입력해주세요"),
 
     // UnAuthorized
     UNAUTHORIZED_EXCEPTION(401, "U001", "잘못된 토큰입니다. 다시 로그인해주세요"),

@@ -3,6 +3,6 @@ package com.depromeet.dgdg.service.auth.dto.request
 import javax.validation.constraints.NotBlank
 
 data class RefreshTokenRequest(
-    @field:NotBlank(message = "refreshToken을 입력해주세요")
+    @field:NotBlank
     val refreshToken: String = ""
 )
