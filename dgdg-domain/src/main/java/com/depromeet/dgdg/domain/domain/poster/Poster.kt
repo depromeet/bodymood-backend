@@ -30,7 +30,7 @@ class Poster(
                 user,
                 imageUrl,
                 originImageUrl,
-                Emotion.valueOf(emotion)
+                Emotion.fromCode(emotion)
             )
         }
     }

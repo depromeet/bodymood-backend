@@ -74,7 +74,7 @@ class ControllerExceptionAdvice {
     fun handleInternalServerException(e: DgDgBaseException): ResponseEntity<BaseResponse<Nothing>> {
         log.error(e.message, e)
         return ResponseEntity.status(e.errorCode.status)
-            .body(BaseResponse.error(e.errorCode))
+            .body(BaseResponse.error(e.errorCode, e.message))
     }
 
     @ExceptionHandler(Exception::class)
