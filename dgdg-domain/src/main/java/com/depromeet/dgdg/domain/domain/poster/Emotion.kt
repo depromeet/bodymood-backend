@@ -1,7 +1,9 @@
 package com.depromeet.dgdg.domain.domain.poster
 
+import com.depromeet.dgdg.common.exception.NotFoundException
 import com.depromeet.dgdg.domain.domain.poster.Emotion.FontColor.BLACK
 import com.depromeet.dgdg.domain.domain.poster.Emotion.FontColor.WHITE
+import java.lang.IllegalArgumentException
 
 enum class Emotion(
     val englishTitle: String,
@@ -36,4 +38,14 @@ enum class Emotion(
         BLACK("#000000")
     }
 
+    companion object{
+        @JvmStatic
+        fun fromCode(code: String): Emotion {
+            return try {
+                valueOf(code)
+            }catch (e : IllegalArgumentException){
+                throw NotFoundException("${code}에 해당하는 Emotion이 존재하지 않습니다")
+            }
+        }
+    }
 }

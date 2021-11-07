@@ -7,6 +7,7 @@ import com.depromeet.dgdg.controller.poster.dto.PosterDetail
 import com.depromeet.dgdg.controller.poster.dto.PosterRequest
 import com.depromeet.dgdg.controller.poster.dto.PosterResponse
 import com.depromeet.dgdg.service.poster.PosterService
+import com.depromeet.dgdg.service.poster.dto.PagePosterPhotoResponse
 import com.depromeet.dgdg.service.poster.dto.PosterPhotoResponse
 import com.depromeet.dgdg.service.upload.S3Service
 import io.swagger.v3.oas.annotations.Operation
@@ -34,7 +35,7 @@ class PosterController(
         @UserId userId: Long,
         @Parameter(description = "페이지", required = true) @RequestParam page: Int,
         @Parameter(description = "개수", required = true) @RequestParam size: Int
-    ): BaseResponse<List<PosterPhotoResponse>> {
+    ) : BaseResponse<PagePosterPhotoResponse>  {
         val pageRequest = PageRequest.of(page, size)
         return BaseResponse.success(posterService.getPosterPhotos(userId, pageRequest))
     }
