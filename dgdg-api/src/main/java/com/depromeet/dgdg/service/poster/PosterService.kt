@@ -33,7 +33,7 @@ class PosterService (
     fun getPosterPhotos(userId: Long, page: Pageable): PagePosterPhotoResponse {
         val result = posterRepository.findPosters(userId, page)
         val posters = result.content.map { PosterPhotoResponse.of(it) }
-        return PagePosterPhotoResponse(result.totalElements, posters)
+        return PagePosterPhotoResponse(result.totalElements, result.totalPages, result.number, posters)
     }
 
     @Transactional

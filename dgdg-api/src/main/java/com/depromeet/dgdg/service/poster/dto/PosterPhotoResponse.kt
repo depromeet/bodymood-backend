@@ -23,5 +23,7 @@ data class PosterPhotoResponse (
 
 data class PagePosterPhotoResponse(
     val totalCount: Long,
+    val pageTotalCount: Int,
+    val pagePosition: Int,
     val posters: List<PosterPhotoResponse>
 )
