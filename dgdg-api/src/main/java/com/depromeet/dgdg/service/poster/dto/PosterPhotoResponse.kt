@@ -8,10 +8,10 @@ data class PosterPhotoResponse (
     val photoId: Long,
     val imageUrl: String,
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:SSS'Z'")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     val createdAt: LocalDateTime,
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:SSS'Z'")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     val updatedAt: LocalDateTime
 ){
     companion object {
