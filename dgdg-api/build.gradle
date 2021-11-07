@@ -19,6 +19,7 @@ dependencies {
 
     //swagger
     implementation ("org.springdoc:springdoc-openapi-ui:${springdocVersion}")
+    implementation ("org.springdoc:springdoc-openai-kotlin:${springdocVersion}")
 
     // jwt
     implementation ("com.auth0:java-jwt:${jwtVersionVersion}")
