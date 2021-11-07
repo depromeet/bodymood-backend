@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import org.springframework.data.domain.PageRequest
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 class PosterController(
@@ -45,7 +46,7 @@ class PosterController(
     @PostMapping("/api/v1/posters")
     fun makePoster(
         @UserId userId: Long,
-        @ModelAttribute request: PosterRequest
+        @Valid @ModelAttribute request: PosterRequest
     ): BaseResponse<PosterResponse>{
         // S3 이미지 저장
         val posterUrl = s3Service.upload(request.posterImage)
