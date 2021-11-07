@@ -1,7 +1,5 @@
 package com.depromeet.dgdg.domain.domain.user;
 
-
-import com.depromeet.dgdg.common.ErrorCode;
 import com.depromeet.dgdg.common.exception.BadRequestException;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -11,6 +9,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.regex.Pattern;
+
+import static com.depromeet.dgdg.common.ErrorCode.BAD_REQUEST_WRONG_EMAIL_FORMAT_EXCEPTION;
 
 @Getter
 @EqualsAndHashCode
@@ -30,7 +30,7 @@ public class Email {
 
     private void validateFormat(String email) {
         if (!EMAIL_REGEX.matcher(email).matches()) {
-            throw new BadRequestException(String.format("(%s)은 이메일 포맷에 맞지 않습니다", email), ErrorCode.BAD_REQUEST_EXCEPTION);
+            throw new BadRequestException(String.format("(%s)은 이메일 포맷에 맞지 않습니다", email), BAD_REQUEST_WRONG_EMAIL_FORMAT_EXCEPTION);
         }
     }
 
