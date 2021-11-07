@@ -14,3 +14,7 @@ spring:
       - oauth
       - s3
       - cache
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
