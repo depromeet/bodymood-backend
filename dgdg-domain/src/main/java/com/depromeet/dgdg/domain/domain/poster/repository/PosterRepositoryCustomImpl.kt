@@ -1,6 +1,7 @@
 package com.depromeet.dgdg.domain.domain.poster.repository
 
 import com.depromeet.dgdg.domain.domain.poster.Poster
+import com.depromeet.dgdg.domain.domain.poster.PosterStatus
 import com.depromeet.dgdg.domain.domain.poster.QPoster.poster
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.domain.Page
@@ -15,19 +16,33 @@ class PosterRepositoryCustomImpl(
         return queryFactory.selectFrom(poster)
             .where(
                 poster.id.eq(posterId),
-                poster.user.id.eq(userId)
+                poster.user.id.eq(userId),
+                poster.posterStatus.eq(PosterStatus.ACTIVE)
             )
             .fetchOne()
     }
 
     override fun findPosters(userId: Long, pageable: Pageable): Page<Poster> {
         val posters = queryFactory.selectFrom(poster)
-            .where(poster.user.id.eq(userId))
+            .where(
+                poster.user.id.eq(userId),
+                poster.posterStatus.eq(PosterStatus.ACTIVE)
+            )
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
             .orderBy(poster.updatedAt.desc())
             .fetchResults()
 
-        return PageImpl<Poster>(posters.results, pageable, posters.total)
+        return PageImpl(posters.results, pageable, posters.total)
     }
+
+    override fun findActivePostersByIdAndUserId(posterIds: List<Long>, userId: Long): List<Poster> {
+        return queryFactory.selectFrom(poster)
+            .where(
+                poster.id.`in`(posterIds),
+                poster.user.id.eq(userId),
+                poster.posterStatus.eq(PosterStatus.ACTIVE)
+            ).fetch()
+    }
+
 }

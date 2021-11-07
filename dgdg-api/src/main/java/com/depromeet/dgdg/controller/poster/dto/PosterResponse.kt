@@ -9,7 +9,7 @@ data class PosterResponse(
     val categories: List<Long>
 ){
     companion object{
-        fun of(poster: Poster, categories: List<Long>) : PosterResponse {
+        fun of(poster: Poster, categories: List<Long>): PosterResponse {
             return PosterResponse(poster.id, poster.imageUrl, poster.emotion.name, categories)
         }
     }

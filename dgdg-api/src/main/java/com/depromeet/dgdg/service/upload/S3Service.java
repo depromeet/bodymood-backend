@@ -15,7 +15,6 @@ import java.io.IOException;
 @AllArgsConstructor
 @Service
 public class S3Service {
-
     private AmazonS3 amazonS3;
 
     private S3Properties s3Properties;

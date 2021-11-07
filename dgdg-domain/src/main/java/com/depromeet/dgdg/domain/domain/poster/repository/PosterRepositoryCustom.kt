@@ -7,4 +7,5 @@ import org.springframework.data.domain.Pageable
 interface PosterRepositoryCustom {
     fun findPosterById(userId: Long, posterId: Long): Poster?
     fun findPosters(userId: Long, pageable: Pageable): Page<Poster>
+    fun findActivePostersByIdAndUserId(posterIds: List<Long>, userId: Long): List<Poster>
 }
