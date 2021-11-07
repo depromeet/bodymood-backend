@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank
 
 data class AuthRequest(
     @field:NotBlank
-    val accessToken: String
+    val accessToken: String = ""
 )
 
 data class AppleAuthHeader(
