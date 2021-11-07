@@ -1,5 +1,6 @@
 package com.depromeet.dgdg.domain.domain.exercise
 
+import com.depromeet.dgdg.common.ErrorCode.FORBIDDEN_EXERCISE_CATEGORY_DEPTH_EXCEPTION
 import com.depromeet.dgdg.common.exception.ForbiddenException
 import com.depromeet.dgdg.domain.domain.BaseTimeEntity
 import javax.persistence.*
@@ -21,7 +22,7 @@ class ExerciseCategory(
 
     init {
         if (depth !in MIN_DEPTH..MAX_DEPTH) {
-            throw ForbiddenException("depth (${depth})는 (${MIN_DEPTH} ~ ${MAX_DEPTH}) 사이에서만 허용됩니다")
+            throw ForbiddenException("depth (${depth})는 (${MIN_DEPTH} ~ ${MAX_DEPTH}) 사이에서만 허용됩니다", FORBIDDEN_EXERCISE_CATEGORY_DEPTH_EXCEPTION)
         }
     }
 
