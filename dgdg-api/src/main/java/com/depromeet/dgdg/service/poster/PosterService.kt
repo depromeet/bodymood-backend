@@ -1,5 +1,7 @@
 package com.depromeet.dgdg.service.poster
 
+import com.depromeet.dgdg.common.ErrorCode.NOT_FOUND_EXERCISE_CATEGORY_EXCEPTION
+import com.depromeet.dgdg.common.ErrorCode.NOT_FOUND_POSTER_EXCEPTION
 import com.depromeet.dgdg.common.exception.NotFoundException
 import com.depromeet.dgdg.controller.poster.dto.PosterDetail
 import com.depromeet.dgdg.controller.poster.dto.PosterResponse
@@ -16,7 +18,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class PosterService (
+class PosterService(
     private val posterRepository: PosterRepository,
     private val userRepository: UserRepository,
     private val exerciseCategoryRepository: ExerciseCategoryRepository,
@@ -24,8 +26,10 @@ class PosterService (
 ) {
     @Transactional(readOnly = true)
     fun getPosterById(userId: Long, posterId: Long): PosterPhotoResponse {
-        val poster : Poster = posterRepository.findPosterById(userId, posterId) ?:
-            throw NotFoundException("userId: ${userId}에 해당하는 포스터 (posterId: ${posterId}) 가 존재하지 않습니다")
+        val poster: Poster = posterRepository.findPosterById(userId, posterId) ?: throw NotFoundException(
+            "userId: ${userId}에 해당하는 포스터 (posterId: ${posterId}) 가 존재하지 않습니다",
+            NOT_FOUND_POSTER_EXCEPTION
+        )
         return PosterPhotoResponse.of(poster)
     }
 
@@ -37,7 +41,7 @@ class PosterService (
     }
 
     @Transactional
-    fun makePoster(userId: Long, posterUrl: String, originUrl: String, request: PosterDetail) : PosterResponse {
+    fun makePoster(userId: Long, posterUrl: String, originUrl: String, request: PosterDetail): PosterResponse {
 
         // 포스터 저장
         val user = userRepository.findUserByIdFetchJoinPoster(userId)
@@ -47,7 +51,12 @@ class PosterService (
         // 포스터에 따른 운동 카테고리 저장
         request.categories.map {
             val exerciseCategory = exerciseCategoryRepository.findById(it)
-                .orElseGet { throw NotFoundException("exerciseCategory: ${it}에 해당하는 운동 카테고리가 존재하지 않습니다")  }
+                .orElseGet {
+                    throw NotFoundException(
+                        "exerciseCategory: ${it}에 해당하는 운동 카테고리가 존재하지 않습니다",
+                        NOT_FOUND_EXERCISE_CATEGORY_EXCEPTION
+                    )
+                }
 
             posterExerciseCategoryRepository.save(
                 PosterExerciseCategory.of(poster, exerciseCategory)

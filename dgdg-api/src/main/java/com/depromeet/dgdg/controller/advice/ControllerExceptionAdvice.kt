@@ -6,6 +6,7 @@ import com.depromeet.dgdg.common.utils.logger
 import com.depromeet.dgdg.controller.dto.response.BaseResponse
 import com.fasterxml.jackson.databind.exc.InvalidFormatException
 import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
+import org.slf4j.Logger
 import org.springframework.beans.TypeMismatchException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -74,7 +75,7 @@ class ControllerExceptionAdvice {
     fun handleInternalServerException(e: DgDgBaseException): ResponseEntity<BaseResponse<Nothing>> {
         log.error(e.message, e)
         return ResponseEntity.status(e.errorCode.status)
-            .body(BaseResponse.error(e.errorCode, e.message))
+            .body(BaseResponse.error(e.errorCode, e.errorCode.message))
     }
 
     @ExceptionHandler(Exception::class)
@@ -86,7 +87,7 @@ class ControllerExceptionAdvice {
     }
 
     companion object {
-        private val log = logger()
+        private val log: Logger = logger()
     }
 
 }

@@ -7,21 +7,21 @@ import javax.validation.constraints.NotNull
 
 
 data class PosterRequest(
-    @get:NotNull
-    val posterImage: MultipartFile,
-    @get:NotNull
-    val originImage: MultipartFile,
-    @get:NotNull @get:NotBlank
-    val emotion: String,
-    @get:NotNull @get:NotEmpty
+    @field:NotNull
+    val posterImage: MultipartFile?,
+    @field:NotNull
+    val originImage: MultipartFile?,
+    @field:NotBlank
+    val emotion: String = "",
+    @field:NotEmpty
     val categories: List<Long> = mutableListOf()
 )
 
 
 data class PosterDetail(
-    @get:NotNull @get:NotBlank
-    val emotion: String,
-    @get:NotNull @get:NotEmpty
+    @field:NotBlank
+    val emotion: String = "",
+    @field:NotEmpty
     val categories: List<Long> = mutableListOf()
 ){
     companion object {

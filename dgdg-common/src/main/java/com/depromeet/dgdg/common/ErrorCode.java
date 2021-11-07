@@ -25,6 +25,8 @@ public enum ErrorCode {
     // NotFound
     NOT_FOUND_EXCEPTION(404, "N001", "존재하지 않습니다"),
     NOT_FOUND_USER_EXCEPTION(404, "N002", "존재하지 않는 유저입니다"),
+    NOT_FOUND_EXERCISE_CATEGORY_EXCEPTION(404, "N003", "존재하지 않는 운동 카테고리입니다"),
+    NOT_FOUND_POSTER_EXCEPTION(404, "N004", "존재하지 않는 포스터입니다"),
 
     // Method Not Allowed
     METHOD_NOT_ALLOWED_EXCEPTION(405, "M001", "Method Not allowed"),
