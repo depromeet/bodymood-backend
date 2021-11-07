@@ -35,4 +35,14 @@ class PosterRepositoryCustomImpl(
 
         return PageImpl(posters.results, pageable, posters.total)
     }
+
+    override fun findActivePostersByIdAndUserId(posterIds: List<Long>, userId: Long): List<Poster> {
+        return queryFactory.selectFrom(poster)
+            .where(
+                poster.id.`in`(posterIds),
+                poster.user.id.eq(userId),
+                poster.posterStatus.eq(PosterStatus.ACTIVE)
+            ).fetch()
+    }
+
 }

@@ -75,6 +75,14 @@ class PosterService(
         val poster = findPosterById(posterRepository, userId, posterId)
         poster.delete()
     }
+
+    @Transactional
+    fun deletePosters(posterIds: List<Long>, userId: Long) {
+        val posters = posterRepository.findActivePostersByIdAndUserId(posterIds, userId)
+        for (poster in posters) {
+            poster.delete()
+        }
+    }
 }
 
 fun findPosterById(posterRepository: PosterRepository, userId: Long, posterId: Long): Poster {
