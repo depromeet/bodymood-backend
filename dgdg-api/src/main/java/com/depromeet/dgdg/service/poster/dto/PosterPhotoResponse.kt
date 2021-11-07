@@ -1,12 +1,17 @@
 package com.depromeet.dgdg.service.poster.dto
 
 import com.depromeet.dgdg.domain.domain.poster.Poster
+import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.LocalDateTime
 
 data class PosterPhotoResponse (
     val photoId: Long,
     val imageUrl: String,
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:SSS'Z'")
     val createdAt: LocalDateTime,
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:SSS'Z'")
     val updatedAt: LocalDateTime
 ){
     companion object {
