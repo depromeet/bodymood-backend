@@ -9,6 +9,7 @@ import com.depromeet.dgdg.domain.domain.poster.PosterExerciseCategory
 import com.depromeet.dgdg.domain.domain.poster.PosterRepository
 import com.depromeet.dgdg.domain.domain.poster.repository.PosterExerciseCategoryRepository
 import com.depromeet.dgdg.domain.domain.user.repository.UserRepository
+import com.depromeet.dgdg.service.poster.dto.PagePosterPhotoResponse
 import com.depromeet.dgdg.service.poster.dto.PosterPhotoResponse
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -29,9 +30,10 @@ class PosterService (
     }
 
     @Transactional(readOnly = true)
-    fun getPosterPhotos(userId: Long, page: Pageable): List<PosterPhotoResponse> {
-        val posters: List<Poster> = posterRepository.findPosters(userId, page)
-        return posters.map { PosterPhotoResponse.of(it) }
+    fun getPosterPhotos(userId: Long, page: Pageable): PagePosterPhotoResponse {
+        val result = posterRepository.findPosters(userId, page)
+        val posters = result.content.map { PosterPhotoResponse.of(it) }
+        return PagePosterPhotoResponse(result.totalElements, posters)
     }
 
     @Transactional

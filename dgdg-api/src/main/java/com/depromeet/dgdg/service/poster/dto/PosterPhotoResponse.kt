@@ -20,3 +20,8 @@ data class PosterPhotoResponse (
         }
     }
 }
+
+data class PagePosterPhotoResponse(
+    val totalCount: Long,
+    val posters: List<PosterPhotoResponse>
+)
