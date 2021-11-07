@@ -26,10 +26,7 @@ class PosterService(
 ) {
     @Transactional(readOnly = true)
     fun getPosterById(userId: Long, posterId: Long): PosterPhotoResponse {
-        val poster: Poster = posterRepository.findPosterById(userId, posterId) ?: throw NotFoundException(
-            "userId: ${userId}에 해당하는 포스터 (posterId: ${posterId}) 가 존재하지 않습니다",
-            NOT_FOUND_POSTER_EXCEPTION
-        )
+        val poster = findPosterById(posterRepository, userId, posterId)
         return PosterPhotoResponse.of(poster)
     }
 
@@ -68,16 +65,19 @@ class PosterService(
 
     @Transactional
     fun modifyPoster(userId: Long, posterId: Long ,newPosterUrl: String, originUrl: String, newRequest: PosterDetail): PosterResponse? {
-        val newPoster = posterRepository.findPosterById(userId, posterId) ?:
-        throw NotFoundException("userId: ${userId}에 해당하는 포스터 (posterId: ${posterId}) 가 존재하지 않습니다")
-        newPoster.updatePoster(newPosterUrl)
-        return newPoster.let { PosterResponse.of(it, newRequest.categories) }
+        val poster = findPosterById(posterRepository, userId, posterId)
+        poster.updatePoster(newPosterUrl)
+        return poster.let { PosterResponse.of(it, newRequest.categories) }
     }
 
     @Transactional
     fun deletePoster(userId: Long, posterId: Long) {
-        val poster : Poster = posterRepository.findPosterById(userId, posterId) ?:
-        throw NotFoundException("userId: ${userId}에 해당하는 포스터 (posterId: ${posterId}) 가 존재하지 않습니다")
-        return posterRepository.delete(poster)
+        val poster = findPosterById(posterRepository, userId, posterId)
+        poster.delete()
     }
+}
+
+fun findPosterById(posterRepository: PosterRepository, userId: Long, posterId: Long): Poster {
+    return posterRepository.findPosterById(userId, posterId)
+        ?: throw NotFoundException("userId: ${userId}에 해당하는 포스터 (posterId: ${posterId}) 가 존재하지 않습니다", NOT_FOUND_POSTER_EXCEPTION)
 }

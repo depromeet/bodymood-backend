@@ -63,7 +63,7 @@ class PosterController(
     @PutMapping("/api/v1/posters/{posterId}")
     fun modifyPoster(
         @UserId userId: Long,
-        @ModelAttribute newRequest: PosterRequest,
+        @Valid @ModelAttribute newRequest: PosterRequest,
         @PathVariable posterId: Long
     ): BaseResponse<PosterResponse> {
         val newPosterUrl = s3Service.upload(newRequest.posterImage)
