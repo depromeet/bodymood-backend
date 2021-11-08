@@ -38,7 +38,6 @@ spring:
       jdbc-url: ${jdbc-url}
       username: ${jdbc-username}
       password: ${jdbc-password}
-      maximum-pool-size: 10
       pool-name: local-pg-pool
   jpa:
     hibernate:
@@ -54,7 +53,6 @@ spring:
       jdbc-url: ${jdbc-url}
       username: ${jdbc-username}
       password: ${jdbc-password}
-      maximum-pool-size: 30
       pool-name: dev-pg-pool
   jpa:
     hibernate:
@@ -63,4 +61,15 @@ spring:
 spring:
   config:
     activate:
-      on-profile: real
+      on-profile: prod
+  datasource:
+    hikari:
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: ${jdbc-url}
+      username: ${jdbc-username}
+      password: ${jdbc-password}
+      maximum-pool-size: 30
+      pool-name: prod-pg-pool
+  jpa:
+    hibernate:
+      ddl-auto: none
