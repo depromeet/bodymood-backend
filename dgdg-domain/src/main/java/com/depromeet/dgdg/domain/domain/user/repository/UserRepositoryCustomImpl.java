@@ -1,5 +1,6 @@
 package com.depromeet.dgdg.domain.domain.user.repository;
 
+import com.depromeet.dgdg.domain.domain.poster.PosterStatus;
 import com.depromeet.dgdg.domain.domain.user.SocialProvider;
 import com.depromeet.dgdg.domain.domain.user.User;
 import com.depromeet.dgdg.domain.domain.user.UserStatus;
@@ -51,7 +52,8 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
             .fetchJoin()
             .where(
                 user.id.eq(userId),
-                user.status.eq(UserStatus.ACTIVE)
+                user.status.eq(UserStatus.ACTIVE),
+                poster.posterStatus.eq(PosterStatus.ACTIVE)
             )
             .fetchOne();
     }
