@@ -6,7 +6,9 @@ spring:
     port: 6379
   config:
     activate:
-      on-profile: local,local-pg
+      on-profile:
+        - local
+        - local-pg
 ---
 spring:
   cache:
@@ -16,5 +18,7 @@ spring:
     port: 6379
   config:
     activate:
-      on-profile: dev
+      on-profile:
+        - dev
+        - prod
 

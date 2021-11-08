@@ -23,7 +23,7 @@ aws:
 spring:
   config:
     activate:
-      on-profile: real
+      on-profile: prod
 aws:
   encrypt:
-    secret-name: dgdg/real/secrets
+    secret-name: dgdg/prod/secrets

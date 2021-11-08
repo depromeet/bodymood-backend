@@ -1,0 +1,13 @@
+version: "3"
+services:
+  db:
+    image: postgres:12.8
+    container_name: dgdg-api-db
+    restart: unless-stopped
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: dgdg
+      POSTGRES_PASSWORD: dgdg
+    volumes:
+      - ~/dgdg-api/data/:/var/lib/postgresql/data

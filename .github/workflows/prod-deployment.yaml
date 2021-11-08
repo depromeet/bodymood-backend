@@ -1,14 +1,16 @@
 on:
   push:
-    branches: [develop]
+    branches:
+      - master
+      - feature/production-cicd
 
-name: 개발 서버 ECS 배포
+name: 운영 환경 서버 ECS 배포
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: dev
+    environment: prod
 
     steps:
       - name: Checkout
@@ -22,7 +24,7 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Set semantic version
-        id: dev-version
+        id: prod-version
         run: |
           echo "::set-output name=version::$(cat VERSION)"
 
@@ -34,8 +36,8 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: dev-dgdg-backend
-          IMAGE_TAG: ${{ steps.dev-version.outputs.version }}
+          ECR_REPOSITORY: prod-dgdg-backend
+          IMAGE_TAG: ${{ steps.prod-version.outputs.version }}
         run: |
           docker build --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
@@ -45,7 +47,7 @@ jobs:
       - name: Download task definition
         id: download-task
         run: |
-          aws ecs describe-task-definition --task-definition dgdg-backend-dev-task --query taskDefinition > task-definition.json
+          aws ecs describe-task-definition --task-definition dgdg-backend-prod-task --query taskDefinition > task-definition.json
           echo "::set-output name=revision::$(cat task-definition.json | jq .revision)"
 
       - name: Fill in the new image ID in the Amazon ECS task definition
@@ -60,6 +62,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: dgdg-dev-api
-          cluster: dgdg-dev-backend
+          service: dgdg-prod-api
+          cluster: dgdg-prod-backend
           wait-for-service-stability: true
