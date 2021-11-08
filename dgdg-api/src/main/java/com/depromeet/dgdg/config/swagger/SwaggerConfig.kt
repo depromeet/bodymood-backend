@@ -8,7 +8,9 @@ import io.swagger.v3.oas.models.security.SecurityScheme
 import org.springdoc.core.SpringDocUtils
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 
+@Profile("local", "local-pg", "dev")
 @Configuration
 class SwaggerConfig {
 
@@ -19,7 +21,7 @@ class SwaggerConfig {
                 Components()
                     .addSecuritySchemes(
                         securityKey,
-                        SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")
+                        SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("Bearer").bearerFormat("JWT")
                     )
             )
             .info(

@@ -36,7 +36,7 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: prod-dgdg-backend
+          ECR_REPOSITORY: real-dgdg-backend
           IMAGE_TAG: ${{ steps.prod-version.outputs.version }}
         run: |
           docker build --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
