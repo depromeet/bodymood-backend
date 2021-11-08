@@ -35,9 +35,9 @@ spring:
   datasource:
     hikari:
       driver-class-name: org.postgresql.Driver
-      jdbc-url: ${jdbc-url}
-      username: ${jdbc-username}
-      password: ${jdbc-password}
+      jdbc-url: jdbc:postgresql://localhost:5435/local
+      username: dgdg
+      password: dgdg
       pool-name: local-pg-pool
   jpa:
     hibernate:
