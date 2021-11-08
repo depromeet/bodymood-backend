@@ -60,6 +60,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: dev-dgdg-backend
-          cluster: dgdg-backend
+          service: dgdg-dev-api
+          cluster: dgdg-dev-backend
           wait-for-service-stability: true
