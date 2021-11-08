@@ -12,5 +12,5 @@ public interface UserRepositoryCustom {
 
     User findByRefreshToken(@NotNull String refreshToken);
 
-    User findUserByIdFetchJoinPoster(Long userId);
+    User findActiveUserByIdFetchJoinPoster(Long userId);
 }

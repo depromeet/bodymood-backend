@@ -29,7 +29,8 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
         return queryFactory.selectFrom(user)
             .where(
                 user.socialId.eq(socialId),
-                user.socialProvider.eq(provider)
+                user.socialProvider.eq(provider),
+                user.status.eq(UserStatus.ACTIVE)
             )
             .fetchOne();
     }
@@ -38,16 +39,20 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
     public User findByRefreshToken(@NotNull String refreshToken) {
         return queryFactory.selectFrom(user)
             .where(
-                user.refreshToken.eq(refreshToken)
+                user.refreshToken.eq(refreshToken),
+                user.status.eq(UserStatus.ACTIVE)
             ).fetchOne();
     }
 
     @Override
-    public User findUserByIdFetchJoinPoster(Long userId) {
+    public User findActiveUserByIdFetchJoinPoster(Long userId) {
         return queryFactory.selectFrom(user)
             .leftJoin(user.posters, poster)
             .fetchJoin()
-            .where(user.id.eq(userId))
+            .where(
+                user.id.eq(userId),
+                user.status.eq(UserStatus.ACTIVE)
+            )
             .fetchOne();
     }
 }
