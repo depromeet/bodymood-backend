@@ -2,12 +2,11 @@ package com.depromeet.dgdg.service.auth
 
 import com.depromeet.dgdg.common.exception.NotFoundException
 import com.depromeet.dgdg.common.exception.UnAuthorizedException
-import com.depromeet.dgdg.domain.domain.user.SocialProvider
-import com.depromeet.dgdg.domain.domain.user.UserCreator
 import com.depromeet.dgdg.domain.domain.user.repository.UserRepository
 import com.depromeet.dgdg.provider.token.AuthTokenProvider
 import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload
 import com.depromeet.dgdg.service.auth.dto.request.RefreshTokenRequest
+import com.depromeet.dgdg.utils.setUpUser
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -27,16 +26,10 @@ internal class AuthServiceTest(
         userRepository.deleteAll()
     }
 
-    val user = UserCreator.create(
-        socialId = "social-id",
-        socialProvider = SocialProvider.KAKAO,
-        name = "득근득근",
-        profileUrl = "https://dgdg.profile.com"
-    )
-
     context("로그아웃") {
         test("로그아웃시 유저의 Refresh Token을 삭제한다") {
             // given
+            val user = setUpUser()
             user.updateRefreshToken("Refresh-Token")
             userRepository.save(user)
 
@@ -60,6 +53,7 @@ internal class AuthServiceTest(
     context("액세스 토큰 재발급") {
         test("RefreshToken을 가지고 있는 사용자를 찾아서 액세스 토큰을 재발급한다") {
             // given
+            val user = setUpUser()
             val refreshToken = authTokenProvider.createRefreshToken()
             user.updateRefreshToken(refreshToken)
             userRepository.save(user)
