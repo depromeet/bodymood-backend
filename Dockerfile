@@ -10,4 +10,4 @@ FROM adoptopenjdk/openjdk11:alpine-jre
 ENV HOME=/usr/app
 COPY --from=BUILD $HOME/dgdg-api/build/libs/dgdg-api.jar /dgdg-api.jar
 EXPOSE 7000
-ENTRYPOINT java -jar dgdg-api.jar
+ENTRYPOINT java -jar -Duser.timezone=Asia/Seoul dgdg-api.jar
