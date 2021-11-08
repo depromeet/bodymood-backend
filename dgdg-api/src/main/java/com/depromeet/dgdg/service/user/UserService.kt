@@ -34,7 +34,7 @@ class UserService(
         user.delete()
 
         // user에 매핑된 포스터 삭제
-        user.posters.forEach{ poster -> poster.delete() }
+        user.posters.forEach { poster -> poster.delete() }
     }
 
 }

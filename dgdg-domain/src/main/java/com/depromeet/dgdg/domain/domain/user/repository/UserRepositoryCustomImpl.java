@@ -52,8 +52,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
             .fetchJoin()
             .where(
                 user.id.eq(userId),
-                user.status.eq(UserStatus.ACTIVE),
-                poster.posterStatus.eq(PosterStatus.ACTIVE)
+                user.status.eq(UserStatus.ACTIVE)
             )
             .fetchOne();
     }
