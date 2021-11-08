@@ -8,10 +8,7 @@ import com.depromeet.dgdg.service.user.dto.request.UpdateUserInfoRequest
 import com.depromeet.dgdg.service.user.dto.response.UserInfoResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
@@ -36,6 +33,14 @@ class UserController(
         @UserId userId: Long
     ): BaseResponse<UserInfoResponse> {
         return BaseResponse.success(userService.updateUserInfo(request, userId))
+    }
+
+    @Operation(summary = "유저의 회원 정보를 삭제하는 API (회원탈퇴)", security = [SecurityRequirement(name = "BearerKey")])
+    @DeleteMapping("/api/v1/user/me")
+    @RequiredAuth
+    fun deleteUser(@UserId userId: Long): BaseResponse<Nothing>{
+        userService.deleteUser(userId)
+        return BaseResponse.success(null)
     }
 
 }
