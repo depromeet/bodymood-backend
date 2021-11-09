@@ -11,7 +11,7 @@ import redis.embedded.RedisServer
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
-@Profile("local", "local-pg")
+@Profile("local")
 @Configuration
 class EmbeddedRedisConfig(
     private val property: RedisProperty,
