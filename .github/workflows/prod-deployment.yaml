@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - master
-      - fix/cicd
 
 name: 운영 환경 서버 ECS 배포
 

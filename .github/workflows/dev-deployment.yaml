@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [develop, fix/cicd]
+    branches: [develop]
 
 name: 개발 서버 ECS 배포
 
@@ -25,7 +25,7 @@ jobs:
         id: dev-version
         run: |
           VERSION=`cat ./VERSION`-${{ github.run_id }}
-          echo "::set-output name=version::$(cat VERSION)"
+          echo "::set-output name=version::$VERSION"
 
       - name: Login to Amazon ECR
         id: login-ecr
