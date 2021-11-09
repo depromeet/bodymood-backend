@@ -7,7 +7,7 @@ spring:
   config:
     activate:
       on-profile:
-        - local-pg
+        - local
 ---
 spring:
   cache:
