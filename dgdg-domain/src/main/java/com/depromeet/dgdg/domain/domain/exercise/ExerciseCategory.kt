@@ -7,9 +7,8 @@ import javax.persistence.*
 
 @Entity
 class ExerciseCategory(
-    @Column(name = "parent_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exercise_category_id")
+    @JoinColumn(name = "parent_id")
     val parentCategory: ExerciseCategory?,
 
     @Column(nullable = false)
