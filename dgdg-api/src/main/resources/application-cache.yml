@@ -3,21 +3,11 @@ spring:
     type: redis
   redis:
     host: localhost
-    port: 6379
-  config:
-    activate:
-      on-profile:
-        - local
----
-spring:
-  cache:
-    type: redis
-  redis:
-    host: localhost
     port: 6382
   config:
     activate:
       on-profile:
+        - local
         - local-pg
 ---
 spring:

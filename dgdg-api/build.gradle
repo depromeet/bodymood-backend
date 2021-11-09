@@ -3,8 +3,6 @@ ext {
     jwtVersionVersion = '3.18.2'
     amazonawsVersion = '1.12.79'
     s3Version = '2.2.6.RELEASE'
-
-
 }
 
 dependencies {
@@ -24,14 +22,14 @@ dependencies {
     // jwt
     implementation ("com.auth0:java-jwt:${jwtVersionVersion}")
 
-    // aws
-
+    // secret manager
     implementation ("com.amazonaws:aws-java-sdk-secretsmanager:${amazonawsVersion}")
 
     //s3
     implementation ("org.springframework.cloud:spring-cloud-starter-aws:${s3Version}")
 
-    implementation 'com.amazonaws:aws-java-sdk-secretsmanager:1.12.79'
-
+    // Redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("it.ozimov:embedded-redis:${embeddedRedisVersion}")
 }
 

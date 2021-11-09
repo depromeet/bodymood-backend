@@ -5,7 +5,9 @@ aws:
 spring:
   config:
     activate:
-      on-profile: local,local-pg
+      on-profile:
+        - local
+        - local-pg
 aws:
   encrypt:
     secret-name: dgdg/local/secrets
