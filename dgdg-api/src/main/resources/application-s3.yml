@@ -4,7 +4,7 @@ cloud:
       accessKey: ${aws-access-key}
       secretKey: ${aws-secret-key}
     s3:
-      bucket: dgdg-bucket-dev
+      bucket: ${aws-s3-bucket-name}
     region:
       static: ap-northeast-2
     stack:
