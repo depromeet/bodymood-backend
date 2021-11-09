@@ -56,7 +56,7 @@ spring:
       pool-name: dev-pg-pool
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
 ---
 spring:
   config:
