@@ -7,3 +7,5 @@ spring:
         use_sql_comments: true
   profiles:
     active: local
+  flyway:
+    enabled: false
