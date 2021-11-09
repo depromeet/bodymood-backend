@@ -26,7 +26,9 @@ spring:
       username: sa
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
+  flyway:
+    enabled: false
 ---
 spring:
   config:
@@ -42,6 +44,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  flyway:
+    enabled: false
 ---
 spring:
   config:
