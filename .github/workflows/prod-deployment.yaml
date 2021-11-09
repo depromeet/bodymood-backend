@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - master
+      - develop
 
 name: 운영 환경 서버 ECS 배포
 
