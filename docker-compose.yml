@@ -15,7 +15,9 @@ services:
   redis:
     image: redis
     container_name: dgdg-api-redis
-    command: redis-server --port 6382
+    command: redis-server --port 6379
+    ports:
+      - "6382:6379"
     restart: unless-stopped
     volumes:
       - ~/dgdg-api/redis:/data
