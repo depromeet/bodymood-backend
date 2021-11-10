@@ -1,0 +1,113 @@
+### 포스터 저장
+POST {{host_api}}/api/v1/posters
+Authorization: Bearer {{ACCESS_TOKEN}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="posterImage"; filename="image.jpeg""
+
+< temp/image.jpeg
+--WebAppBoundary
+Content-Disposition: form-data; name="originImage"; filename="image.jpeg""
+
+< temp/image.jpeg
+--WebAppBoundary
+Content-Disposition: form-data; name="emotion"
+
+FURIOUS
+
+--WebAppBoundary
+Content-Disposition: form-data; name="categories"
+
+1
+--WebAppBoundary--
+
+> {%
+client.test("200 OK", function() {
+    client.global.set("POSTER_ID", response.body["data"]["id"])
+    client.assert(response.status === 200, "응답 실패");
+});
+%}
+
+
+
+### 포스트 목록 조회 (페이지네이션)
+GET {{host_api}}/api/v1/posters?page=0&size=30
+Authorization: Bearer {{ACCESS_TOKEN}}
+
+> {%
+client.test("200 OK", function() {
+    client.assert(response.status === 200, "응답 실패");
+});
+%}
+
+
+
+### 포스트 단건 조회
+GET {{host_api}}/api/v1/posters/{{POSTER_ID}}
+Authorization: Bearer {{ACCESS_TOKEN}}
+
+> {%
+client.test("200 OK", function() {
+    client.assert(response.status === 200, "응답 실패");
+});
+%}
+
+
+
+### 포스트 수정
+PUT {{host_api}}/api/v1/posters/{{POSTER_ID}}
+Authorization: Bearer {{ACCESS_TOKEN}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="posterImage"; filename="image.jpeg""
+
+< temp/image.jpeg
+--WebAppBoundary
+Content-Disposition: form-data; name="originImage"; filename="image.jpeg""
+
+< temp/image.jpeg
+--WebAppBoundary
+Content-Disposition: form-data; name="emotion"
+
+JITTERY
+
+--WebAppBoundary
+Content-Disposition: form-data; name="categories"
+
+2
+--WebAppBoundary--
+
+
+> {%
+client.test("200 OK", function() {
+    client.assert(response.status === 200, "응답 실패");
+});
+%}
+
+
+
+
+### 포스터 삭제
+DELETE {{host_api}}/api/v1/posters/{{POSTER_ID}}
+Authorization: Bearer {{ACCESS_TOKEN}}
+
+> {%
+client.test("200 OK", function() {
+    client.assert(response.status === 200, "응답 실패");
+});
+%}
+
+
+
+
+### 포스터 다건 삭제
+DELETE {{host_api}}/api/v1/posters?posterIds=1,{{POSTER_ID}}
+Authorization: Bearer {{ACCESS_TOKEN}}
+
+> {%
+client.test("200 OK", function() {
+    client.assert(response.status === 200, "응답 실패");
+});
+%}
