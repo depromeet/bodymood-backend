@@ -7,11 +7,11 @@ import javax.persistence.*
 @Entity
 class PosterExerciseCategory(
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "poster_id")
+    @JoinColumn(name = "poster_id", nullable = false)
     val poster: Poster,
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "exercise_category_id")
+    @JoinColumn(name = "exercise_category_id", nullable = false)
     val exerciseCategory: ExerciseCategory
 
 ) : BaseTimeEntity() {
@@ -20,9 +20,9 @@ class PosterExerciseCategory(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
 
-    companion object{
+    companion object {
         @JvmStatic
-        fun of(poster:Poster, exerciseCategory: ExerciseCategory): PosterExerciseCategory{
+        fun of(poster: Poster, exerciseCategory: ExerciseCategory): PosterExerciseCategory {
             return PosterExerciseCategory(poster, exerciseCategory)
         }
     }

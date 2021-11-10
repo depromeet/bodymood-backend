@@ -30,7 +30,7 @@ class PosterRepositoryCustomImpl(
             )
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
-            .orderBy(poster.updatedAt.desc())
+            .orderBy(poster.id.desc())
             .fetchResults()
 
         return PageImpl(posters.results, pageable, posters.total)

@@ -16,23 +16,32 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "member")
+@Table(
+    name = "member",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "uni_member_1", columnNames = {"socialId", "socialProvider"})
+    },
+    indexes = {
+        @Index(name = "idx_member_1", columnList = "refreshToken")
+    }
+)
 public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 200)
     private String socialId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     @Enumerated(EnumType.STRING)
     private SocialProvider socialProvider;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     private String name;
 
+    @Column(length = 2048)
     private String profileUrl;
 
     private String refreshToken;
@@ -78,7 +87,7 @@ public class User extends BaseTimeEntity {
         this.refreshToken = null;
     }
 
-    public void updatePosters(Poster poster){
+    public void updatePosters(Poster poster) {
         this.posters.add(poster);
         poster.setUser(this);
     }

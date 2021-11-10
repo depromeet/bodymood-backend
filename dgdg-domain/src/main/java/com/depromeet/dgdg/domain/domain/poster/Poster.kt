@@ -16,11 +16,11 @@ class Poster(
     @Column(nullable = false)
     val originImageUrl: String,
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     @Enumerated(EnumType.STRING)
     val emotion: Emotion,
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     @Enumerated(EnumType.STRING)
     var posterStatus: PosterStatus = PosterStatus.ACTIVE
 ) : BaseTimeEntity() {

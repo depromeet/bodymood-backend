@@ -11,10 +11,10 @@ class ExerciseCategory(
     @JoinColumn(name = "parent_id")
     val parentCategory: ExerciseCategory?,
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     var englishName: String,
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     var koreanName: String,
 
     val depth: Int = 1
@@ -22,7 +22,10 @@ class ExerciseCategory(
 
     init {
         if (depth !in MIN_DEPTH..MAX_DEPTH) {
-            throw ForbiddenException("depth (${depth})는 (${MIN_DEPTH} ~ ${MAX_DEPTH}) 사이에서만 허용됩니다", FORBIDDEN_EXERCISE_CATEGORY_DEPTH_EXCEPTION)
+            throw ForbiddenException(
+                "depth (${depth})는 (${MIN_DEPTH} ~ ${MAX_DEPTH}) 사이에서만 허용됩니다",
+                FORBIDDEN_EXERCISE_CATEGORY_DEPTH_EXCEPTION
+            )
         }
     }
 
