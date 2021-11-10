@@ -1,0 +1,18 @@
+### 운동 카테고리 목록 조회
+GET {{host_api}}/api/v1/exercises/categories
+
+> {%
+client.test("200 OK", function() {
+    client.assert(response.status === 200, "응답 실패");
+});
+%}
+
+
+### 감정 카테고리 목록 조회
+GET {{host_api}}/api/v1/emotions/categories
+
+> {%
+client.test("200 OK", function() {
+    client.assert(response.status === 200, "응답 실패");
+});
+%}

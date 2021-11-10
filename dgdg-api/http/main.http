@@ -1,0 +1,20 @@
+### 헬스 체크
+GET {{host_api}}
+
+> {%
+client.test("200 OK", function() {
+    client.assert(response.status === 200, "응답 실패");
+});
+%}
+
+
+### 테스트 토큰 받아오기
+GET {{host_api}}/test-token
+
+> {%
+client.global.set("ACCESS_TOKEN", response.body["data"]["accessToken"])
+client.global.set("REFRESH_TOKEN", response.body["data"]["refreshToken"])
+client.test("200 OK", function() {
+    client.assert(response.status === 200, "응답 실패");
+});
+%}

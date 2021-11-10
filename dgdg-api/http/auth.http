@@ -1,0 +1,26 @@
+### [인증] 액세스 토큰 재발급
+POST {{host_api}}/api/v1/refresh/token
+Content-Type: application/json
+
+{
+    "refreshToken": "{{REFRESH_TOKEN}}"
+}
+
+> {%
+client.test("200 OK", function() {
+    client.global.set("ACCESS_TOKEN", response.body["data"]["accessToken"])
+    client.assert(response.status === 200, "응답 실패");
+});
+%}
+
+
+### [인증] 로그아웃 (RefreshToken 만료)
+POST {{host_api}}/api/v1/logout
+Content-Type: application/json
+Authorization: Bearer {{ACCESS_TOKEN}}
+
+> {%
+client.test("200 OK", function() {
+    client.assert(response.status === 200, "응답 실패");
+});
+%}
