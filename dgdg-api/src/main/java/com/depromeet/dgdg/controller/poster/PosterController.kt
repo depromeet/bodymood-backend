@@ -3,9 +3,9 @@ package com.depromeet.dgdg.controller.poster
 import com.depromeet.dgdg.config.auth.RequiredAuth
 import com.depromeet.dgdg.config.auth.UserId
 import com.depromeet.dgdg.controller.dto.response.BaseResponse
-import com.depromeet.dgdg.controller.poster.dto.PosterDetail
-import com.depromeet.dgdg.controller.poster.dto.PosterRequest
-import com.depromeet.dgdg.controller.poster.dto.PosterResponse
+import com.depromeet.dgdg.service.poster.dto.PosterDetail
+import com.depromeet.dgdg.service.poster.dto.PosterRequest
+import com.depromeet.dgdg.service.poster.dto.PosterResponse
 import com.depromeet.dgdg.service.poster.PosterService
 import com.depromeet.dgdg.service.poster.dto.PagePosterPhotoResponse
 import com.depromeet.dgdg.service.poster.dto.PosterPhotoResponse

@@ -8,8 +8,9 @@ open class BaseTimeResponse(
     var updatedAt: LocalDateTime? = null
 ) {
 
-    fun setBaseTime(entity: BaseTimeEntity): BaseTimeResponse {
-        return BaseTimeResponse(entity.createdAt, entity.updatedAt)
+    fun setBaseTime(entity: BaseTimeEntity) {
+        this.createdAt = entity.createdAt
+        this.updatedAt = entity.updatedAt
     }
 
 }

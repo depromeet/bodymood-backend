@@ -19,3 +19,8 @@ spring:
     multipart:
       max-file-size: 20MB
       max-request-size: 20MB
+  mvc:
+    format:
+      date-time: yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+      date: iso
+      time: iso

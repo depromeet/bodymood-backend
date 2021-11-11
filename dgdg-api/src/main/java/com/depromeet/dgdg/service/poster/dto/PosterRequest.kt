@@ -1,4 +1,4 @@
-package com.depromeet.dgdg.controller.poster.dto
+package com.depromeet.dgdg.service.poster.dto
 
 import org.springframework.web.multipart.MultipartFile
 import javax.validation.constraints.NotBlank

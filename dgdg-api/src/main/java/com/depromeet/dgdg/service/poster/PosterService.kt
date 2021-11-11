@@ -3,8 +3,8 @@ package com.depromeet.dgdg.service.poster
 import com.depromeet.dgdg.common.ErrorCode.NOT_FOUND_EXERCISE_CATEGORY_EXCEPTION
 import com.depromeet.dgdg.common.ErrorCode.NOT_FOUND_POSTER_EXCEPTION
 import com.depromeet.dgdg.common.exception.NotFoundException
-import com.depromeet.dgdg.controller.poster.dto.PosterDetail
-import com.depromeet.dgdg.controller.poster.dto.PosterResponse
+import com.depromeet.dgdg.service.poster.dto.PosterDetail
+import com.depromeet.dgdg.service.poster.dto.PosterResponse
 import com.depromeet.dgdg.domain.domain.exercise.ExerciseCategoryRepository
 import com.depromeet.dgdg.domain.domain.poster.Poster
 import com.depromeet.dgdg.domain.domain.poster.PosterExerciseCategory
