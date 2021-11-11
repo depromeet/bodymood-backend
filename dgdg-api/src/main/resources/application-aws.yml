@@ -1,0 +1,31 @@
+aws:
+  encrypt:
+    region: ap-northeast-2
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - local
+        - local-pg
+aws:
+  encrypt:
+    secret-name: dgdg/local/secrets
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+aws:
+  encrypt:
+    secret-name: dgdg/dev/secrets
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+aws:
+  encrypt:
+    secret-name: dgdg/prod/secrets

@@ -1,0 +1,24 @@
+spring:
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6382
+  config:
+    activate:
+      on-profile:
+        - local
+        - local-pg
+---
+spring:
+  cache:
+    type: redis
+  redis:
+    host: ${redis-host}
+    port: 6379
+  config:
+    activate:
+      on-profile:
+        - dev
+        - prod
+

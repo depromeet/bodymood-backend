@@ -1,10 +1,27 @@
 bootJar { enabled = false }
 jar { enabled = true }
 
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
+}
+
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation project(":dgdg-common")
+
+    api 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     // Database
     // h2
     implementation 'com.h2database:h2'
+    // postgreSQL
+    implementation 'org.postgresql:postgresql'
+
+    // querydsl
+    api("com.querydsl:querydsl-jpa")
+    kapt("com.querydsl:querydsl-apt::jpa")
+
+    // flyway
+    implementation("org.flywaydb:flyway-core")
 }

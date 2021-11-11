@@ -1,0 +1,25 @@
+jwt:
+  issuer: dgdg-local
+  secret: dgdg-local-test-key
+  access_token_expires_time: 86400000 # 1일 (1000 * 60 * 60 * 24)
+  refresh_token_expires_time: 2592000000 # 30일 (1000 * 60 * 60 & 24 * 30)
+apple:
+  issuer: ${apple-issuer}
+  client-id: ${apple-client-id}
+spring:
+  config:
+    activate:
+      on-profile: local,local-pg
+---
+jwt:
+  issuer: ${jwt-issuer}
+  secret: ${jwt-secret}
+  access_token_expires_time: 86400000 # 1일 (1000 * 60 * 60 * 24)
+  refresh_token_expires_time: 2592000000 # 30일 (1000 * 60 * 60 & 24 * 30)
+apple:
+  issuer: ${apple-issuer}
+  client-id: ${apple-client-id}
+spring:
+  config:
+    activate:
+      on-profile: dev, prod

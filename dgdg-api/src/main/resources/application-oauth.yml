@@ -1,0 +1,7 @@
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          kakao:
+            user-info-uri: https://kapi.kakao.com/v2/user/me

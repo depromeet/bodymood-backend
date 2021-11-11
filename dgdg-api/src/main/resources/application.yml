@@ -1,2 +1,26 @@
 server:
-  port: 6000
+  port: 7000
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+  forward-headers-strategy: framework
+spring:
+  profiles:
+    active: local
+    include:
+      - db
+      - jwt
+      - aws
+      - oauth
+      - s3
+      - cache
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+  mvc:
+    format:
+      date-time: yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+      date: iso
+      time: iso

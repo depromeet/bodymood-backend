@@ -1,0 +1,15 @@
+cloud:
+  aws:
+    credentials:
+      accessKey: ${aws-access-key}
+      secretKey: ${aws-secret-key}
+    s3:
+      bucket: ${aws-s3-bucket-name}
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+logging:
+  level:
+    com.amazonaws.util.EC2MetadataUtils: error
+    com.amazonaws.internal.InstanceMetadataServiceResourceFetcher: error

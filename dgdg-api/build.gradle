@@ -1,12 +1,35 @@
 ext {
-
+    springdocVersion = '1.5.11'
+    jwtVersionVersion = '3.18.2'
+    amazonawsVersion = '1.12.79'
+    s3Version = '2.2.6.RELEASE'
 }
 
 dependencies {
     implementation project(":dgdg-domain")
-    implementation project(":dgdg-domain")
+    implementation project(":dgdg-common")
 
     // spring web
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // spring cloud
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+    //swagger
+    implementation ("org.springdoc:springdoc-openapi-ui:${springdocVersion}")
+    implementation ("org.springdoc:springdoc-openapi-kotlin:${springdocVersion}")
+
+    // jwt
+    implementation ("com.auth0:java-jwt:${jwtVersionVersion}")
+
+    // secret manager
+    implementation ("com.amazonaws:aws-java-sdk-secretsmanager:${amazonawsVersion}")
+
+    //s3
+    implementation ("org.springframework.cloud:spring-cloud-starter-aws:${s3Version}")
+
+    // Redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("it.ozimov:embedded-redis:${embeddedRedisVersion}")
 }
 

@@ -1,0 +1,89 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        default_batch_fetch_size: 1000
+    open-in-view: false
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  h2:
+    console:
+      enabled: true
+      path: /h2
+      settings:
+        web-allow-others: true
+  datasource:
+    hikari:
+      driver-class-name: org.h2.Driver
+      jdbc-url: jdbc:h2:mem:dgdg;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;
+      username: sa
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  flyway:
+    enabled: false
+---
+spring:
+  config:
+    activate:
+      on-profile: local-pg
+  datasource:
+    hikari:
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: jdbc:postgresql://localhost:5435/local
+      username: dgdg
+      password: dgdg
+      pool-name: local-pg-pool
+  jpa:
+    hibernate:
+      ddl-auto: update
+  flyway:
+    enabled: false
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    hikari:
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: ${jdbc-url}
+      username: ${jdbc-username}
+      password: ${jdbc-password}
+      pool-name: dev-pg-pool
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+        use_sql_comments: false
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    hikari:
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: ${jdbc-url}
+      username: ${jdbc-username}
+      password: ${jdbc-password}
+      maximum-pool-size: 20
+      pool-name: prod-pg-pool
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+        use_sql_comments: false

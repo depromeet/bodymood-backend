@@ -1,0 +1,23 @@
+version: "3"
+services:
+  db:
+    image: postgres:12.8
+    container_name: dgdg-api-db
+    restart: unless-stopped
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: dgdg
+      POSTGRES_PASSWORD: dgdg
+    volumes:
+      - ./init-local-db.sql:/docker-entrypoint-initdb.d/init-local-db.sql
+      - ~/dgdg-api/data/:/var/lib/postgresql/data
+  redis:
+    image: redis
+    container_name: dgdg-api-redis
+    command: redis-server --port 6379
+    ports:
+      - "6382:6379"
+    restart: unless-stopped
+    volumes:
+      - ~/dgdg-api/redis:/data
