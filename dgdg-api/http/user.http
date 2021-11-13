@@ -18,3 +18,8 @@ Authorization: Bearer {{ACCESS_TOKEN}}
     "name": "will",
     "profileUrl": "https://image.com"
 }
+
+
+### [인증] 회원 탈퇴
+DELETE {{host_api}}/api/v1/user/me
+Authorization: Bearer {{ACCESS_TOKEN}}
