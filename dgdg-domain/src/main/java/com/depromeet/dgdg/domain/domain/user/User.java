@@ -46,6 +46,10 @@ public class User extends BaseTimeEntity {
 
     private String refreshToken;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserStatus status = UserStatus.ACTIVE;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Poster> posters = new ArrayList<>();
 
@@ -90,5 +94,9 @@ public class User extends BaseTimeEntity {
     public void updatePosters(Poster poster) {
         this.posters.add(poster);
         poster.setUser(this);
+    }
+
+    public void delete() {
+        this.status = UserStatus.DELETED;
     }
 }
