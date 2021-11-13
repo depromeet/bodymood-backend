@@ -21,8 +21,8 @@ class LocalTestController(
     @Operation(summary = "[로컬 및 개발용] 테스트용 토큰을 발급 받는 API")
     @GetMapping("/test-token")
     fun getTestToken(): BaseResponse<AuthResponse> {
-        val user = userRepository.findBySocialIdAndSocialProvider(user.socialId, user.socialProvider)
-            .orElseGet { user }
+        val user = userRepository.findActiveUserBySocialIdAndSocialProvider(user.socialId, user.socialProvider)
+            ?: user
         userRepository.save(user)
 
         if (!(user.refreshToken != null && tokenProvider.isValidRefreshToken(user.refreshToken))) {

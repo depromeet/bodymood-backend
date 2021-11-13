@@ -1,5 +1,6 @@
 package com.depromeet.dgdg.service.poster
 
+import com.depromeet.dgdg.common.ErrorCode
 import com.depromeet.dgdg.common.ErrorCode.NOT_FOUND_EXERCISE_CATEGORY_EXCEPTION
 import com.depromeet.dgdg.common.ErrorCode.NOT_FOUND_POSTER_EXCEPTION
 import com.depromeet.dgdg.common.exception.NotFoundException
@@ -10,6 +11,7 @@ import com.depromeet.dgdg.domain.domain.poster.Poster
 import com.depromeet.dgdg.domain.domain.poster.PosterExerciseCategory
 import com.depromeet.dgdg.domain.domain.poster.PosterRepository
 import com.depromeet.dgdg.domain.domain.poster.repository.PosterExerciseCategoryRepository
+import com.depromeet.dgdg.domain.domain.user.User
 import com.depromeet.dgdg.domain.domain.user.repository.UserRepository
 import com.depromeet.dgdg.service.poster.dto.PagePosterPhotoResponse
 import com.depromeet.dgdg.service.poster.dto.PosterPhotoResponse
@@ -41,7 +43,7 @@ class PosterService(
     fun makePoster(userId: Long, posterUrl: String, originUrl: String, request: PosterDetail): PosterResponse {
 
         // 포스터 저장
-        val user = userRepository.findUserByIdFetchJoinPoster(userId)
+        val user = findActiveUserByIdFetchJoinPoster(userRepository, userId)
         val poster = Poster.of(user, posterUrl, originUrl, request.emotion)
         posterRepository.save(poster)
 
@@ -88,4 +90,9 @@ class PosterService(
 fun findPosterById(posterRepository: PosterRepository, userId: Long, posterId: Long): Poster {
     return posterRepository.findPosterById(userId, posterId)
         ?: throw NotFoundException("userId: ${userId}에 해당하는 포스터 (posterId: ${posterId}) 가 존재하지 않습니다", NOT_FOUND_POSTER_EXCEPTION)
+}
+
+fun findActiveUserByIdFetchJoinPoster(userRepository: UserRepository, userId: Long): User {
+    return userRepository.findActiveUserByIdFetchJoinPoster(userId)
+        ?: throw NotFoundException("해당하는 유저 ($userId)는 존재하지 않습니다", ErrorCode.NOT_FOUND_USER_EXCEPTION)
 }

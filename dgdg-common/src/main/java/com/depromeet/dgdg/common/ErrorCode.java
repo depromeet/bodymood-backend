@@ -13,6 +13,7 @@ public enum ErrorCode {
     BAD_REQUEST_MISSING_REQUIRED_VALUE_EXCEPTION(400, "B002", "필수 값을 입력해주세요"),
     BAD_REQUEST_WRONG_FILE_EXTENSION_EXCEPTION(400, "B003", "확장자가 없는 잘못된 파일의 형식입니다"),
     BAD_REQUEST_WRONG_EMAIL_FORMAT_EXCEPTION(400, "B003", "잘못된 이메일 포맷입니다"),
+    BAD_REQUEST_WRONG_USER_DELETE_EXCEPTION(400, "B004", "잘못된 유저 삭제 요청입니다"),
 
     // UnAuthorized
     UNAUTHORIZED_EXCEPTION(401, "U001", "잘못된 토큰입니다. 다시 로그인해주세요"),

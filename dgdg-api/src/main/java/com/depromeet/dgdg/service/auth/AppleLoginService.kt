@@ -4,6 +4,8 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
+import com.depromeet.dgdg.common.ErrorCode
+import com.depromeet.dgdg.common.exception.NotFoundException
 import com.depromeet.dgdg.service.auth.dto.response.AuthResponse
 import com.depromeet.dgdg.domain.domain.user.SocialProvider
 import com.depromeet.dgdg.domain.domain.user.User
@@ -34,8 +36,8 @@ class AppleLoginService(
 ) {
     fun handleAuthentication(request: AuthRequest) : AuthResponse {
         val appleId = appleLoginValidator.getUserIdFromToken(request.accessToken)
-        val user: User = userRepository.findBySocialIdAndSocialProvider(appleId, SocialProvider.APPLE)
-            .orElseGet { signUpAppleUser(appleId) }
+        val user: User = userRepository.findActiveUserBySocialIdAndSocialProvider(appleId, SocialProvider.APPLE)
+            ?: signUpAppleUser(appleId)
         val accessToken: String = jwtAuthTokenProvider.createAccessToken(of(user.id))
         val refreshToken: String = jwtAuthTokenProvider.createRefreshToken()
         user.updateRefreshToken(refreshToken)
@@ -62,7 +64,7 @@ class AppleLoginValidator(
         val header : AppleAuthHeader = objectMapper.readValue(decodedHeader)
 
 
-        val publicKey = getPublicKey(header);
+        val publicKey = getPublicKey(header)
 
         val algorithm = Algorithm.RSA256(publicKey as RSAPublicKey, null)
         val verifier: JWTVerifier = JWT.require(algorithm)

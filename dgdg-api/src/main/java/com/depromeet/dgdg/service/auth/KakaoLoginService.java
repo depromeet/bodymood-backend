@@ -24,8 +24,10 @@ public class KakaoLoginService {
     @Transactional
     public AuthResponse handleAuthentication(AuthRequest request) {
         KakaoUserResponse userInfo = kakaoClient.getUserInfo(request.getAccessToken());
-        User user = userRepository.findBySocialIdAndSocialProvider(userInfo.getId(), SocialProvider.KAKAO)
-            .orElseGet(() -> signUpUser(userInfo));
+        User user = userRepository.findActiveUserBySocialIdAndSocialProvider(userInfo.getId(), SocialProvider.KAKAO);
+        if(user == null){
+            user = signUpUser(userInfo);
+        }
         String accessToken = jwtAuthTokenProvider.createAccessToken(AuthTokenPayload.of(user.getId()));
         String refreshToken = jwtAuthTokenProvider.createRefreshToken();
         user.updateRefreshToken(refreshToken);

@@ -5,7 +5,7 @@ import com.depromeet.dgdg.domain.domain.user.repository.UserRepository
 import com.depromeet.dgdg.provider.token.AuthTokenProvider
 import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload
 import com.depromeet.dgdg.service.auth.dto.request.RefreshTokenRequest
-import com.depromeet.dgdg.service.user.findUserById
+import com.depromeet.dgdg.service.user.findActiveUserById
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -17,7 +17,7 @@ class AuthService(
 
     @Transactional
     fun logout(userId: Long) {
-        val user = findUserById(userRepository, userId)
+        val user = findActiveUserById(userRepository, userId)
         user.removeRefreshToken()
     }
 
