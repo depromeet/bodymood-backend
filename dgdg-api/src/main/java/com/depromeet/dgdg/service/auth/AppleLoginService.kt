@@ -4,16 +4,13 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.depromeet.dgdg.common.ErrorCode
-import com.depromeet.dgdg.common.exception.NotFoundException
 import com.depromeet.dgdg.service.auth.dto.response.AuthResponse
 import com.depromeet.dgdg.domain.domain.user.SocialProvider
 import com.depromeet.dgdg.domain.domain.user.User
 import com.depromeet.dgdg.domain.domain.user.repository.UserRepository
 import com.depromeet.dgdg.external.apple.AppleClient
 import com.depromeet.dgdg.external.apple.dto.properties.AppleAuthProperties
-import com.depromeet.dgdg.provider.token.AuthTokenProvider
-import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload
+import com.depromeet.dgdg.provider.token.JwtAuthTokenProvider
 import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload.Companion.of
 import com.depromeet.dgdg.service.auth.dto.request.AppleAuthHeader
 import com.depromeet.dgdg.service.auth.dto.request.AuthRequest
@@ -32,7 +29,7 @@ import java.util.*
 class AppleLoginService(
     private val appleLoginValidator: AppleLoginValidator,
     private val userRepository: UserRepository,
-    private val jwtAuthTokenProvider: AuthTokenProvider<AuthTokenPayload>
+    private val jwtAuthTokenProvider: JwtAuthTokenProvider
 ) {
     fun handleAuthentication(request: AuthRequest) : AuthResponse {
         val appleId = appleLoginValidator.getUserIdFromToken(request.accessToken)

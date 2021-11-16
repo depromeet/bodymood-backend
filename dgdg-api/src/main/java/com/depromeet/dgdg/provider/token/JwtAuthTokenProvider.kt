@@ -15,9 +15,9 @@ import java.util.*
 @Component
 class JwtAuthTokenProvider(
     val jwtProperties: JwtProperties
-) : AuthTokenProvider<AuthTokenPayload> {
+) {
 
-    override fun createAccessToken(payload: AuthTokenPayload): String {
+    fun createAccessToken(payload: AuthTokenPayload): String {
         try {
             val now = Date()
             val expiresAt = Date(now.time + jwtProperties.accessTokenExpiresTime)
@@ -34,7 +34,7 @@ class JwtAuthTokenProvider(
         }
     }
 
-    override fun getPayload(accessToken: String): AuthTokenPayload {
+    fun getPayload(accessToken: String): AuthTokenPayload {
         val verifier = JWT.require(Algorithm.HMAC256(jwtProperties.secret))
             .withIssuer(jwtProperties.issuer)
             .build()
@@ -48,7 +48,7 @@ class JwtAuthTokenProvider(
         }
     }
 
-    override fun createRefreshToken(): String {
+    fun createRefreshToken(): String {
         try {
             val now = Date()
             val expiresAt = Date(now.time + jwtProperties.refreshTokenExpiresTime)
@@ -64,7 +64,7 @@ class JwtAuthTokenProvider(
         }
     }
 
-    override fun validateRefreshToken(refreshToken: String) {
+    fun validateRefreshToken(refreshToken: String) {
         val verifier = JWT.require(Algorithm.HMAC256(jwtProperties.secret))
             .withIssuer(jwtProperties.issuer)
             .build()
@@ -77,7 +77,7 @@ class JwtAuthTokenProvider(
         }
     }
 
-    override fun isValidRefreshToken(refreshToken: String): Boolean {
+    fun isValidRefreshToken(refreshToken: String): Boolean {
         val verifier = JWT.require(Algorithm.HMAC256(jwtProperties.secret))
             .withIssuer(jwtProperties.issuer)
             .build()

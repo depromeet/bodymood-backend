@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 internal class JwtAuthTokenProviderTest(
-    private val authTokenProvider: AuthTokenProvider<AuthTokenPayload>
+    private val jwtAuthTokenProvider: JwtAuthTokenProvider
 ) : FunSpec({
 
     context("인증 토큰 생성") {
@@ -20,7 +20,7 @@ internal class JwtAuthTokenProviderTest(
             val userId = 100L
 
             // when
-            val token = authTokenProvider.createAccessToken(AuthTokenPayload(userId))
+            val token = jwtAuthTokenProvider.createAccessToken(AuthTokenPayload(userId))
 
             // then
             with(token) {
@@ -34,10 +34,10 @@ internal class JwtAuthTokenProviderTest(
         test("인증 토큰으로부터 userId가 포함된 Payload를 가져온다") {
             // given
             val userId = 100L
-            val token = authTokenProvider.createAccessToken(AuthTokenPayload(userId))
+            val token = jwtAuthTokenProvider.createAccessToken(AuthTokenPayload(userId))
 
             // when
-            val authToken = authTokenProvider.getPayload(token)
+            val authToken = jwtAuthTokenProvider.getPayload(token)
 
             // then
             authToken.userId shouldBe userId
@@ -48,14 +48,14 @@ internal class JwtAuthTokenProviderTest(
             val token = "Wrong Token"
 
             // when & then
-            assertThatThrownBy { authTokenProvider.getPayload(token) }.isInstanceOf(UnAuthorizedException::class.java)
+            assertThatThrownBy { jwtAuthTokenProvider.getPayload(token) }.isInstanceOf(UnAuthorizedException::class.java)
         }
     }
 
     context("RefreshToken 생성") {
         test("페이로드가 없는 RefreshToken을 생성한다") {
             // when
-            val refreshToken = authTokenProvider.createRefreshToken()
+            val refreshToken = jwtAuthTokenProvider.createRefreshToken()
 
             // then
             with(refreshToken) {
