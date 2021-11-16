@@ -69,12 +69,6 @@ subprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-        implementation 'org.springframework.boot:spring-boot-starter-webflux'
-
-        // Redis
-        implementation("org.springframework.boot:spring-boot-starter-data-redis")
-        implementation("it.ozimov:embedded-redis:${embeddedRedisVersion}")
-
         // kotest
         testImplementation("io.kotest:kotest-runner-junit5:${kotestVersion}")
         testImplementation("io.kotest:kotest-extensions-spring:${kotestVersion}")
