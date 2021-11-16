@@ -6,18 +6,21 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.depromeet.dgdg.common.utils.FileUtils;
 import com.depromeet.dgdg.external.kakao.dto.properties.S3Properties;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-@AllArgsConstructor
 @Service
 public class S3Service {
-    private AmazonS3 amazonS3;
 
-    private S3Properties s3Properties;
+    private final AmazonS3 amazonS3;
+    private final S3Properties s3Properties;
+
+    public S3Service(AmazonS3 amazonS3, S3Properties s3Properties) {
+        this.amazonS3 = amazonS3;
+        this.s3Properties = s3Properties;
+    }
 
     public String upload(MultipartFile file) {
         String fileName = FileUtils.createUniqueFileNameWithExtension(file.getOriginalFilename());

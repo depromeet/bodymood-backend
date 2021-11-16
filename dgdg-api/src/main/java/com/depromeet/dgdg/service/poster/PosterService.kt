@@ -66,10 +66,10 @@ class PosterService(
     }
 
     @Transactional
-    fun modifyPoster(userId: Long, posterId: Long ,newPosterUrl: String, originUrl: String, newRequest: PosterDetail): PosterResponse? {
+    fun modifyPoster(userId: Long, posterId: Long ,newPosterUrl: String, originUrl: String, newRequest: PosterDetail): PosterResponse {
         val poster = findPosterById(posterRepository, userId, posterId)
         poster.updatePoster(newPosterUrl)
-        return poster.let { PosterResponse.of(it, newRequest.categories) }
+        return PosterResponse.of(poster, newRequest.categories)
     }
 
     @Transactional

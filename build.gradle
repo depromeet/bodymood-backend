@@ -3,12 +3,7 @@ buildscript {
         springBootVersion = '2.5.4'
         kotlinVersion = '1.5.31'
         kotestVersion = '4.4.3'
-
-        projectreactorVersion = '1.0.1.RELEASE'
-
         springCloudVersion = '2020.0.4'
-        kotlinLombokVersion = '1.6.0-RC'
-        lombokPluginVersion = '6.2.0'
         embeddedRedisVersion = "0.7.2"
     }
     repositories {
@@ -22,8 +17,6 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}")
-        classpath("org.jetbrains.kotlin:kotlin-lombok:${kotlinLombokVersion}")
-        classpath("io.freefair.gradle:lombok-plugin:${lombokPluginVersion}")
     }
 }
 
@@ -40,8 +33,6 @@ subprojects {
         plugin('kotlin-jpa')
         plugin('kotlin-kapt')
         plugin('jacoco')
-        plugin('org.jetbrains.kotlin.plugin.lombok')
-        plugin('io.freefair.lombok')
     }
 
     sourceCompatibility = '11'
@@ -68,10 +59,6 @@ subprojects {
         reportsDir = file("${rootProject.projectDir}/build")
     }
 
-    kapt {
-        keepJavacAnnotationProcessors = true
-    }
-
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-validation")
         testImplementation('org.springframework.boot:spring-boot-starter-test')
@@ -82,12 +69,7 @@ subprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-        //lombok
-        compileOnly'org.projectlombok:lombok'
-        annotationProcessor 'org.projectlombok:lombok'
-
         implementation 'org.springframework.boot:spring-boot-starter-webflux'
-        implementation ("org.projectreactor:reactor-spring:${projectreactorVersion}")
 
         // Redis
         implementation("org.springframework.boot:spring-boot-starter-data-redis")

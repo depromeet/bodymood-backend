@@ -1,20 +1,21 @@
 package com.depromeet.dgdg.domain.domain.user.repository;
 
-import com.depromeet.dgdg.domain.domain.poster.PosterStatus;
 import com.depromeet.dgdg.domain.domain.user.SocialProvider;
 import com.depromeet.dgdg.domain.domain.user.User;
 import com.depromeet.dgdg.domain.domain.user.UserStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import static com.depromeet.dgdg.domain.domain.poster.QPoster.poster;
 import static com.depromeet.dgdg.domain.domain.user.QUser.user;
 
-@RequiredArgsConstructor
 public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
+
+    public UserRepositoryCustomImpl(JPAQueryFactory queryFactory) {
+        this.queryFactory = queryFactory;
+    }
 
     @Override
     public User findActiveUsersById(Long userId) {

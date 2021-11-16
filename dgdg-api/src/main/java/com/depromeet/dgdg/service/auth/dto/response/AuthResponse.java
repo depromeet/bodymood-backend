@@ -1,12 +1,5 @@
 package com.depromeet.dgdg.service.auth.dto.response;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-
-@ToString
-@Getter
-@RequiredArgsConstructor
 public class AuthResponse {
 
     private final String accessToken;
@@ -14,6 +7,19 @@ public class AuthResponse {
 
     public static AuthResponse of(String accessToken, String refreshToken) {
         return new AuthResponse(accessToken, refreshToken);
+    }
+
+    public AuthResponse(String accessToken, String refreshToken) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
     }
 
 }

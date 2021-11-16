@@ -7,7 +7,7 @@ import java.util.*
 
 object ProcessUtils {
 
-    private val OS = System.getProperty("os.name").lowercase(Locale.getDefault())
+    private val OS = System.getProperty("os.name").toLowerCase(Locale.getDefault())
 
     fun findAvailableRandomPort(): Int {
         for (port in 10000..30000) {

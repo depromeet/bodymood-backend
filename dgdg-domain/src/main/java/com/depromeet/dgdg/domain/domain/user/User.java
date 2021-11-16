@@ -3,18 +3,12 @@ package com.depromeet.dgdg.domain.domain.user;
 import com.depromeet.dgdg.common.RandomGenerator;
 import com.depromeet.dgdg.domain.domain.BaseTimeEntity;
 import com.depromeet.dgdg.domain.domain.poster.Poster;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@NoArgsConstructor
 @Entity
 @Table(
     name = "member",
@@ -51,9 +45,11 @@ public class User extends BaseTimeEntity {
     private UserStatus status = UserStatus.ACTIVE;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Poster> posters = new ArrayList<>();
+    private final List<Poster> posters = new ArrayList<>();
 
-    @Builder(access = AccessLevel.PRIVATE)
+    protected User() {
+    }
+
     User(String socialId, SocialProvider socialProvider, String name, String profileUrl) {
         this.socialId = socialId;
         this.socialProvider = socialProvider;
@@ -62,20 +58,11 @@ public class User extends BaseTimeEntity {
     }
 
     public static User newKaKaoInstance(String socialId, String name, String profileUrl) {
-        return User.builder()
-            .socialId(socialId)
-            .socialProvider(SocialProvider.KAKAO)
-            .name(name)
-            .profileUrl(profileUrl)
-            .build();
+        return new User(socialId, SocialProvider.KAKAO, name, profileUrl);
     }
 
     public static User newAppleInstance(String socialId) {
-        return User.builder()
-            .socialId(socialId)
-            .socialProvider(SocialProvider.APPLE)
-            .name(RandomGenerator.getDefaultName())
-            .build();
+        return new User(socialId, SocialProvider.APPLE, RandomGenerator.getDefaultName(), null);
     }
 
     public void updateInfo(@NotNull String name, String profileUrl) {
@@ -91,12 +78,36 @@ public class User extends BaseTimeEntity {
         this.refreshToken = null;
     }
 
-    public void updatePosters(Poster poster) {
-        this.posters.add(poster);
-        poster.setUser(this);
-    }
-
     public void delete() {
         this.status = UserStatus.DELETED;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getSocialId() {
+        return socialId;
+    }
+
+    public SocialProvider getSocialProvider() {
+        return socialProvider;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public List<Poster> getPosters() {
+        return posters;
+    }
+
 }

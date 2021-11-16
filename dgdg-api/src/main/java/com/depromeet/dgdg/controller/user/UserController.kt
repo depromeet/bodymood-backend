@@ -38,9 +38,9 @@ class UserController(
     @Operation(summary = "유저의 회원 정보를 삭제하는 API (회원탈퇴)", security = [SecurityRequirement(name = "BearerKey")])
     @DeleteMapping("/api/v1/user/me")
     @RequiredAuth
-    fun deleteUser(@UserId userId: Long): BaseResponse<Nothing>{
+    fun deleteUser(@UserId userId: Long): BaseResponse<String>{
         userService.deleteUser(userId)
-        return BaseResponse.success(null)
+        return BaseResponse.OK
     }
 
 }
