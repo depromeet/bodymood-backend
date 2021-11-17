@@ -3,7 +3,7 @@ package com.depromeet.dgdg.controller
 import com.depromeet.dgdg.controller.dto.response.BaseResponse
 import com.depromeet.dgdg.domain.domain.user.User
 import com.depromeet.dgdg.domain.domain.user.repository.UserRepository
-import com.depromeet.dgdg.provider.token.AuthTokenProvider
+import com.depromeet.dgdg.provider.token.JwtAuthTokenProvider
 import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload
 import com.depromeet.dgdg.service.auth.dto.response.AuthResponse
 import io.swagger.v3.oas.annotations.Operation
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class LocalTestController(
     private val userRepository: UserRepository,
-    private val tokenProvider: AuthTokenProvider<AuthTokenPayload>
+    private val jwtAuthTokenProvider: JwtAuthTokenProvider
 ) {
 
     @Operation(summary = "[로컬 및 개발용] 테스트용 토큰을 발급 받는 API")
@@ -25,11 +25,11 @@ class LocalTestController(
             ?: user
         userRepository.save(user)
 
-        if (!(user.refreshToken != null && tokenProvider.isValidRefreshToken(user.refreshToken))) {
-            user.updateRefreshToken(tokenProvider.createRefreshToken())
+        if (!(user.refreshToken != null && jwtAuthTokenProvider.isValidRefreshToken(user.refreshToken))) {
+            user.updateRefreshToken(jwtAuthTokenProvider.createRefreshToken())
             userRepository.save(user)
         }
-        val accessToken = tokenProvider.createAccessToken(AuthTokenPayload(user.id))
+        val accessToken = jwtAuthTokenProvider.createAccessToken(AuthTokenPayload(user.id))
         return BaseResponse.success(AuthResponse.of(accessToken, user.refreshToken))
     }
 

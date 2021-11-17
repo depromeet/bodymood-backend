@@ -3,8 +3,7 @@ package com.depromeet.dgdg.service.auth
 import com.depromeet.dgdg.common.exception.NotFoundException
 import com.depromeet.dgdg.common.exception.UnAuthorizedException
 import com.depromeet.dgdg.domain.domain.user.repository.UserRepository
-import com.depromeet.dgdg.provider.token.AuthTokenProvider
-import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload
+import com.depromeet.dgdg.provider.token.JwtAuthTokenProvider
 import com.depromeet.dgdg.service.auth.dto.request.RefreshTokenRequest
 import com.depromeet.dgdg.utils.setUpUser
 import io.kotest.core.spec.style.FunSpec
@@ -17,7 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 internal class AuthServiceTest(
-    private val authTokenProvider: AuthTokenProvider<AuthTokenPayload>,
+    private val jwtAuthTokenProvider: JwtAuthTokenProvider,
     private val authService: AuthService,
     private val userRepository: UserRepository
 ) : FunSpec({
@@ -54,7 +53,7 @@ internal class AuthServiceTest(
         test("RefreshToken을 가지고 있는 사용자를 찾아서 액세스 토큰을 재발급한다") {
             // given
             val user = setUpUser()
-            val refreshToken = authTokenProvider.createRefreshToken()
+            val refreshToken = jwtAuthTokenProvider.createRefreshToken()
             user.updateRefreshToken(refreshToken)
             userRepository.save(user)
 
