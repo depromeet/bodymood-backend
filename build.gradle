@@ -4,11 +4,8 @@ buildscript {
         kotlinVersion = '1.5.31'
         kotestVersion = '4.4.3'
 
-        projectreactorVersion = '1.0.1.RELEASE'
-
         springCloudVersion = '2020.0.4'
-        kotlinLombokVersion = '1.6.0-RC'
-        lombokPluginVersion = '6.2.0'
+        lombokPluginVersion = '6.1.0'
         embeddedRedisVersion = "0.7.2"
     }
     repositories {
@@ -22,7 +19,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}")
-        classpath("org.jetbrains.kotlin:kotlin-lombok:${kotlinLombokVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-lombok:${kotlinVersion}")
         classpath("io.freefair.gradle:lombok-plugin:${lombokPluginVersion}")
     }
 }
@@ -85,13 +82,6 @@ subprojects {
         //lombok
         compileOnly'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
-
-        implementation 'org.springframework.boot:spring-boot-starter-webflux'
-        implementation ("org.projectreactor:reactor-spring:${projectreactorVersion}")
-
-        // Redis
-        implementation("org.springframework.boot:spring-boot-starter-data-redis")
-        implementation("it.ozimov:embedded-redis:${embeddedRedisVersion}")
 
         // kotest
         testImplementation("io.kotest:kotest-runner-junit5:${kotestVersion}")
