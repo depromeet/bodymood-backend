@@ -6,7 +6,6 @@ buildscript {
 
         springCloudVersion = '2020.0.4'
         lombokPluginVersion = '6.1.0'
-        embeddedRedisVersion = "0.7.2"
     }
     repositories {
         maven {
