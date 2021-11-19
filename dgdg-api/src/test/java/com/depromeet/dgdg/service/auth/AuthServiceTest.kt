@@ -6,12 +6,12 @@ import com.depromeet.dgdg.domain.domain.user.repository.UserRepository
 import com.depromeet.dgdg.provider.token.JwtAuthTokenProvider
 import com.depromeet.dgdg.service.auth.dto.request.RefreshTokenRequest
 import com.depromeet.dgdg.utils.setUpUser
+import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.shouldStartWith
-import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
@@ -43,9 +43,11 @@ internal class AuthServiceTest(
             }
         }
 
-        test("해당하는 유저가 존재하지 않는 경우 404 에러가 발생한다") {
+        test("해당하는 유저가 존재하지 않는 경우 로그아웃 할 수 없다 throws NotFoundExcepton") {
             // when & then
-            assertThatThrownBy { authService.logout(999L) }.isInstanceOf(NotFoundException::class.java)
+            shouldThrowExactly<NotFoundException> {
+                authService.logout(-1L)
+            }
         }
     }
 
@@ -67,14 +69,14 @@ internal class AuthServiceTest(
             }
         }
 
-        test("유효하지 않은 RefreshToken인 경우 401 에러가 발생한다") {
+        test("유효하지 않은 RefreshToken인 경우 액세스 토큰을 재발급 할 수 없다 throws UnAuthorizedException") {
             // given
             val refreshToken = "Invalid-refresh-token"
 
             // when & then
-            assertThatThrownBy { authService.refreshAccessToken(RefreshTokenRequest(refreshToken)) }.isInstanceOf(
-                UnAuthorizedException::class.java
-            )
+            shouldThrowExactly<UnAuthorizedException> {
+                authService.refreshAccessToken(RefreshTokenRequest(refreshToken))
+            }
         }
     }
 
