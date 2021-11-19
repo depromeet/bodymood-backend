@@ -2,11 +2,11 @@ package com.depromeet.dgdg.provider.token
 
 import com.depromeet.dgdg.common.exception.UnAuthorizedException
 import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload
+import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.shouldStartWith
-import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
@@ -14,8 +14,8 @@ internal class JwtAuthTokenProviderTest(
     private val jwtAuthTokenProvider: JwtAuthTokenProvider
 ) : FunSpec({
 
-    context("인증 토큰 생성") {
-        test("인증 토큰을 생성하면 JWT 토큰이 생성된다") {
+    context("액세스 토큰 생성") {
+        test("userId가 담긴 액세스 토큰을 생성한다") {
             // given
             val userId = 100L
 
@@ -30,8 +30,8 @@ internal class JwtAuthTokenProviderTest(
         }
     }
 
-    context("인증 토큰 디코드") {
-        test("인증 토큰으로부터 userId가 포함된 Payload를 가져온다") {
+    context("액세스 토큰 디코드") {
+        test("인증 토큰으로부터 userId를 가져온다") {
             // given
             val userId = 100L
             val token = jwtAuthTokenProvider.createAccessToken(AuthTokenPayload(userId))
@@ -48,7 +48,9 @@ internal class JwtAuthTokenProviderTest(
             val token = "Wrong Token"
 
             // when & then
-            assertThatThrownBy { jwtAuthTokenProvider.getPayload(token) }.isInstanceOf(UnAuthorizedException::class.java)
+            shouldThrowExactly<UnAuthorizedException> {
+                jwtAuthTokenProvider.getPayload(token)
+            }
         }
     }
 
