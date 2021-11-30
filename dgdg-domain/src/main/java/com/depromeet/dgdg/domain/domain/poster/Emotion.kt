@@ -20,7 +20,7 @@ enum class Emotion(
     ANXIOUS("Anxious", "불안", "#082630", "#51094A", WHITE),
     IRRITATED("Irritated", "짜증", "#AE1111", "#AA4700", WHITE),
     JOYFUL("Joyful", "기쁜", "#FFF615", "#FF7A00", BLACK),
-    THRILIED("Thrilied", "짜릿", "#FF2876", "#FB2BFF", BLACK),
+    THRILLED("Thrilled", "짜릿", "#FF2876", "#FB2BFF", BLACK),
     SAD("Sad", "슬픈", "#1B1B1B", "#222757", WHITE),
     BORED("Bored", "지루", "#274A26", "#0A2227", WHITE),
     CALM("Calm", "평온", "#BDF4CD", "#C1E5A4", BLACK),

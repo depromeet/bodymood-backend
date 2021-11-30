@@ -2,8 +2,7 @@ package com.depromeet.dgdg.config.auth
 
 import com.depromeet.dgdg.common.exception.UnAuthorizedException
 import com.depromeet.dgdg.domain.domain.user.repository.UserRepository
-import com.depromeet.dgdg.provider.token.AuthTokenProvider
-import com.depromeet.dgdg.provider.token.dto.AuthTokenPayload
+import com.depromeet.dgdg.provider.token.JwtAuthTokenProvider
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import org.springframework.util.StringUtils
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpServletResponse
 
 @Component
 class AuthInterceptor(
-    private val tokenProvider: AuthTokenProvider<AuthTokenPayload>,
+    private val jwtAuthTokenProvider: JwtAuthTokenProvider,
     private val userRepository: UserRepository
 ) : HandlerInterceptor {
 
@@ -29,7 +28,7 @@ class AuthInterceptor(
             throw UnAuthorizedException("잘못된 토큰입니다. Authorization 헤더가 비었거나 Bearer 타입의 토큰이 아닙니다. header: ($header)")
         }
         val token = header.split(BEARER_PREFIX)[1]
-        val payload = tokenProvider.getPayload(token)
+        val payload = jwtAuthTokenProvider.getPayload(token)
 
         if (!userRepository.existsById(payload.userId)) {
             throw UnAuthorizedException("잘못된 토큰(${payload})입니다. 해당하는 유저 (${payload.userId})는 존재하지 않습니다")

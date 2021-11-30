@@ -4,10 +4,10 @@ import com.depromeet.dgdg.common.exception.NotFoundException
 import com.depromeet.dgdg.domain.domain.user.repository.UserRepository
 import com.depromeet.dgdg.service.user.dto.request.UpdateUserInfoRequest
 import com.depromeet.dgdg.utils.setUpUser
+import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
-import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
@@ -20,8 +20,8 @@ internal class UserServiceTest(
         userRepository.deleteAll()
     }
 
-    context("유저의 회원정보 수정") {
-        test("회원정보 수정을 요청하면 DB의 해당하는 유저의 회원 정보가 변경된다") {
+    context("나의 회원정보 수정") {
+        test("나의 회원 정보르 수정하면 해당하는 유저의 데이터가 변경된다") {
             // given
             val user = userRepository.save(setUpUser())
 
@@ -41,15 +41,15 @@ internal class UserServiceTest(
             }
         }
 
-        test("존재하지 않는 유저인 경우 NotFound 에러 발생") {
+        test("존재하지 않는 유저인 경우 회원 정보를 수정할 수 없다 throws NotFoundException") {
             // given
             val userId = -1L
             val request = UpdateUserInfoRequest("will", "https://will.profile.com")
 
             // when & then
-            assertThatThrownBy {
+            shouldThrowExactly<NotFoundException> {
                 userService.updateUserInfo(request, userId)
-            }.isInstanceOf(NotFoundException::class.java)
+            }
         }
     }
 

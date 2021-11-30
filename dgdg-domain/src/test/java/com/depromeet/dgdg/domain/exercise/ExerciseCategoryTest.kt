@@ -2,24 +2,24 @@ package com.depromeet.dgdg.domain.exercise
 
 import com.depromeet.dgdg.common.exception.ForbiddenException
 import com.depromeet.dgdg.domain.domain.exercise.ExerciseCategory
+import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
-import org.assertj.core.api.Assertions.assertThatThrownBy
 
 internal class ExerciseCategoryTest : FunSpec({
 
-    context("카테고리를 생성한다") {
-        test("depth가 0이하인 경우 생성할 수 없다 throws ForbiddenException") {
+    context("최상위 카테고리를 추가한다") {
+        test("depth가 0이하인 카테고리를 생성할 수 없다 throws ForbiddenException") {
             // when & then
-            assertThatThrownBy {
+            shouldThrowExactly<ForbiddenException> {
                 ExerciseCategory(
                     null,
                     "name",
                     "description",
                     0
                 )
-            }.isInstanceOf(ForbiddenException::class.java)
+            }
         }
 
         test("최상위 카테고리를 생성하면 depth가 1이고 parentCategory가 null인 카테고리가 생성된다") {
@@ -41,7 +41,7 @@ internal class ExerciseCategoryTest : FunSpec({
     }
 
     context("하위 카테고리를 추가한다") {
-        test("하위 카테고리를 추가하면 depth가 1더 큰 카테고리가 생성된다") {
+        test("하위 카테고리를 추가하면 부모 카테고리보다 depth가 1더 크고 parentCategory가 부모 카테고리를 가리키는 카테고리가 생성된다") {
             // given
             val englishName = "2depth"
             val koreanName = "2뎁스"
@@ -67,8 +67,9 @@ internal class ExerciseCategoryTest : FunSpec({
             rootCategory.addChildCategory("2뎁스", "2depth")
 
             // when & then
-            assertThatThrownBy { rootCategory.childrenCategories[0].addChildCategory("3뎁스", "3depth") }
-                .isInstanceOf(ForbiddenException::class.java)
+            shouldThrowExactly<ForbiddenException> {
+                rootCategory.childrenCategories[0].addChildCategory("3뎁스", "3depth")
+            }
         }
     }
 

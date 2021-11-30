@@ -1,9 +1,9 @@
 package com.depromeet.dgdg.common.utils
 
 import com.depromeet.dgdg.common.exception.BadRequestException
+import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.string.shouldEndWith
-import org.assertj.core.api.Assertions.assertThatThrownBy
 
 internal class FileUtilsTest : FunSpec({
 
@@ -24,8 +24,9 @@ internal class FileUtilsTest : FunSpec({
             val originalFileName = "image"
 
             // when & then
-            assertThatThrownBy { FileUtils.createUniqueFileNameWithExtension(originalFileName) }
-                .isInstanceOf(BadRequestException::class.java)
+            shouldThrowExactly<BadRequestException> {
+                FileUtils.createUniqueFileNameWithExtension(originalFileName)
+            }
         }
 
         test("파일 이름이 null이 넘어와도 BadRequestException") {
@@ -33,8 +34,9 @@ internal class FileUtilsTest : FunSpec({
             val originalFileName = null
 
             // when & then
-            assertThatThrownBy { FileUtils.createUniqueFileNameWithExtension(originalFileName) }
-                .isInstanceOf(BadRequestException::class.java)
+            shouldThrowExactly<BadRequestException> {
+                FileUtils.createUniqueFileNameWithExtension(originalFileName)
+            }
         }
     }
 
